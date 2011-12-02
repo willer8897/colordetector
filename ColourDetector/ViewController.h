@@ -18,7 +18,12 @@
   
   NSArray *targetColours;
   UIColor *closestColour;
+
+  BOOL captureImage;
 }
+
+- (IBAction)captureImage;
+
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (retain, nonatomic) IBOutlet UIView *rgbColourView;
 @property (retain, nonatomic) IBOutlet UIView *hueColourView;
