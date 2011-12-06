@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F93944C148D73D100707D33 /* selectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F93944B148D73D100707D33 /* selectionView.m */; };
 		8344F12A143DBC5D00AB1663 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F129143DBC5D00AB1663 /* UIKit.framework */; };
 		8344F12C143DBC5D00AB1663 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F12B143DBC5D00AB1663 /* Foundation.framework */; };
 		8344F12E143DBC5D00AB1663 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F12D143DBC5D00AB1663 /* CoreGraphics.framework */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F93944A148D73D100707D33 /* selectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = selectionView.h; path = ../selectionView.h; sourceTree = "<group>"; };
+		5F93944B148D73D100707D33 /* selectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = selectionView.m; path = ../selectionView.m; sourceTree = "<group>"; };
 		8344F125143DBC5D00AB1663 /* ColourDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColourDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8344F129143DBC5D00AB1663 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8344F12B143DBC5D00AB1663 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -94,6 +97,8 @@
 				8344F13B143DBC5D00AB1663 /* ViewController.h */,
 				8344F13C143DBC5D00AB1663 /* ViewController.m */,
 				8344F13E143DBC5D00AB1663 /* ViewController.xib */,
+				5F93944A148D73D100707D33 /* selectionView.h */,
+				5F93944B148D73D100707D33 /* selectionView.m */,
 				8344F130143DBC5D00AB1663 /* Supporting Files */,
 			);
 			path = ColourDetector;
@@ -175,6 +180,7 @@
 				8344F136143DBC5D00AB1663 /* main.m in Sources */,
 				8344F13A143DBC5D00AB1663 /* AppDelegate.m in Sources */,
 				8344F13D143DBC5D00AB1663 /* ViewController.m in Sources */,
+				5F93944C148D73D100707D33 /* selectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +211,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chris Greening (96C2A4DZW3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -220,7 +227,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C8FBD419-AC1E-46E4-A75B-20A57F33F5DF";
+				PROVISIONING_PROFILE = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -230,7 +238,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chris Greening (96C2A4DZW3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -239,7 +248,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C8FBD419-AC1E-46E4-A75B-20A57F33F5DF";
+				PROVISIONING_PROFILE = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -248,14 +258,15 @@
 		8344F144143DBC5D00AB1663 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chris Greening (96C2A4DZW3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ColourDetector/ColourDetector-Prefix.pch";
 				INFOPLIST_FILE = "ColourDetector/ColourDetector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C8FBD419-AC1E-46E4-A75B-20A57F33F5DF";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -263,14 +274,15 @@
 		8344F145143DBC5D00AB1663 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chris Greening (96C2A4DZW3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ColourDetector/ColourDetector-Prefix.pch";
 				INFOPLIST_FILE = "ColourDetector/ColourDetector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C8FBD419-AC1E-46E4-A75B-20A57F33F5DF";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

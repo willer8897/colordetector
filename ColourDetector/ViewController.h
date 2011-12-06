@@ -20,6 +20,8 @@
   UIColor *closestColour;
 
   BOOL captureImage;
+  int pixelBufferWidth;
+  int pixelBufferHeight;
 }
 
 - (IBAction)captureImage;
@@ -29,5 +31,7 @@
 @property (retain, nonatomic) IBOutlet UIView *hueColourView;
 @property (retain, nonatomic) IBOutlet UIView *closestColourView;
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
+@property (nonatomic, readonly) int pixelBufferWidth;
+@property (nonatomic, readonly) int pixelBufferHeight;
 
 @end

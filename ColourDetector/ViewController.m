@@ -24,6 +24,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize hueColourView;
 @synthesize closestColourView;
 @synthesize infoLabel;
+@synthesize pixelBufferWidth;
+@synthesize pixelBufferHeight;
 
 - (void)didReceiveMemoryWarning
 {
@@ -152,6 +154,8 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	
 	// create a preview layer to show the output from the camera
 	AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
+	// Specify that the video should be stretched to fill the layer’s bounds.
+	previewLayer.videoGravity = AVLayerVideoGravityResize;
 	previewLayer.frame = previewView.frame;
 	[previewView.layer addSublayer:previewLayer];
   	
@@ -179,7 +183,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                                nil];
 	videoOutput.minFrameDuration=CMTimeMake(1, 10);
 	// and the size of the frames we want
-	[session setSessionPreset:AVCaptureSessionPresetLow]; // don't need high resolution capture
+	[session setSessionPreset:AVCaptureSessionPresetMedium]; // don't need high resolution capture
 	
 	// Add the input and output
 	[session addInput:cameraInput];
@@ -200,6 +204,8 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	// access the data
 	int width=CVPixelBufferGetWidth(cvimgRef);
 	int height=CVPixelBufferGetHeight(cvimgRef);
+    pixelBufferHeight = height;
+    pixelBufferWidth = width;
 	// get the raw image bytes
 	uint8_t *buf=(uint8_t *) CVPixelBufferGetBaseAddress(cvimgRef);
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
