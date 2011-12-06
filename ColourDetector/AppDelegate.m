@@ -14,6 +14,8 @@
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;
+@synthesize heightScaleFactor;
+@synthesize widthScaleFactor;
 
 - (void)dealloc
 {
@@ -29,6 +31,19 @@
   self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
   self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+
+#ifdef DEBUG
+    NSLog(@"pixelBufferWidth - %d", self.viewController.pixelBufferWidth);
+    NSLog(@"pixelBufferHeight - %d", self.viewController.pixelBufferHeight);
+#endif
+    // the pixel buffer gives the height and width in landscape
+    // it's swapped here since the selectionView's coordinates are in portrait
+    heightScaleFactor = self.viewController.pixelBufferWidth / 480.0;
+    widthScaleFactor = self.viewController.pixelBufferHeight / 320.0;
+#ifdef DEBUG
+    NSLog(@"heightScaleFactor - %f", heightScaleFactor);
+    NSLog(@"widthScaleFactor - %f", widthScaleFactor);
+#endif
     return YES;
 }
 

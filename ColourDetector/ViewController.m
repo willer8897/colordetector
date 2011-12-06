@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "AppDelegate.h"
 
 @interface ViewController()
 
@@ -20,12 +21,15 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
 @implementation ViewController
 @synthesize previewView;
+@synthesize selectionView;
 @synthesize rgbColourView;
 @synthesize hueColourView;
 @synthesize closestColourView;
 @synthesize infoLabel;
 @synthesize pixelBufferWidth;
 @synthesize pixelBufferHeight;
+@synthesize selectionX;
+@synthesize selectionY;
 
 - (void)didReceiveMemoryWarning
 {
@@ -56,7 +60,13 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 #ifdef DEBUG
         NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
+        selectionX = loc.x;
+        selectionY = loc.y;
+#ifdef DEBUG
+        NSLog(@"selectionX -- %f selectionY -- %f", selectionX, selectionY);
+#endif
     }
+    [self.selectionView setNeedsDisplay];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -70,6 +80,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [super viewDidLoad];
   // crate some target colours to match against
   targetColours = [[NSArray alloc] initWithObjects:[UIColor redColor], [UIColor blueColor], [UIColor greenColor], [UIColor yellowColor], nil];
+  appDelegate = [[UIApplication sharedApplication] delegate];
 }
 
 - (void)viewDidUnload
@@ -210,13 +221,20 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	uint8_t *buf=(uint8_t *) CVPixelBufferGetBaseAddress(cvimgRef);
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
 	float cr=0,cg=0,cb=0;
-  // take a square 100x100 section in the middle of the image
-	for(int y=height/2-50; y<height/2+50; y++) {
-		for(int x=width/2-50; x<width/2+50; x++) {
+    // take a square 100x100 section from the starting top left of the current rectangle
+    pixelStartX = selectionX * appDelegate.heightScaleFactor;
+    pixelStartY = selectionY * appDelegate.widthScaleFactor;
+    int i, j;
+    i = j = 0;
+	for(int y=pixelStartX; i<100; y++) {
+		for(int x=pixelStartY; j<100; x++) {
 			cb+=buf[y*bprow+x*4];
 			cg+=buf[y*bprow+x*4+1];
 			cr+=buf[y*bprow+x*4+2];
+            j++;
 		}
+        j = 0;
+        i++;
 	}
   // get the average RGB value in the range 0..1
 	r=cr/(255.0f*100*100);

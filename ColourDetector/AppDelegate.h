@@ -10,10 +10,16 @@
 
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+    CGFloat heightScaleFactor;
+    CGFloat widthScaleFactor;
+}
 
 @property (retain, nonatomic) UIWindow *window;
 
 @property (retain, nonatomic) ViewController *viewController;
+
+@property (nonatomic, readonly) CGFloat heightScaleFactor;
+@property (nonatomic, readonly) CGFloat widthScaleFactor;
 
 @end

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+@class selectionView;
+@class AppDelegate;
+
 @interface ViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
   AVCaptureSession *session;
   NSTimer *updateTimer;
@@ -19,19 +22,28 @@
   NSArray *targetColours;
   UIColor *closestColour;
 
+  AppDelegate *appDelegate;
   BOOL captureImage;
   int pixelBufferWidth;
   int pixelBufferHeight;
+  // the starting points for where the rectangle will be drawn
+  CGFloat selectionX;
+  CGFloat selectionY;
+  int pixelStartX;
+  int pixelStartY;
 }
 
 - (IBAction)captureImage;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
+@property (nonatomic, retain) IBOutlet UIView *selectionView;
 @property (retain, nonatomic) IBOutlet UIView *rgbColourView;
 @property (retain, nonatomic) IBOutlet UIView *hueColourView;
 @property (retain, nonatomic) IBOutlet UIView *closestColourView;
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
 @property (nonatomic, readonly) int pixelBufferWidth;
 @property (nonatomic, readonly) int pixelBufferHeight;
+@property (nonatomic, readonly) CGFloat selectionX;
+@property (nonatomic, readonly) CGFloat selectionY;
 
 @end

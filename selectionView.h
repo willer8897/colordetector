@@ -11,10 +11,6 @@
 @class AppDelegate;
 
 @interface selectionView : UIView {
-    int pictureWidth;
-    int pictureHeight;
-    CGFloat heightScaleFactor;
-    CGFloat widthScaleFactor;
     AppDelegate *appDelegate;
 }
 
