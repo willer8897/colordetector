@@ -53,17 +53,12 @@
     currentBoxHeight = 75;
     currentBoxWidth = 75;
 
-    // set initial upper right point of rectangle
-    // center rectangle on screen
-//    _viewController.selectionX = startingSelectionX = (320 + currentBoxWidth/widthScaleFactor) / 2;
-//    _viewController.selectionY = startingSelectionY = (480 - currentBoxHeight/heightScaleFactor) / 2;
-//    _viewController.selectionXimage = 320 - startingSelectionX;
+    startingSelectionX = 320 / 2;
+    startingSelectionY = 480 / 2;
 
-    // place rectangle in upper left corner of screen
-    _viewController.selectionX = startingSelectionX = currentBoxWidth/widthScaleFactor + 1;
-    _viewController.selectionY = startingSelectionY = 0;
-    _viewController.selectionXimage = 320 - startingSelectionX;
-
+    _viewController.selectionX = startingSelectionX + (currentBoxWidth/2);
+    _viewController.selectionY = startingSelectionY - (currentBoxHeight/2);
+    _viewController.selectionXimage = 320 - _viewController.selectionX;
 
     return YES;
 }

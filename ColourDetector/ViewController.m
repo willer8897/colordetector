@@ -61,9 +61,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 #ifdef DEBUG
         NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
-        selectionX = loc.x;
-        selectionXimage = 320-loc.x;
-        selectionY = loc.y;
+        selectionX = loc.x + (appDelegate.currentBoxWidth/2);
+        selectionXimage = 320-selectionX;
+        selectionY = loc.y - (appDelegate.currentBoxHeight/2);
 #ifdef DEBUG
         NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
 #endif
