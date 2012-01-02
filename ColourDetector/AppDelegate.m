@@ -16,6 +16,10 @@
 @synthesize viewController = _viewController;
 @synthesize heightScaleFactor;
 @synthesize widthScaleFactor;
+@synthesize currentBoxWidth;
+@synthesize currentBoxHeight;
+@synthesize startingSelectionX;
+@synthesize startingSelectionY;
 
 - (void)dealloc
 {
@@ -46,6 +50,21 @@
     NSLog(@"heightScaleFactor - %f", heightScaleFactor);
     NSLog(@"widthScaleFactor - %f", widthScaleFactor);
 #endif
+    currentBoxHeight = 75;
+    currentBoxWidth = 75;
+
+    // set initial upper right point of rectangle
+    // center rectangle on screen
+//    _viewController.selectionX = startingSelectionX = (320 + currentBoxWidth/widthScaleFactor) / 2;
+//    _viewController.selectionY = startingSelectionY = (480 - currentBoxHeight/heightScaleFactor) / 2;
+//    _viewController.selectionXimage = 320 - startingSelectionX;
+
+    // place rectangle in upper left corner of screen
+    _viewController.selectionX = startingSelectionX = currentBoxWidth/widthScaleFactor + 1;
+    _viewController.selectionY = startingSelectionY = 0;
+    _viewController.selectionXimage = 320 - startingSelectionX;
+
+
     return YES;
 }
 

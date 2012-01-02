@@ -13,6 +13,10 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
     CGFloat heightScaleFactor;
     CGFloat widthScaleFactor;
+    int currentBoxWidth;
+    int currentBoxHeight;
+    int startingSelectionX;
+    int startingSelectionY;
 }
 
 @property (retain, nonatomic) UIWindow *window;
@@ -21,5 +25,9 @@
 
 @property (nonatomic, readonly) CGFloat heightScaleFactor;
 @property (nonatomic, readonly) CGFloat widthScaleFactor;
+@property (nonatomic, assign) int currentBoxWidth;
+@property (nonatomic, assign) int currentBoxHeight;
+@property (nonatomic, assign) int startingSelectionX;
+@property (nonatomic, assign) int startingSelectionY;
 
 @end

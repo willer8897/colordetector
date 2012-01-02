@@ -44,8 +44,8 @@
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
 @property (nonatomic, readonly) int pixelBufferWidth;
 @property (nonatomic, readonly) int pixelBufferHeight;
-@property (nonatomic, readonly) CGFloat selectionX;
-@property (nonatomic, readonly) CGFloat selectionXimage;
-@property (nonatomic, readonly) CGFloat selectionY;
+@property (nonatomic, assign) CGFloat selectionX;
+@property (nonatomic, assign) CGFloat selectionXimage;
+@property (nonatomic, assign) CGFloat selectionY;
 
 @end

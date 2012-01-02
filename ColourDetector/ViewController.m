@@ -223,14 +223,13 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	uint8_t *buf=(uint8_t *) CVPixelBufferGetBaseAddress(cvimgRef);
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
 	float cr=0,cg=0,cb=0;
-    // take a square 100x100 section from the starting top left of the current rectangle
-    // swapped x and y
+    // take a square currentBoxWidth x currentBoxHeight section from the starting top left of the current rectangle
     pixelStartY = selectionY * appDelegate.heightScaleFactor;
     pixelStartX = selectionXimage * appDelegate.widthScaleFactor;
     int i, j;
     i = j = 0;
-	for(int y=pixelStartX; i<100; y++) {
-		for(int x=pixelStartY; j<100; x++) {
+	for(int y=pixelStartX; i < appDelegate.currentBoxHeight; y++) {
+		for(int x=pixelStartY; j < appDelegate.currentBoxWidth; x++) {
 			cb+=buf[y*bprow+x*4];
 			cg+=buf[y*bprow+x*4+1];
 			cr+=buf[y*bprow+x*4+2];
@@ -240,9 +239,9 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
         i++;
 	}
   // get the average RGB value in the range 0..1
-	r=cr/(255.0f*100*100);
-	g=cg/(255.0f*100*100);
-	b=cb/(255.0f*100*100);
+	r=cr/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
+	g=cg/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
+	b=cb/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
   // get the hue saturation and value (brightness)
   float ch,cs,cv;
   RGBtoHSV(r, g, b, &ch, &cs, &cv);
