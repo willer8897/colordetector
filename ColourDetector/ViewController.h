@@ -28,6 +28,7 @@
   int pixelBufferHeight;
   // the starting points for where the rectangle will be drawn
   CGFloat selectionX;
+  CGFloat selectionXimage;
   CGFloat selectionY;
   int pixelStartX;
   int pixelStartY;
@@ -44,6 +45,7 @@
 @property (nonatomic, readonly) int pixelBufferWidth;
 @property (nonatomic, readonly) int pixelBufferHeight;
 @property (nonatomic, readonly) CGFloat selectionX;
+@property (nonatomic, readonly) CGFloat selectionXimage;
 @property (nonatomic, readonly) CGFloat selectionY;
 
 @end

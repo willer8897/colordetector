@@ -40,6 +40,8 @@
     // it's swapped here since the selectionView's coordinates are in portrait
     heightScaleFactor = self.viewController.pixelBufferWidth / 480.0;
     widthScaleFactor = self.viewController.pixelBufferHeight / 320.0;
+    //for  iOS5-4GS heightScaleFactor = 1;
+    //widthScaleFactor = 1.125;
 #ifdef DEBUG
     NSLog(@"heightScaleFactor - %f", heightScaleFactor);
     NSLog(@"widthScaleFactor - %f", widthScaleFactor);

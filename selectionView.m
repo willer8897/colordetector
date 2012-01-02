@@ -34,7 +34,7 @@
     CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
     CGRect rectangle = CGRectMake((appDelegate.viewController.selectionX),
                                   (appDelegate.viewController.selectionY),
-                                  100 / appDelegate.widthScaleFactor,
+                                  -100 / appDelegate.widthScaleFactor,
                                   100 / appDelegate.heightScaleFactor);
     CGContextAddRect(context, rectangle);
     CGContextStrokePath(context);

@@ -29,6 +29,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize pixelBufferWidth;
 @synthesize pixelBufferHeight;
 @synthesize selectionX;
+@synthesize selectionXimage;
 @synthesize selectionY;
 
 - (void)didReceiveMemoryWarning
@@ -61,9 +62,10 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
         selectionX = loc.x;
+        selectionXimage = 320-loc.x;
         selectionY = loc.y;
 #ifdef DEBUG
-        NSLog(@"selectionX -- %f selectionY -- %f", selectionX, selectionY);
+        NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
 #endif
     }
     [self.selectionView setNeedsDisplay];
@@ -222,8 +224,9 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
 	float cr=0,cg=0,cb=0;
     // take a square 100x100 section from the starting top left of the current rectangle
-    pixelStartX = selectionX * appDelegate.heightScaleFactor;
-    pixelStartY = selectionY * appDelegate.widthScaleFactor;
+    // swapped x and y
+    pixelStartY = selectionY * appDelegate.heightScaleFactor;
+    pixelStartX = selectionXimage * appDelegate.widthScaleFactor;
     int i, j;
     i = j = 0;
 	for(int y=pixelStartX; i<100; y++) {
