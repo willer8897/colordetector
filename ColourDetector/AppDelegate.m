@@ -54,6 +54,12 @@
     currentBoxWidth = 75;
 
     startingSelectionX = 320 / 2;
+    if (startingSelectionX < currentBoxWidth/widthScaleFactor/2) {
+        startingSelectionX = currentBoxWidth/widthScaleFactor/2-2;
+#ifdef DEBUG
+        NSLog(@"initial starting x was out of range");
+#endif
+    }
     startingSelectionY = 480 / 2;
 
     _viewController.selectionX = startingSelectionX + (currentBoxWidth/2);

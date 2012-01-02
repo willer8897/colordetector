@@ -61,6 +61,12 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 #ifdef DEBUG
         NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
+        if (loc.x < appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2) {
+            loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-2;
+#ifdef DEBUG
+            NSLog(@"seg fault averted");
+#endif
+        }
         selectionX = loc.x + (appDelegate.currentBoxWidth/2);
         selectionXimage = 320-selectionX;
         selectionY = loc.y - (appDelegate.currentBoxHeight/2);
