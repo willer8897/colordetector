@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F91A4AB14B26E8D00E37C78 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */; };
+		5F91A4AC14B26E8D00E37C78 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */; };
 		5F93944C148D73D100707D33 /* selectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F93944B148D73D100707D33 /* selectionView.m */; };
 		8344F12A143DBC5D00AB1663 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F129143DBC5D00AB1663 /* UIKit.framework */; };
 		8344F12C143DBC5D00AB1663 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F12B143DBC5D00AB1663 /* Foundation.framework */; };
@@ -22,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F91A4A814B26E8D00E37C78 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		5F93944A148D73D100707D33 /* selectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = selectionView.h; path = ../selectionView.h; sourceTree = "<group>"; };
 		5F93944B148D73D100707D33 /* selectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = selectionView.m; path = ../selectionView.m; sourceTree = "<group>"; };
 		8344F125143DBC5D00AB1663 /* ColourDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColourDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +104,9 @@
 				8344F13E143DBC5D00AB1663 /* ViewController.xib */,
 				5F93944A148D73D100707D33 /* selectionView.h */,
 				5F93944B148D73D100707D33 /* selectionView.m */,
+				5F91A4A814B26E8D00E37C78 /* SettingsViewController.h */,
+				5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */,
+				5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */,
 				8344F130143DBC5D00AB1663 /* Supporting Files */,
 			);
 			path = ColourDetector;
@@ -167,6 +175,7 @@
 			files = (
 				8344F134143DBC5D00AB1663 /* InfoPlist.strings in Resources */,
 				8344F140143DBC5D00AB1663 /* ViewController.xib in Resources */,
+				5F91A4AC14B26E8D00E37C78 /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +190,7 @@
 				8344F13A143DBC5D00AB1663 /* AppDelegate.m in Sources */,
 				8344F13D143DBC5D00AB1663 /* ViewController.m in Sources */,
 				5F93944C148D73D100707D33 /* selectionView.m in Sources */,
+				5F91A4AB14B26E8D00E37C78 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

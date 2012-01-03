@@ -11,6 +11,7 @@
 
 @class selectionView;
 @class AppDelegate;
+@class SettingsViewController;
 
 @interface ViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
   AVCaptureSession *session;
@@ -32,9 +33,11 @@
   CGFloat selectionY;
   int pixelStartX;
   int pixelStartY;
+  SettingsViewController *settingsViewController;
 }
 
 - (IBAction)captureImage;
+- (IBAction)showSettingsView;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;

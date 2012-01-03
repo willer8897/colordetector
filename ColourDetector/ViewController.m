@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import "SettingsViewController.h"
 
 @interface ViewController()
 
@@ -45,6 +46,13 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   NSLog(@"Capture button pressed");
 #endif
   captureImage = TRUE;
+}
+
+- (IBAction)showSettingsView {
+#ifdef DEBUG
+    NSLog(@"settings button pressed");
+#endif
+    [self presentModalViewController:settingsViewController animated:YES];
 }
 
 #pragma mark - handle touch selections
@@ -89,6 +97,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   // crate some target colours to match against
   targetColours = [[NSArray alloc] initWithObjects:[UIColor redColor], [UIColor blueColor], [UIColor greenColor], [UIColor yellowColor], nil];
   appDelegate = [[UIApplication sharedApplication] delegate];
+  settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
 }
 
 - (void)viewDidUnload
@@ -99,6 +108,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [self setHueColourView:nil];
   [self setClosestColourView:nil];
   [self setInfoLabel:nil];
+  [settingsViewController release];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
