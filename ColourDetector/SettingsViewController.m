@@ -11,6 +11,31 @@
 
 @implementation SettingsViewController
 
+@synthesize selectionWidthTextField;
+@synthesize selectionHeightTextField;
+@synthesize startingXTextField;
+@synthesize startingYTextField;
+@synthesize selectionWidth;
+@synthesize selectionHeight;
+@synthesize startingX;
+@synthesize startingY;
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [theTextField resignFirstResponder];
+    self.selectionWidth = self.selectionWidthTextField.text;
+    self.selectionHeight = self.selectionHeightTextField.text;
+    self.startingX = self.startingXTextField.text;
+    self.startingY = self.startingYTextField.text;
+#ifdef DEBUG
+    NSLog(@"selectionWidth -- %@", self.selectionWidth);
+    NSLog(@"selectionHeight -- %@", self.selectionHeight);
+    NSLog(@"startingX -- %@", self.startingX);
+    NSLog(@"startingY -- %@", self.startingY);
+#endif
+
+    return YES;
+}
 
 - (IBAction)dismiss {
     [self.presentingViewController dismissModalViewControllerAnimated:YES];
@@ -46,6 +71,10 @@
 
 - (void)viewDidUnload
 {
+    [self setSelectionWidthTextField:nil];
+    [self setSelectionHeightTextField:nil];
+    [self setStartingXTextField:nil];
+    [self setStartingYTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -57,4 +86,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    [selectionWidth release];
+    [selectionHeightTextField release];
+    [startingXTextField release];
+    [startingYTextField release];
+    [super dealloc];
+}
 @end
