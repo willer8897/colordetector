@@ -17,7 +17,15 @@
     int currentBoxHeight;
     int startingSelectionX;
     int startingSelectionY;
+    NSMutableDictionary *settings;
+    NSString *settingsFilePath;
 }
+
+- (void)loadSettings;
+- (void)saveSettings;
+- (void)initSettingsFilePath;
+
+- (void)setStartingCoordinates;
 
 @property (retain, nonatomic) UIWindow *window;
 

@@ -21,6 +21,90 @@
 @synthesize startingSelectionX;
 @synthesize startingSelectionY;
 
+#pragma mark -
+
+- (void)setStartingCoordinates {
+    if (startingSelectionX < currentBoxWidth/widthScaleFactor/2) {
+        startingSelectionX = currentBoxWidth/widthScaleFactor/2-1;
+#ifdef DEBUG
+        NSLog(@"initial starting x was out of range");
+#endif
+    }
+    self.viewController.selectionX = startingSelectionX + (currentBoxWidth/2);
+    self.viewController.selectionY = startingSelectionY - (currentBoxHeight/2);
+    self.viewController.selectionXimage = 320 - self.viewController.selectionX;
+}
+
+#pragma mark - Settings
+
+- (void)loadSettings {
+#ifdef DEBUG
+    NSLog(@"Loading settings.");
+#endif
+    // If the settings file has not been initialized then initialize
+    if(settingsFilePath == nil)
+        [self initSettingsFilePath];
+
+    // If the settings file cannot be found then create it with default values
+    if([[NSFileManager defaultManager] fileExistsAtPath:settingsFilePath]) {
+#ifdef DEBUG
+        NSLog(@"Found settings file");
+#endif
+        settings = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsFilePath];
+    } else {
+#ifdef DEBUG
+        NSLog(@"No settings file, creating defaults");
+#endif
+        settings = [[NSMutableDictionary alloc] init];
+        [settings setObject:[NSNumber numberWithInt:75] forKey:@"currentBoxWidth"];
+        [settings setObject:[NSNumber numberWithInt:75] forKey:@"currentBoxHeight"];
+        [settings setObject:[NSNumber numberWithInt:(320 / 2)] forKey:@"startingSelectionX"];
+        [settings setObject:[NSNumber numberWithInt:(480 / 2)] forKey:@"startingSelectionY"];
+    }
+
+    // Get the settings from the settings dictionary
+    self.currentBoxWidth = [[settings valueForKey:@"currentBoxWidth"] intValue];
+    self.currentBoxHeight = [[settings valueForKey:@"currentBoxHeight"] intValue];
+    self.startingSelectionX = [[settings valueForKey:@"startingSelectionX"] intValue];
+    self.startingSelectionY = [[settings valueForKey:@"startingSelectionY"] intValue];
+
+}
+
+- (void)saveSettings {
+    // Save the current settings to the file and update this delegate
+    NSNumber *w = [NSNumber numberWithFloat:[self.viewController.settingsViewController.selectionWidthTextField.text intValue]];
+    [settings setObject:w forKey:@"currentBoxWidth"];
+    self.currentBoxWidth = [w intValue];
+
+    NSNumber *h = [NSNumber numberWithFloat:[self.viewController.settingsViewController.selectionHeightTextField.text intValue]];
+    [settings setObject:h forKey:@"currentBoxHeight"];
+    self.currentBoxHeight = [h intValue];
+
+    NSNumber *x = [NSNumber numberWithInt:[self.viewController.settingsViewController.startingXTextField.text intValue]];
+    [settings setObject:x forKey:@"startingSelectionX"];
+    self.startingSelectionX = [x intValue];
+
+    NSNumber *y = [NSNumber numberWithInt:[self.viewController.settingsViewController.startingYTextField.text intValue]];
+    [settings setObject:y forKey:@"startingSelectionY"];
+    self.startingSelectionY = [y intValue];
+
+    [settings writeToFile:settingsFilePath atomically:YES];
+#ifdef DEBUG
+    NSLog(@"Saving currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i", [w intValue], [h intValue], [x intValue], [y intValue]);
+#endif
+}
+
+- (void)initSettingsFilePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                         NSUserDomainMask,
+                                                         YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"colordetector.plist"];
+    [settingsFilePath retain];
+}
+
+#pragma mark - App lifecycle
+
 - (void)dealloc
 {
   [_window release];
@@ -50,21 +134,9 @@
     NSLog(@"heightScaleFactor - %f", heightScaleFactor);
     NSLog(@"widthScaleFactor - %f", widthScaleFactor);
 #endif
-    currentBoxHeight = 75;
-    currentBoxWidth = 75;
 
-    startingSelectionX = 320 / 2;
-    if (startingSelectionX < currentBoxWidth/widthScaleFactor/2) {
-        startingSelectionX = currentBoxWidth/widthScaleFactor/2-2;
-#ifdef DEBUG
-        NSLog(@"initial starting x was out of range");
-#endif
-    }
-    startingSelectionY = 480 / 2;
-
-    _viewController.selectionX = startingSelectionX + (currentBoxWidth/2);
-    _viewController.selectionY = startingSelectionY - (currentBoxHeight/2);
-    _viewController.selectionXimage = 320 - _viewController.selectionX;
+    [self loadSettings];
+    [self setStartingCoordinates];
 
     return YES;
 }

@@ -33,7 +33,8 @@
     NSLog(@"startingX -- %@", self.startingX);
     NSLog(@"startingY -- %@", self.startingY);
 #endif
-
+    [appDelegate saveSettings];
+    [self dismiss];
     return YES;
 }
 
@@ -42,6 +43,7 @@
 #ifdef DEBUG
     NSLog(@"object %@", self.presentingViewController);
 #endif
+    [appDelegate setStartingCoordinates];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,6 +51,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        appDelegate = [[UIApplication sharedApplication] delegate];
     }
     return self;
 }
@@ -62,6 +65,19 @@
 }
 
 #pragma mark - View lifecycle
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSString *s = [NSString stringWithFormat:@"%i", appDelegate.currentBoxWidth];
+    selectionWidthTextField.text = s;
+    s = [NSString stringWithFormat:@"%i", appDelegate.currentBoxHeight];
+    selectionHeightTextField.text = s;
+    s = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionX];
+    startingXTextField.text = s;
+    s = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionY];
+    startingYTextField.text = s;
+}
 
 - (void)viewDidLoad
 {

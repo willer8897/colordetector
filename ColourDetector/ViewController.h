@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SettingsViewController.h"
 
 @class selectionView;
 @class AppDelegate;
-@class SettingsViewController;
 
 @interface ViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
   AVCaptureSession *session;
@@ -50,5 +50,6 @@
 @property (nonatomic, assign) CGFloat selectionX;
 @property (nonatomic, assign) CGFloat selectionXimage;
 @property (nonatomic, assign) CGFloat selectionY;
+@property (nonatomic, retain) SettingsViewController *settingsViewController;
 
 @end

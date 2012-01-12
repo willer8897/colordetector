@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "AppDelegate.h"
-#import "SettingsViewController.h"
 
 @interface ViewController()
 
@@ -32,6 +31,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize selectionX;
 @synthesize selectionXimage;
 @synthesize selectionY;
+@synthesize settingsViewController;
 
 - (void)didReceiveMemoryWarning
 {
@@ -70,7 +70,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
         if (loc.x < appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2) {
-            loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-2;
+            loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-1;
 #ifdef DEBUG
             NSLog(@"seg fault averted");
 #endif
@@ -117,6 +117,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  [self.selectionView setNeedsDisplay];
   // start grabbing frames from the camera
   [self startCameraCapture];
   // start updating the UI

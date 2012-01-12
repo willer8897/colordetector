@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class AppDelegate;
+
 @interface SettingsViewController : UIViewController <UITextFieldDelegate> {
 
     NSString *selectionWidth;
     NSString *selectionHeight;
     NSString *startingX;
     NSString *startingY;
+
+    AppDelegate *appDelegate;
 }
 
 - (IBAction)dismiss;
