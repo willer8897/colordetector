@@ -10,6 +10,7 @@
 		5F91A4AB14B26E8D00E37C78 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */; };
 		5F91A4AC14B26E8D00E37C78 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */; };
 		5F93944C148D73D100707D33 /* selectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F93944B148D73D100707D33 /* selectionView.m */; };
+		5FDEF6F414C0874000FD98F7 /* Target.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDEF6F314C0874000FD98F7 /* Target.m */; };
 		8344F12A143DBC5D00AB1663 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F129143DBC5D00AB1663 /* UIKit.framework */; };
 		8344F12C143DBC5D00AB1663 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F12B143DBC5D00AB1663 /* Foundation.framework */; };
 		8344F12E143DBC5D00AB1663 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F12D143DBC5D00AB1663 /* CoreGraphics.framework */; };
@@ -29,6 +30,8 @@
 		5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		5F93944A148D73D100707D33 /* selectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = selectionView.h; path = ../selectionView.h; sourceTree = "<group>"; };
 		5F93944B148D73D100707D33 /* selectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = selectionView.m; path = ../selectionView.m; sourceTree = "<group>"; };
+		5FDEF6F214C0874000FD98F7 /* Target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Target.h; sourceTree = "<group>"; };
+		5FDEF6F314C0874000FD98F7 /* Target.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Target.m; sourceTree = "<group>"; };
 		8344F125143DBC5D00AB1663 /* ColourDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColourDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8344F129143DBC5D00AB1663 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8344F12B143DBC5D00AB1663 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,6 +100,8 @@
 		8344F12F143DBC5D00AB1663 /* ColourDetector */ = {
 			isa = PBXGroup;
 			children = (
+				5FDEF6F214C0874000FD98F7 /* Target.h */,
+				5FDEF6F314C0874000FD98F7 /* Target.m */,
 				8344F138143DBC5D00AB1663 /* AppDelegate.h */,
 				8344F139143DBC5D00AB1663 /* AppDelegate.m */,
 				8344F13B143DBC5D00AB1663 /* ViewController.h */,
@@ -191,6 +196,7 @@
 				8344F13D143DBC5D00AB1663 /* ViewController.m in Sources */,
 				5F93944C148D73D100707D33 /* selectionView.m in Sources */,
 				5F91A4AB14B26E8D00E37C78 /* SettingsViewController.m in Sources */,
+				5FDEF6F414C0874000FD98F7 /* Target.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
