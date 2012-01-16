@@ -10,6 +10,7 @@
 
 @interface Target : NSObject <NSCoding> {
     int rl, rh, gl, gh, bl, bh;
+    BOOL on;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder;

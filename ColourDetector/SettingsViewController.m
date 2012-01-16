@@ -19,6 +19,22 @@
 @synthesize selectionHeight;
 @synthesize startingX;
 @synthesize startingY;
+@synthesize target1TextFields;
+@synthesize target1Switch;
+@synthesize target2TextFields;
+@synthesize target2Switch;
+@synthesize target3TextFields;
+@synthesize target3Switch;
+@synthesize target4TextFields;
+@synthesize target4Switch;
+@synthesize target5TextFields;
+@synthesize target5Switch;
+@synthesize target6TextFields;
+@synthesize target6Switch;
+@synthesize target7TextFields;
+@synthesize target7Switch;
+@synthesize target8TextFields;
+@synthesize target8Switch;
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -77,12 +93,65 @@
     startingXTextField.text = s;
     s = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionY];
     startingYTextField.text = s;
+
+    NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
+
+    NSArray *sortedArray = [target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
+    sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        s = [NSString stringWithFormat:@"%i", i];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    UIScrollView *tempScrollView=(UIScrollView *)self.view;
+    tempScrollView.contentSize=CGSizeMake(320,1370);
 }
 
 - (void)viewDidUnload
