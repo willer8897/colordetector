@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import "Target.h"
 
 @interface ViewController()
 
@@ -297,6 +298,20 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   }
 }
 
+- (void)checkTargets {
+    int red = r*255;
+    int green = g*255;
+    int blue = b*255;
+    for (int i = 0; i < [appDelegate.targets count]; ++i) {
+        Target *t = [appDelegate.targets objectAtIndex:i];
+        if ((red >= t.rl && red <= t.rh) &&
+            (green >= t.gl && green <= t.gh) &&
+            (blue >= t.bl && blue <= t.bh)) {
+            NSLog(@"Target %i hit.", i+1);
+        }
+    }
+}
+
 // do this on a timer as the captureOutput runs on it's own thread and can't update the UI
 -(void) updateUI {
   // the raw RGB colour
@@ -310,6 +325,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   // set the closest colour
   closestColourView.backgroundColor = closestColour!=nil ? closestColour : [UIColor blackColor];
   infoLabel.text = [NSString stringWithFormat:@"RGB=%.f,%.f,%.f Hue=%.f Sat=%.2f Val=%.2f", r*255, g*255, b*255, h, s, v];
+  [self checkTargets];
 }
 
 -(void) stopCameraCapture {

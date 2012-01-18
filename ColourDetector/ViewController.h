@@ -38,6 +38,7 @@
 
 - (IBAction)captureImage;
 - (IBAction)showSettingsView;
+- (void)checkTargets;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
