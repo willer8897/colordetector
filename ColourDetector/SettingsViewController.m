@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "AppDelegate.h"
+#import "Target.h"
 
 @implementation SettingsViewController
 
@@ -50,6 +51,7 @@
     NSLog(@"startingY -- %@", self.startingY);
 #endif
     [appDelegate saveSettings];
+    [appDelegate saveTargets];
     [self dismiss];
     return YES;
 }
@@ -76,8 +78,18 @@
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)updateTargetTextFields:(NSArray *)sortedArray :(int)targetIndex {
+    Target *target = [appDelegate.targets objectAtIndex:targetIndex];
+    int targetValues[6] = { target.rl, target.rh, target.gl, target.gh, target.bl, target.bh };
+    for (int i = 0; i < [sortedArray count]; ++i) {
+        NSString *s = [NSString stringWithFormat:@"%i", targetValues[i]];
+        UITextField *temp = [sortedArray objectAtIndex:i];
+        temp.text = s;
+    }
 }
 
 #pragma mark - View lifecycle
@@ -95,55 +107,30 @@
     startingYTextField.text = s;
 
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
-
     NSArray *sortedArray = [target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    int targetIndex = 0;
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
+
     sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    for (int i = 0; i < [sortedArray count]; ++i) {
-        s = [NSString stringWithFormat:@"%i", i];
-        UITextField *temp = [sortedArray objectAtIndex:i];
-        temp.text = s;
-    }
+    [self updateTargetTextFields:sortedArray :targetIndex++];
 }
 
 - (void)viewDidLoad
@@ -151,7 +138,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     UIScrollView *tempScrollView=(UIScrollView *)self.view;
-    tempScrollView.contentSize=CGSizeMake(320,1370);
+    tempScrollView.contentSize=CGSizeMake(320,1470);
 }
 
 - (void)viewDidUnload

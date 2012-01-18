@@ -19,11 +19,16 @@
     int startingSelectionY;
     NSMutableDictionary *settings;
     NSString *settingsFilePath;
+    NSMutableArray *targets;
 }
 
 - (void)loadSettings;
 - (void)saveSettings;
 - (void)initSettingsFilePath;
+
+- (void)loadTargets;
+- (void)saveTargets;
+- (void)updateTargets:(NSArray *)sortedArray :(int)target;
 
 - (void)setStartingCoordinates;
 
@@ -37,5 +42,7 @@
 @property (nonatomic, assign) int currentBoxHeight;
 @property (nonatomic, assign) int startingSelectionX;
 @property (nonatomic, assign) int startingSelectionY;
+
+@property (retain, nonatomic) NSMutableArray *targets;
 
 @end

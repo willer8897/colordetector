@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "Target.h"
 
 @implementation AppDelegate
 
@@ -20,6 +21,7 @@
 @synthesize currentBoxHeight;
 @synthesize startingSelectionX;
 @synthesize startingSelectionY;
+@synthesize targets;
 
 #pragma mark -
 
@@ -33,6 +35,93 @@
     self.viewController.selectionX = startingSelectionX + (currentBoxWidth/2);
     self.viewController.selectionY = startingSelectionY - (currentBoxHeight/2);
     self.viewController.selectionXimage = 320 - self.viewController.selectionX;
+}
+
+#pragma mark - archive/unarchive Targets
+
+- (void)loadTargets {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+
+    NSMutableData *targetObjects;
+    NSKeyedUnarchiver *decoder;
+
+    NSString *documentPath = [documentsDirectory stringByAppendingPathComponent:@"targetObjects.dat"];
+
+    if (![[NSFileManager defaultManager] fileExistsAtPath:documentPath]) {
+        NSLog(@"Targets archive file doesn't exist.");
+        return;
+    }
+    targetObjects = [NSData dataWithContentsOfFile:documentPath];
+
+    decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:targetObjects];
+
+    targets = [[decoder decodeObjectForKey:@"targets"] retain];
+
+	[decoder release];
+}
+
+- (void)updateTargets:(NSArray *)sortedArray :(int)target {
+    Target *t = [targets objectAtIndex:target];
+    UITextField *textField = [sortedArray objectAtIndex:0];
+    t.rl = [textField.text intValue];
+    textField = [sortedArray objectAtIndex:1];
+    t.rh = [textField.text intValue];
+    textField = [sortedArray objectAtIndex:2];
+    t.gl = [textField.text intValue];
+    textField = [sortedArray objectAtIndex:3];
+    t.gh = [textField.text intValue];
+    textField = [sortedArray objectAtIndex:4];
+    t.bl = [textField.text intValue];
+    textField = [sortedArray objectAtIndex:5];
+    t.bh = [textField.text intValue];
+}
+
+- (void)saveTargets {
+    // update targets array
+    NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
+    NSArray *sortedArray = [self.viewController.settingsViewController.target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    int target = 0;
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+    sortedArray = [self.viewController.settingsViewController.target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
+    [self updateTargets:sortedArray :target++];
+
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+	NSString *targetObjectsPath = [documentsDirectory stringByAppendingPathComponent:@"targetObjects.dat"];
+
+	NSMutableData *targetObjects;
+	NSKeyedArchiver *encoder;
+	targetObjects = [NSMutableData data];
+	encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:targetObjects];
+
+    [encoder encodeObject:targets forKey:@"targets"];
+
+	[encoder finishEncoding];
+	[targetObjects writeToFile:targetObjectsPath atomically:YES];
+	[encoder release];
+#ifdef DEBUG
+    NSLog(@"%@", targets);
+#endif
 }
 
 #pragma mark - Settings
@@ -107,6 +196,7 @@
 
 - (void)dealloc
 {
+    [targets release];
   [_window release];
   [_viewController release];
     [super dealloc];
@@ -135,7 +225,16 @@
     NSLog(@"widthScaleFactor - %f", widthScaleFactor);
 #endif
 
+    targets = [[NSMutableArray alloc] init];
+    for (int i = 0; i < 8; ++i) {
+        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0];
+        [targets addObject:t];
+    }
     [self loadSettings];
+    [self loadTargets];
+#ifdef DEBUG
+    NSLog(@"%@", targets);
+#endif
     [self setStartingCoordinates];
 
     return YES;
@@ -152,7 +251,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
   /*
-   Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+   Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
    If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
    */
 }
@@ -178,6 +277,7 @@
    Save data if appropriate.
    See also applicationDidEnterBackground:.
    */
+    [self saveTargets];
 }
 
 @end

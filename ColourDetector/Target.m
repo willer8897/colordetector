@@ -10,7 +10,30 @@
 
 @implementation Target
 
+@synthesize rl;
+@synthesize rh;
+@synthesize gl;
+@synthesize gh;
+@synthesize bl;
+@synthesize bh;
+
+
+- (NSString *) description {
+    return [NSString stringWithFormat:@"rl - %i, rh - %i, gl - %i, gh - %i, bl - %i, bh - %i", rl, rh, gl, gh, bl, bh];
+}
+
+- (id)initWithTargetValues:(int)rMin :(int)rMax :(int)gMin :(int)gMax :(int)bMin :(int)bMax {
+    rl = rMin;
+    rh = rMax;
+    gl = gMin;
+    gh = gMax;
+    bl = bMin;
+    bh = bMax;
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)decoder {
+    NSLog(@"initWithCoder");
     rl = [decoder decodeIntForKey:@"rl"];
     rh = [decoder decodeIntForKey:@"rh"];
     gl = [decoder decodeIntForKey:@"gl"];
@@ -21,6 +44,7 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
+    NSLog(@"encodeWithCoder");
     [encoder encodeInt:rl forKey:@"rl"];
     [encoder encodeInt:rh forKey:@"rh"];
     [encoder encodeInt:gl forKey:@"gl"];
