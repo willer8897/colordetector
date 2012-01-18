@@ -33,7 +33,6 @@
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
-    NSLog(@"initWithCoder");
     rl = [decoder decodeIntForKey:@"rl"];
     rh = [decoder decodeIntForKey:@"rh"];
     gl = [decoder decodeIntForKey:@"gl"];
@@ -44,7 +43,6 @@
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    NSLog(@"encodeWithCoder");
     [encoder encodeInt:rl forKey:@"rl"];
     [encoder encodeInt:rh forKey:@"rh"];
     [encoder encodeInt:gl forKey:@"gl"];
