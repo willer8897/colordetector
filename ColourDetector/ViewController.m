@@ -24,8 +24,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize previewView;
 @synthesize selectionView;
 @synthesize rgbColourView;
-@synthesize hueColourView;
-@synthesize closestColourView;
+//@synthesize hueColourView;
+//@synthesize closestColourView;
 @synthesize infoLabel;
 @synthesize pixelBufferWidth;
 @synthesize pixelBufferHeight;
@@ -33,6 +33,15 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize selectionXimage;
 @synthesize selectionY;
 @synthesize settingsViewController;
+@synthesize runButton;
+@synthesize output1;
+@synthesize output2;
+@synthesize output3;
+@synthesize output4;
+@synthesize output5;
+@synthesize output6;
+@synthesize output7;
+@synthesize output8;
 
 - (void)didReceiveMemoryWarning
 {
@@ -56,6 +65,18 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     [self presentModalViewController:settingsViewController animated:YES];
 }
 
+- (IBAction)startStop {
+    if (running) {
+        [self stopCameraCapture];
+        [self.runButton setTitle:@"Off" forState:UIControlStateNormal];
+        running = false;
+    } else {
+        [self startCameraCapture];
+        [self.runButton setTitle:@"On" forState:UIControlStateNormal];
+        running = true;
+    }
+}
+
 #pragma mark - handle touch selections
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -65,25 +86,27 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *touch in touches) {
-        CGPoint loc = [touch locationInView:self.view];
+    if (running) {
+        for (UITouch *touch in touches) {
+            CGPoint loc = [touch locationInView:self.view];
 #ifdef DEBUG
-        NSLog(@"x -- %f y -- %f", loc.x, loc.y);
+            NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
-        if (loc.x < appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2) {
-            loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-1;
+            if (loc.x < appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2) {
+                loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-1;
 #ifdef DEBUG
-            NSLog(@"seg fault averted");
+                NSLog(@"seg fault averted");
+#endif
+            }
+            selectionX = loc.x + (appDelegate.currentBoxWidth/2);
+            selectionXimage = 320-selectionX;
+            selectionY = loc.y - (appDelegate.currentBoxHeight/2);
+#ifdef DEBUG
+            NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
 #endif
         }
-        selectionX = loc.x + (appDelegate.currentBoxWidth/2);
-        selectionXimage = 320-selectionX;
-        selectionY = loc.y - (appDelegate.currentBoxHeight/2);
-#ifdef DEBUG
-        NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
-#endif
+        [self.selectionView setNeedsDisplay];
     }
-    [self.selectionView setNeedsDisplay];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -106,8 +129,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [targetColours release]; targetColours=nil;
   [self setPreviewView:nil];
   [self setRgbColourView:nil];
-  [self setHueColourView:nil];
-  [self setClosestColourView:nil];
+//  [self setHueColourView:nil];
+//  [self setClosestColourView:nil];
   [self setInfoLabel:nil];
   [settingsViewController release];
   [super viewDidUnload];
@@ -120,6 +143,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [super viewWillAppear:animated];
   [self.selectionView setNeedsDisplay];
   // start grabbing frames from the camera
+    running = true;
+    [self.runButton setTitle:@"On" forState:UIControlStateNormal];
   [self startCameraCapture];
   // start updating the UI
   updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
@@ -134,6 +159,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 {
 	[super viewWillDisappear:animated];
   [self stopCameraCapture];
+    running = false;
   [updateTimer invalidate]; updateTimer = nil;
 }
 
@@ -307,7 +333,38 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
         if ((red >= t.rl && red <= t.rh) &&
             (green >= t.gl && green <= t.gh) &&
             (blue >= t.bl && blue <= t.bh)) {
+#ifdef DEBUG
             NSLog(@"Target %i hit.", i+1);
+#endif
+            switch (i+1) {
+                case 1:
+                    [self.output1 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 2:
+                    [self.output2 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 3:
+                    [self.output3 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 4:
+                    [self.output4 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 5:
+                    [self.output5 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 6:
+                    [self.output6 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 7:
+                    [self.output7 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                case 8:
+                    [self.output8 setBackgroundColor:[UIColor greenColor]];
+                    break;
+                    
+                default:
+                    break;
+            }
         }
     }
 }
@@ -317,14 +374,22 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   // the raw RGB colour
   rgbColourView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
   // the colour from the hue component ignoring the saturation and brighness components
-  if(s>0.1 && v>0.1) {
-    hueColourView.backgroundColor = [UIColor colorWithHue:h/360.0 saturation:1.0 brightness:1.0 alpha:1.0];
-  } else {
-    hueColourView.backgroundColor = [UIColor blackColor];
-  }
+//  if(s>0.1 && v>0.1) {
+//    hueColourView.backgroundColor = [UIColor colorWithHue:h/360.0 saturation:1.0 brightness:1.0 alpha:1.0];
+//  } else {
+//    hueColourView.backgroundColor = [UIColor blackColor];
+//  }
   // set the closest colour
-  closestColourView.backgroundColor = closestColour!=nil ? closestColour : [UIColor blackColor];
+//  closestColourView.backgroundColor = closestColour!=nil ? closestColour : [UIColor blackColor];
   infoLabel.text = [NSString stringWithFormat:@"RGB=%.f,%.f,%.f Hue=%.f Sat=%.2f Val=%.2f", r*255, g*255, b*255, h, s, v];
+    [self.output1 setBackgroundColor:[UIColor whiteColor]];
+    [self.output2 setBackgroundColor:[UIColor whiteColor]];
+    [self.output3 setBackgroundColor:[UIColor whiteColor]];
+    [self.output4 setBackgroundColor:[UIColor whiteColor]];
+    [self.output5 setBackgroundColor:[UIColor whiteColor]];
+    [self.output6 setBackgroundColor:[UIColor whiteColor]];
+    [self.output7 setBackgroundColor:[UIColor whiteColor]];
+    [self.output8 setBackgroundColor:[UIColor whiteColor]];
   [self checkTargets];
 }
 
@@ -337,8 +402,8 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 - (void)dealloc {
   [previewView release];
   [rgbColourView release];
-  [hueColourView release];
-  [closestColourView release];
+//  [hueColourView release];
+//  [closestColourView release];
   [infoLabel release];
   [super dealloc];
 }

@@ -25,6 +25,7 @@
 
   AppDelegate *appDelegate;
   BOOL captureImage;
+  BOOL running;
   int pixelBufferWidth;
   int pixelBufferHeight;
   // the starting points for where the rectangle will be drawn
@@ -39,13 +40,23 @@
 - (IBAction)captureImage;
 - (IBAction)showSettingsView;
 - (void)checkTargets;
+- (IBAction)startStop;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
 @property (retain, nonatomic) IBOutlet UIView *rgbColourView;
-@property (retain, nonatomic) IBOutlet UIView *hueColourView;
-@property (retain, nonatomic) IBOutlet UIView *closestColourView;
+//@property (retain, nonatomic) IBOutlet UIView *hueColourView;
+//@property (retain, nonatomic) IBOutlet UIView *closestColourView;
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
+@property (retain, nonatomic) IBOutlet UIButton *runButton;
+@property (retain, nonatomic) IBOutlet UIButton *output1;
+@property (retain, nonatomic) IBOutlet UIButton *output2;
+@property (retain, nonatomic) IBOutlet UIButton *output3;
+@property (retain, nonatomic) IBOutlet UIButton *output4;
+@property (retain, nonatomic) IBOutlet UIButton *output5;
+@property (retain, nonatomic) IBOutlet UIButton *output6;
+@property (retain, nonatomic) IBOutlet UIButton *output7;
+@property (retain, nonatomic) IBOutlet UIButton *output8;
 @property (nonatomic, readonly) int pixelBufferWidth;
 @property (nonatomic, readonly) int pixelBufferHeight;
 @property (nonatomic, assign) CGFloat selectionX;
