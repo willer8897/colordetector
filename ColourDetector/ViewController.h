@@ -26,6 +26,8 @@
   AppDelegate *appDelegate;
   BOOL captureImage;
   BOOL running;
+  BOOL locked;
+  BOOL uiHidden;
   int pixelBufferWidth;
   int pixelBufferHeight;
   // the starting points for where the rectangle will be drawn
@@ -41,6 +43,8 @@
 - (IBAction)showSettingsView;
 - (void)checkTargets;
 - (IBAction)startStop;
+- (IBAction)lockUnlock;
+- (IBAction)hideUI;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
@@ -48,7 +52,12 @@
 //@property (retain, nonatomic) IBOutlet UIView *hueColourView;
 //@property (retain, nonatomic) IBOutlet UIView *closestColourView;
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
+@property (retain, nonatomic) IBOutlet UILabel *currentColor;
+@property (retain, nonatomic) IBOutlet UILabel *topLable;
 @property (retain, nonatomic) IBOutlet UIButton *runButton;
+@property (retain, nonatomic) IBOutlet UIButton *lockButton;
+@property (retain, nonatomic) IBOutlet UIButton *photoButton;
+@property (retain, nonatomic) IBOutlet UIButton *settingsButton;
 @property (retain, nonatomic) IBOutlet UIButton *output1;
 @property (retain, nonatomic) IBOutlet UIButton *output2;
 @property (retain, nonatomic) IBOutlet UIButton *output3;
@@ -63,5 +72,6 @@
 @property (nonatomic, assign) CGFloat selectionXimage;
 @property (nonatomic, assign) CGFloat selectionY;
 @property (nonatomic, retain) SettingsViewController *settingsViewController;
+@property (nonatomic, readonly) BOOL locked;
 
 @end

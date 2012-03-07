@@ -31,7 +31,13 @@
     // draw rectangle around area being analyzed
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+    UIColor *color;
+    if (appDelegate.viewController.locked) {
+        color = [UIColor redColor];
+    } else {
+        color = [UIColor greenColor];
+    }
+    CGContextSetStrokeColorWithColor(context, color.CGColor);
     CGRect rectangle = CGRectMake((appDelegate.viewController.selectionX),
                                   (appDelegate.viewController.selectionY),
                                   -appDelegate.currentBoxWidth / appDelegate.widthScaleFactor,

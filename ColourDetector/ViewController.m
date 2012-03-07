@@ -34,6 +34,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize selectionY;
 @synthesize settingsViewController;
 @synthesize runButton;
+@synthesize lockButton;
+@synthesize photoButton;
 @synthesize output1;
 @synthesize output2;
 @synthesize output3;
@@ -42,6 +44,10 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize output6;
 @synthesize output7;
 @synthesize output8;
+@synthesize locked;
+@synthesize currentColor;
+@synthesize topLable;
+@synthesize settingsButton;
 
 - (void)didReceiveMemoryWarning
 {
@@ -77,6 +83,82 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     }
 }
 
+- (IBAction)lockUnlock {
+    if (locked) {
+        [self.lockButton setTitle:@"U" forState:UIControlStateNormal];
+        locked = false;
+    } else {
+        [self.lockButton setTitle:@"L" forState:UIControlStateNormal];
+        locked = true;
+    }
+    [self.selectionView setNeedsDisplay];
+}
+
+- (IBAction)hideUI {
+    if (uiHidden) {
+        infoLabel.hidden = false;
+        topLable.hidden = false;
+        currentColor.hidden = false;
+        rgbColourView.hidden = false;
+        [self.runButton setEnabled:true];
+        runButton.hidden = false;
+        [self.lockButton setEnabled:true];
+        lockButton.hidden = false;
+        [self.photoButton setEnabled:true];
+        photoButton.hidden = false;
+        [self.settingsButton setEnabled:true];
+        settingsButton.hidden = false;
+        [self.output1 setEnabled:true];
+        output1.hidden = false;
+        [self.output2 setEnabled:true];
+        output2.hidden = false;
+        [self.output3 setEnabled:true];
+        output3.hidden = false;
+        [self.output4 setEnabled:true];
+        output4.hidden = false;
+        [self.output5 setEnabled:true];
+        output5.hidden = false;
+        [self.output6 setEnabled:true];
+        output6.hidden = false;
+        [self.output7 setEnabled:true];
+        output7.hidden = false;
+        [self.output8 setEnabled:true];
+        output8.hidden = false;
+        uiHidden = false;
+    } else {
+        infoLabel.hidden = true;
+        topLable.hidden = true;
+        currentColor.hidden = true;
+        rgbColourView.hidden = true;
+        [self.runButton setEnabled:false];
+        runButton.hidden = true;
+        [self.lockButton setEnabled:false];
+        lockButton.hidden = true;
+        [self.photoButton setEnabled:false];
+        photoButton.hidden = true;
+        [self.settingsButton setEnabled:false];
+        settingsButton.hidden = true;
+        [self.output1 setEnabled:false];
+        output1.hidden = true;
+        [self.output2 setEnabled:false];
+        output2.hidden = true;
+        [self.output3 setEnabled:false];
+        output3.hidden = true;
+        [self.output4 setEnabled:false];
+        output4.hidden = true;
+        [self.output5 setEnabled:false];
+        output5.hidden = true;
+        [self.output6 setEnabled:false];
+        output6.hidden = true;
+        [self.output7 setEnabled:false];
+        output7.hidden = true;
+        [self.output8 setEnabled:false];
+        output8.hidden = true;
+        uiHidden = true;
+    }
+
+}
+
 #pragma mark - handle touch selections
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -86,7 +168,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (running) {
+    if (running && !locked) {
         for (UITouch *touch in touches) {
             CGPoint loc = [touch locationInView:self.view];
 #ifdef DEBUG
@@ -145,6 +227,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   // start grabbing frames from the camera
     running = true;
     [self.runButton setTitle:@"On" forState:UIControlStateNormal];
+    [self.lockButton setTitle:@"U" forState:UIControlStateNormal];
   [self startCameraCapture];
   // start updating the UI
   updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
