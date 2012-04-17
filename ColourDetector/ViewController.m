@@ -350,13 +350,13 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	uint8_t *buf=(uint8_t *) CVPixelBufferGetBaseAddress(cvimgRef);
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
 	float cr=0,cg=0,cb=0;
-    // take a square currentBoxWidth x currentBoxHeight section from the starting top left of the current rectangle
+    // take a rectangular currentBoxWidth x currentBoxHeight section from the starting top left of the current rectangle
     pixelStartY = selectionY * appDelegate.heightScaleFactor;
     pixelStartX = selectionXimage * appDelegate.widthScaleFactor;
     int i, j;
     i = j = 0;
-	for(int y=pixelStartX; i < appDelegate.currentBoxHeight; y++) {
-		for(int x=pixelStartY; j < appDelegate.currentBoxWidth; x++) {
+	for(int y=pixelStartX; i < appDelegate.currentBoxWidth; y++) {
+		for(int x=pixelStartY; j < appDelegate.currentBoxHeight; x++) {
 			cb+=buf[y*bprow+x*4];
 			cg+=buf[y*bprow+x*4+1];
 			cr+=buf[y*bprow+x*4+2];
