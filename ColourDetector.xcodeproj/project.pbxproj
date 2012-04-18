@@ -154,7 +154,7 @@
 		8344F11C143DBC5D00AB1663 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 8344F11F143DBC5D00AB1663 /* Build configuration list for PBXProject "ColourDetector" */;
 			compatibilityVersion = "Xcode 3.2";
