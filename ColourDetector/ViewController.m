@@ -400,13 +400,45 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     closestColour = nil;
   }
   if (captureImage) {
-    UIImage *image = imageFromSampleBuffer(sampleBuffer);
-    // Add your code here that uses the image.
     captureImage = false;
-#ifdef DEBUG
-    NSLog(@"image captured");
-#endif
+    // combine current image capture with current selection rectangle
+    UIImage *image = imageFromSampleBuffer(sampleBuffer);
+    CGSize image_size = CGSizeMake(pixelBufferWidth, pixelBufferHeight);
+    UIGraphicsBeginImageContextWithOptions(image_size, NO, 1.0);
+    [image drawAtPoint:CGPointMake(0, 0)];
+    [self drawSelectionRectToSavedImage];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    // Request to save the image to the camera roll
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    sleep(1);
   }
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error != NULL) {
+        NSLog(@"image not captured, error description: %@", [error localizedDescription]);
+    }
+    else {
+        NSLog(@"image captured");
+    }
+}
+
+- (void)drawSelectionRectToSavedImage {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 2.0);
+    UIColor *color;
+    if (appDelegate.viewController.locked) {
+        color = [UIColor redColor];
+    } else {
+        color = [UIColor greenColor];
+    }
+    CGContextSetStrokeColorWithColor(context, color.CGColor);
+    CGRect rectangle = CGRectMake(selectionX*appDelegate.widthScaleFactor, selectionY*appDelegate.heightScaleFactor,
+                                  -appDelegate.currentBoxWidth, appDelegate.currentBoxHeight);
+    CGContextAddRect(context, rectangle);
+    CGContextStrokePath(context);
 }
 
 - (void)checkTargets {
@@ -533,7 +565,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
   CGDataProviderRelease(dataProvider);
 
   // Create and return an image object to represent the Quartz image.
-  UIImage *image = [UIImage imageWithCGImage:cgImage];
+  UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationRight];
   CGImageRelease(cgImage);
 
   CVPixelBufferUnlockBaseAddress(imageBuffer, 0);

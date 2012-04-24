@@ -45,6 +45,7 @@
 - (IBAction)startStop;
 - (IBAction)lockUnlock;
 - (IBAction)hideUI;
+- (void)drawSelectionRectToSavedImage;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
