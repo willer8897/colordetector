@@ -214,10 +214,9 @@
     NSLog(@"pixelBufferWidth - %d", self.viewController.pixelBufferWidth);
     NSLog(@"pixelBufferHeight - %d", self.viewController.pixelBufferHeight);
 #endif
-    // the pixel buffer gives the height and width in landscape
-    // it's swapped here since the selectionView's coordinates are in portrait
-    heightScaleFactor = self.viewController.pixelBufferWidth / 480.0;
-    widthScaleFactor = self.viewController.pixelBufferHeight / 320.0;
+
+    heightScaleFactor = self.viewController.pixelBufferHeight / 480.0;
+    widthScaleFactor = self.viewController.pixelBufferWidth / 320.0;
     //for  iOS5-4GS heightScaleFactor = 1;
     //widthScaleFactor = 1.125;
 #ifdef DEBUG

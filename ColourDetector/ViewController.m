@@ -344,8 +344,10 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	// access the data
 	int width=CVPixelBufferGetWidth(cvimgRef);
 	int height=CVPixelBufferGetHeight(cvimgRef);
-    pixelBufferHeight = height;
-    pixelBufferWidth = width;
+    // the CVPixelBufferGet* methods give the height and width in landscape
+    // it's swapped here since the selectionView's coordinates are in portrait
+    pixelBufferHeight = width;
+    pixelBufferWidth = height;
 	// get the raw image bytes
 	uint8_t *buf=(uint8_t *) CVPixelBufferGetBaseAddress(cvimgRef);
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
