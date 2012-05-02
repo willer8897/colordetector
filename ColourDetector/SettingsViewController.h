@@ -18,6 +18,7 @@
     NSString *startingY;
 
     AppDelegate *appDelegate;
+    IBOutlet UIScrollView *scrollView;
 
 }
 
@@ -50,5 +51,7 @@
 @property (nonatomic, copy) NSString *selectionHeight;
 @property (nonatomic, copy) NSString *startingX;
 @property (nonatomic, copy) NSString *startingY;
+
+@property (nonatomic, retain) UIView *scrollView;
 
 @end

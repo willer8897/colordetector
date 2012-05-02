@@ -36,6 +36,7 @@
 @synthesize target7Switch;
 @synthesize target8TextFields;
 @synthesize target8Switch;
+@synthesize scrollView;
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -50,13 +51,12 @@
     NSLog(@"startingX -- %@", self.startingX);
     NSLog(@"startingY -- %@", self.startingY);
 #endif
-    [appDelegate saveSettings];
-    [appDelegate saveTargets];
-    [self dismiss];
     return YES;
 }
 
 - (IBAction)dismiss {
+    [appDelegate saveSettings];
+    [appDelegate saveTargets];
     [self.presentingViewController dismissModalViewControllerAnimated:YES];
 #ifdef DEBUG
     NSLog(@"object %@", self.presentingViewController);
@@ -137,8 +137,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIScrollView *tempScrollView=(UIScrollView *)self.view;
-    tempScrollView.contentSize=CGSizeMake(320,1470);
+    scrollView.contentSize = CGSizeMake(320*9, 480);
+    scrollView.pagingEnabled = YES;
 }
 
 - (void)viewDidUnload
