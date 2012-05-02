@@ -37,6 +37,14 @@
 @synthesize target8TextFields;
 @synthesize target8Switch;
 @synthesize scrollView;
+@synthesize target1Light;
+@synthesize target2Light;
+@synthesize target3Light;
+@synthesize target4Light;
+@synthesize target5Light;
+@synthesize target6Light;
+@synthesize target7Light;
+@synthesize target8Light;
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -52,6 +60,42 @@
     NSLog(@"startingY -- %@", self.startingY);
 #endif
     return YES;
+}
+
+- (IBAction)lightEnabledChanged:(UISwitch*)sender {
+    Target *target;
+    if ([sender isEqual:target1Light]) {
+        target = [appDelegate.targets objectAtIndex:0];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target2Light]) {
+        target = [appDelegate.targets objectAtIndex:1];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target3Light]) {
+        target = [appDelegate.targets objectAtIndex:2];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target4Light]) {
+        target = [appDelegate.targets objectAtIndex:3];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target5Light]) {
+        target = [appDelegate.targets objectAtIndex:4];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target6Light]) {
+        target = [appDelegate.targets objectAtIndex:5];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target7Light]) {
+        target = [appDelegate.targets objectAtIndex:6];
+        target.light = sender.on;
+    }
+    if ([sender isEqual:target8Light]) {
+        target = [appDelegate.targets objectAtIndex:7];
+        target.light = sender.on;
+    }
 }
 
 - (IBAction)outputEnabledChanged:(UISwitch*)sender {
@@ -145,42 +189,50 @@
     int targetIndex = 0;
     Target *target = [appDelegate.targets objectAtIndex:targetIndex];
     target1Switch.on = target.on;
+    target1Light.on = target.light;
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortedArray = [target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target2Switch.on = target.on;
+    target2Light.on = target.light;
     sortedArray = [target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target3Switch.on = target.on;
+    target3Light.on = target.light;
     sortedArray = [target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target4Switch.on = target.on;
+    target4Light.on = target.light;
     sortedArray = [target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target5Switch.on = target.on;
+    target5Light.on = target.light;
     sortedArray = [target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target6Switch.on = target.on;
+    target6Light.on = target.light;
     sortedArray = [target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target7Switch.on = target.on;
+    target7Light.on = target.light;
     sortedArray = [target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target8Switch.on = target.on;
+    target8Light.on = target.light;
     sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 }

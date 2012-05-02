@@ -61,7 +61,7 @@
 	[decoder release];
 }
 
-- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled {
+- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled {
     Target *t = [targets objectAtIndex:target];
     UITextField *textField = [sortedArray objectAtIndex:0];
     t.rl = [textField.text intValue];
@@ -77,6 +77,7 @@
     t.bh = [textField.text intValue];
 
     t.on = enabled;
+    t.light = lightEnabled;
 }
 
 - (void)saveTargets {
@@ -85,35 +86,43 @@
     NSArray *sortedArray = [self.viewController.settingsViewController.target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     int target = 0;
     BOOL on = self.viewController.settingsViewController.target1Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    BOOL light = self.viewController.settingsViewController.target1Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target2Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target2Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target3Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target3Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target4Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target4Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target5Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target5Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target6Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target6Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target7Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target7Light.on;
+    [self updateTargets:sortedArray :target++ :on :light];
 
     sortedArray = [self.viewController.settingsViewController.target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target8Switch.on;
-    [self updateTargets:sortedArray :target++ :on];
+    light = self.viewController.settingsViewController.target8Light.on;
+    [self updateTargets:sortedArray :target++ :on: light];
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -236,7 +245,7 @@
 
     targets = [[NSMutableArray alloc] init];
     for (int i = 0; i < 8; ++i) {
-        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES];
+        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO];
         [targets addObject:t];
     }
     [self loadSettings];

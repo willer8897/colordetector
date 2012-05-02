@@ -11,12 +11,14 @@
 @interface Target : NSObject <NSCoding> {
     int rl, rh, gl, gh, bl, bh;
     BOOL on;
+    BOOL light;
 }
 
 - (id)initWithTargetValues:(int)rMin :(int)rMax
                           :(int)gMin :(int)gMax
                           :(int)bMin :(int)bMax
-                          :(BOOL)enabled;
+                          :(BOOL)enabled
+                          :(BOOL)lightEnabled;
 - (id)initWithCoder:(NSCoder *)decoder;
 - (void)encodeWithCoder:(NSCoder *)encoder;
 
@@ -27,6 +29,7 @@
 @property (nonatomic, assign) int bl;
 @property (nonatomic, assign) int bh;
 @property (nonatomic, assign) BOOL on;
+@property (nonatomic, assign) BOOL light;
 
 
 @end

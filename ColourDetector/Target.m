@@ -17,13 +17,14 @@
 @synthesize bl;
 @synthesize bh;
 @synthesize on;
+@synthesize light;
 
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"rl - %i, rh - %i, gl - %i, gh - %i, bl - %i, bh - %i, On - %i", rl, rh, gl, gh, bl, bh, on];
+    return [NSString stringWithFormat:@"rl - %i, rh - %i, gl - %i, gh - %i, bl - %i, bh - %i, On - %i, Light - %i", rl, rh, gl, gh, bl, bh, on, light];
 }
 
-- (id)initWithTargetValues:(int)rMin :(int)rMax :(int)gMin :(int)gMax :(int)bMin :(int)bMax :(BOOL)enabled {
+- (id)initWithTargetValues:(int)rMin :(int)rMax :(int)gMin :(int)gMax :(int)bMin :(int)bMax :(BOOL)enabled :(BOOL)lightEnabled {
     rl = rMin;
     rh = rMax;
     gl = gMin;
@@ -31,6 +32,7 @@
     bl = bMin;
     bh = bMax;
     on = enabled;
+    light = lightEnabled;
     return self;
 }
 
@@ -42,6 +44,7 @@
     bl = [decoder decodeIntForKey:@"bl"];
     bh = [decoder decodeIntForKey:@"bh"];
     on = [decoder decodeBoolForKey:@"on"];
+    light = [decoder decodeBoolForKey:@"light"];
     return self;
 }
 
@@ -53,6 +56,7 @@
     [encoder encodeInt:bl forKey:@"bl"];
     [encoder encodeInt:bh forKey:@"bh"];
     [encoder encodeBool:on forKey:@"on"];
+    [encoder encodeBool:light forKey:@"light"];
 }
 
 @end

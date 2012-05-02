@@ -453,6 +453,11 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                 (blue >= t.bl && blue <= t.bh)) {
 #ifdef DEBUG
                 NSLog(@"Target %i hit.", i+1);
+                static BOOL once[] = {NO, NO, NO, NO, NO, NO, NO, NO};
+                if (t.light && !once[i]) {
+                    NSLog(@"Output %i light triggered.", i+1);
+                    once[i] = YES;
+                }
 #endif
                 switch (i+1) {
                     case 1:
