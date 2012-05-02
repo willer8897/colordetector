@@ -445,9 +445,16 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     int red = r*255;
     int green = g*255;
     int blue = b*255;
+    UIColor *color;
     for (int i = 0; i < [appDelegate.targets count]; ++i) {
         Target *t = [appDelegate.targets objectAtIndex:i];
         if (t.on) {
+            // NoNc 1 equals NC
+            if (t.NoNc) {
+                color = [UIColor whiteColor];
+            } else {
+                color = [UIColor greenColor];
+            }
             if ((red >= t.rl && red <= t.rh) &&
                 (green >= t.gl && green <= t.gh) &&
                 (blue >= t.bl && blue <= t.bh)) {
@@ -461,28 +468,28 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 #endif
                 switch (i+1) {
                     case 1:
-                        [self.output1 setBackgroundColor:[UIColor greenColor]];
+                        [self.output1 setBackgroundColor:color];
                         break;
                     case 2:
-                        [self.output2 setBackgroundColor:[UIColor greenColor]];
+                        [self.output2 setBackgroundColor:color];
                         break;
                     case 3:
-                        [self.output3 setBackgroundColor:[UIColor greenColor]];
+                        [self.output3 setBackgroundColor:color];
                         break;
                     case 4:
-                        [self.output4 setBackgroundColor:[UIColor greenColor]];
+                        [self.output4 setBackgroundColor:color];
                         break;
                     case 5:
-                        [self.output5 setBackgroundColor:[UIColor greenColor]];
+                        [self.output5 setBackgroundColor:color];
                         break;
                     case 6:
-                        [self.output6 setBackgroundColor:[UIColor greenColor]];
+                        [self.output6 setBackgroundColor:color];
                         break;
                     case 7:
-                        [self.output7 setBackgroundColor:[UIColor greenColor]];
+                        [self.output7 setBackgroundColor:color];
                         break;
                     case 8:
-                        [self.output8 setBackgroundColor:[UIColor greenColor]];
+                        [self.output8 setBackgroundColor:color];
                         break;
 
                     default:
@@ -507,14 +514,51 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   // set the closest colour
 //  closestColourView.backgroundColor = closestColour!=nil ? closestColour : [UIColor blackColor];
   infoLabel.text = [NSString stringWithFormat:@"RGB=%.f,%.f,%.f Hue=%.f Sat=%.2f Val=%.2f", r*255, g*255, b*255, h, s, v];
-    [self.output1 setBackgroundColor:[UIColor whiteColor]];
-    [self.output2 setBackgroundColor:[UIColor whiteColor]];
-    [self.output3 setBackgroundColor:[UIColor whiteColor]];
-    [self.output4 setBackgroundColor:[UIColor whiteColor]];
-    [self.output5 setBackgroundColor:[UIColor whiteColor]];
-    [self.output6 setBackgroundColor:[UIColor whiteColor]];
-    [self.output7 setBackgroundColor:[UIColor whiteColor]];
-    [self.output8 setBackgroundColor:[UIColor whiteColor]];
+
+    UIColor *color;
+    for (int i = 0; i < [appDelegate.targets count]; ++i) {
+        Target *t = [appDelegate.targets objectAtIndex:i];
+        if (t.on) {
+            // NoNc 1 equals NC
+            if (t.NoNc) {
+                color = [UIColor greenColor];
+            } else {
+                color = [UIColor whiteColor];
+            }
+        } else {
+            color = [UIColor blackColor];
+        }
+        switch (i+1) {
+            case 1:
+                [self.output1 setBackgroundColor:color];
+                break;
+            case 2:
+                [self.output2 setBackgroundColor:color];
+                break;
+            case 3:
+                [self.output3 setBackgroundColor:color];
+                break;
+            case 4:
+                [self.output4 setBackgroundColor:color];
+                break;
+            case 5:
+                [self.output5 setBackgroundColor:color];
+                break;
+            case 6:
+                [self.output6 setBackgroundColor:color];
+                break;
+            case 7:
+                [self.output7 setBackgroundColor:color];
+                break;
+            case 8:
+                [self.output8 setBackgroundColor:color];
+                break;
+
+            default:
+                break;
+        }
+    }
+
   [self checkTargets];
 }
 

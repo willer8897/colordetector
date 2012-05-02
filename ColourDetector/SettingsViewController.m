@@ -45,7 +45,14 @@
 @synthesize target6Light;
 @synthesize target7Light;
 @synthesize target8Light;
-
+@synthesize target1NONC;
+@synthesize target2NONC;
+@synthesize target3NONC;
+@synthesize target4NONC;
+@synthesize target5NONC;
+@synthesize target6NONC;
+@synthesize target7NONC;
+@synthesize target8NONC;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [theTextField resignFirstResponder];
@@ -60,6 +67,42 @@
     NSLog(@"startingY -- %@", self.startingY);
 #endif
     return YES;
+}
+
+- (IBAction)NONCChanged:(UISegmentedControl*)sender {
+    Target *target;
+    if ([sender isEqual:target1NONC]) {
+        target = [appDelegate.targets objectAtIndex:0];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target2NONC]) {
+        target = [appDelegate.targets objectAtIndex:1];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target3NONC]) {
+        target = [appDelegate.targets objectAtIndex:2];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target4NONC]) {
+        target = [appDelegate.targets objectAtIndex:3];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target5NONC]) {
+        target = [appDelegate.targets objectAtIndex:4];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target6NONC]) {
+        target = [appDelegate.targets objectAtIndex:5];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target7NONC]) {
+        target = [appDelegate.targets objectAtIndex:6];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
+    if ([sender isEqual:target8NONC]) {
+        target = [appDelegate.targets objectAtIndex:7];
+        target.NoNc = sender.selectedSegmentIndex;
+    }
 }
 
 - (IBAction)lightEnabledChanged:(UISwitch*)sender {
@@ -190,6 +233,7 @@
     Target *target = [appDelegate.targets objectAtIndex:targetIndex];
     target1Switch.on = target.on;
     target1Light.on = target.light;
+    target1NONC.selectedSegmentIndex = target.NoNc;
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortedArray = [target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
@@ -197,42 +241,49 @@
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target2Switch.on = target.on;
     target2Light.on = target.light;
+    target2NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target3Switch.on = target.on;
     target3Light.on = target.light;
+    target3NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target4Switch.on = target.on;
     target4Light.on = target.light;
+    target4NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target5Switch.on = target.on;
     target5Light.on = target.light;
+    target5NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target6Switch.on = target.on;
     target6Light.on = target.light;
+    target6NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target7Switch.on = target.on;
     target7Light.on = target.light;
+    target7NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
     target = [appDelegate.targets objectAtIndex:targetIndex];
     target8Switch.on = target.on;
     target8Light.on = target.light;
+    target8NONC.selectedSegmentIndex = target.NoNc;
     sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 }

@@ -12,13 +12,15 @@
     int rl, rh, gl, gh, bl, bh;
     BOOL on;
     BOOL light;
+    int NoNc;
 }
 
 - (id)initWithTargetValues:(int)rMin :(int)rMax
                           :(int)gMin :(int)gMax
                           :(int)bMin :(int)bMax
                           :(BOOL)enabled
-                          :(BOOL)lightEnabled;
+                          :(BOOL)lightEnabled
+                          :(int)NormOpenClosed;
 - (id)initWithCoder:(NSCoder *)decoder;
 - (void)encodeWithCoder:(NSCoder *)encoder;
 
@@ -30,6 +32,6 @@
 @property (nonatomic, assign) int bh;
 @property (nonatomic, assign) BOOL on;
 @property (nonatomic, assign) BOOL light;
-
+@property (nonatomic, assign) int NoNc;
 
 @end

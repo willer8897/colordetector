@@ -25,6 +25,7 @@
 - (IBAction)dismiss;
 - (IBAction)outputEnabledChanged:(UISwitch*)sender;
 - (IBAction)lightEnabledChanged:(UISwitch*)sender;
+- (IBAction)NONCChanged:(UISegmentedControl*)sender;
 - (void)updateTargetTextFields:(NSArray *)sortedArray :(int)targetIndex;
 
 @property (retain, nonatomic) IBOutlet UITextField *selectionWidthTextField;
@@ -57,6 +58,15 @@
 @property (retain, nonatomic) IBOutlet UISwitch *target6Light;
 @property (retain, nonatomic) IBOutlet UISwitch *target7Light;
 @property (retain, nonatomic) IBOutlet UISwitch *target8Light;
+
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target1NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target2NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target3NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target4NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target5NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target6NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target7NONC;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *target8NONC;
 
 @property (nonatomic, copy) NSString *selectionWidth;
 @property (nonatomic, copy) NSString *selectionHeight;

@@ -28,7 +28,7 @@
 
 - (void)loadTargets;
 - (void)saveTargets;
-- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled;
+- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed;
 
 - (void)setStartingCoordinates;
 

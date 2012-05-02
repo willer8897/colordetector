@@ -61,7 +61,7 @@
 	[decoder release];
 }
 
-- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled {
+- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed {
     Target *t = [targets objectAtIndex:target];
     UITextField *textField = [sortedArray objectAtIndex:0];
     t.rl = [textField.text intValue];
@@ -78,6 +78,7 @@
 
     t.on = enabled;
     t.light = lightEnabled;
+    t.NoNc = NormOpenClosed;
 }
 
 - (void)saveTargets {
@@ -87,42 +88,50 @@
     int target = 0;
     BOOL on = self.viewController.settingsViewController.target1Switch.on;
     BOOL light = self.viewController.settingsViewController.target1Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    int NoNc = self.viewController.settingsViewController.target1NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target2Switch.on;
     light = self.viewController.settingsViewController.target2Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    NoNc = self.viewController.settingsViewController.target2NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target3Switch.on;
     light = self.viewController.settingsViewController.target3Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    NoNc = self.viewController.settingsViewController.target3NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target4Switch.on;
     light = self.viewController.settingsViewController.target4Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    NoNc = self.viewController.settingsViewController.target4NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target5Switch.on;
     light = self.viewController.settingsViewController.target5Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    NoNc = self.viewController.settingsViewController.target5NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target6Switch.on;
     light = self.viewController.settingsViewController.target6Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    NoNc = self.viewController.settingsViewController.target6NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target7Switch.on;
     light = self.viewController.settingsViewController.target7Light.on;
-    [self updateTargets:sortedArray :target++ :on :light];
+    NoNc = self.viewController.settingsViewController.target7NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on :light :NoNc];
 
     sortedArray = [self.viewController.settingsViewController.target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target8Switch.on;
     light = self.viewController.settingsViewController.target8Light.on;
-    [self updateTargets:sortedArray :target++ :on: light];
+    NoNc = self.viewController.settingsViewController.target8NONC.selectedSegmentIndex;
+    [self updateTargets:sortedArray :target++ :on: light :NoNc];
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -245,7 +254,7 @@
 
     targets = [[NSMutableArray alloc] init];
     for (int i = 0; i < 8; ++i) {
-        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO];
+        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO :0];
         [targets addObject:t];
     }
     [self loadSettings];
