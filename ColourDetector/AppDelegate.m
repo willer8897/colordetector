@@ -61,7 +61,7 @@
 	[decoder release];
 }
 
-- (void)updateTargets:(NSArray *)sortedArray :(int)target {
+- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled {
     Target *t = [targets objectAtIndex:target];
     UITextField *textField = [sortedArray objectAtIndex:0];
     t.rl = [textField.text intValue];
@@ -75,6 +75,8 @@
     t.bl = [textField.text intValue];
     textField = [sortedArray objectAtIndex:5];
     t.bh = [textField.text intValue];
+
+    t.on = enabled;
 }
 
 - (void)saveTargets {
@@ -82,28 +84,36 @@
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortedArray = [self.viewController.settingsViewController.target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     int target = 0;
-    [self updateTargets:sortedArray :target++];
+    BOOL on = self.viewController.settingsViewController.target1Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target2Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target3Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target4Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target5Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target6Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target7Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
     sortedArray = [self.viewController.settingsViewController.target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    [self updateTargets:sortedArray :target++];
+    on = self.viewController.settingsViewController.target8Switch.on;
+    [self updateTargets:sortedArray :target++ :on];
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -226,7 +236,7 @@
 
     targets = [[NSMutableArray alloc] init];
     for (int i = 0; i < 8; ++i) {
-        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0];
+        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES];
         [targets addObject:t];
     }
     [self loadSettings];

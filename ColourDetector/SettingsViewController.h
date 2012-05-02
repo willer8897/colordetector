@@ -23,6 +23,7 @@
 }
 
 - (IBAction)dismiss;
+- (IBAction)outputEnabledChanged:(UISwitch*)sender;
 - (void)updateTargetTextFields:(NSArray *)sortedArray :(int)targetIndex;
 
 @property (retain, nonatomic) IBOutlet UITextField *selectionWidthTextField;

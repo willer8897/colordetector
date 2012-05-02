@@ -54,6 +54,42 @@
     return YES;
 }
 
+- (IBAction)outputEnabledChanged:(UISwitch*)sender {
+    Target *target;
+    if ([sender isEqual:target1Switch]) {
+        target = [appDelegate.targets objectAtIndex:0];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target2Switch]) {
+        target = [appDelegate.targets objectAtIndex:1];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target3Switch]) {
+        target = [appDelegate.targets objectAtIndex:2];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target4Switch]) {
+        target = [appDelegate.targets objectAtIndex:3];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target5Switch]) {
+        target = [appDelegate.targets objectAtIndex:4];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target6Switch]) {
+        target = [appDelegate.targets objectAtIndex:5];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target7Switch]) {
+        target = [appDelegate.targets objectAtIndex:6];
+        target.on = sender.on;
+    }
+    if ([sender isEqual:target8Switch]) {
+        target = [appDelegate.targets objectAtIndex:7];
+        target.on = sender.on;
+    }
+}
+
 - (IBAction)dismiss {
     [appDelegate saveSettings];
     [appDelegate saveTargets];
@@ -106,29 +142,45 @@
     s = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionY];
     startingYTextField.text = s;
 
+    int targetIndex = 0;
+    Target *target = [appDelegate.targets objectAtIndex:targetIndex];
+    target1Switch.on = target.on;
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortedArray = [target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
-    int targetIndex = 0;
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target2Switch.on = target.on;
     sortedArray = [target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target3Switch.on = target.on;
     sortedArray = [target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target4Switch.on = target.on;
     sortedArray = [target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target5Switch.on = target.on;
     sortedArray = [target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target6Switch.on = target.on;
     sortedArray = [target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target7Switch.on = target.on;
     sortedArray = [target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
+    target = [appDelegate.targets objectAtIndex:targetIndex];
+    target8Switch.on = target.on;
     sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 }

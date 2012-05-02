@@ -13,7 +13,10 @@
     BOOL on;
 }
 
-- (id)initWithTargetValues:(int)rMin :(int)rMax :(int)gMin :(int)gMax :(int)bMin :(int)bMax;
+- (id)initWithTargetValues:(int)rMin :(int)rMax
+                          :(int)gMin :(int)gMax
+                          :(int)bMin :(int)bMax
+                          :(BOOL)enabled;
 - (id)initWithCoder:(NSCoder *)decoder;
 - (void)encodeWithCoder:(NSCoder *)encoder;
 
@@ -23,6 +26,7 @@
 @property (nonatomic, assign) int gh;
 @property (nonatomic, assign) int bl;
 @property (nonatomic, assign) int bh;
+@property (nonatomic, assign) BOOL on;
 
 
 @end

@@ -447,41 +447,44 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     int blue = b*255;
     for (int i = 0; i < [appDelegate.targets count]; ++i) {
         Target *t = [appDelegate.targets objectAtIndex:i];
-        if ((red >= t.rl && red <= t.rh) &&
-            (green >= t.gl && green <= t.gh) &&
-            (blue >= t.bl && blue <= t.bh)) {
+        if (t.on) {
+            if ((red >= t.rl && red <= t.rh) &&
+                (green >= t.gl && green <= t.gh) &&
+                (blue >= t.bl && blue <= t.bh)) {
 #ifdef DEBUG
-            NSLog(@"Target %i hit.", i+1);
+                NSLog(@"Target %i hit.", i+1);
 #endif
-            switch (i+1) {
-                case 1:
-                    [self.output1 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 2:
-                    [self.output2 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 3:
-                    [self.output3 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 4:
-                    [self.output4 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 5:
-                    [self.output5 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 6:
-                    [self.output6 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 7:
-                    [self.output7 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                case 8:
-                    [self.output8 setBackgroundColor:[UIColor greenColor]];
-                    break;
-                    
-                default:
-                    break;
+                switch (i+1) {
+                    case 1:
+                        [self.output1 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 2:
+                        [self.output2 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 3:
+                        [self.output3 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 4:
+                        [self.output4 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 5:
+                        [self.output5 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 6:
+                        [self.output6 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 7:
+                        [self.output7 setBackgroundColor:[UIColor greenColor]];
+                        break;
+                    case 8:
+                        [self.output8 setBackgroundColor:[UIColor greenColor]];
+                        break;
+
+                    default:
+                        break;
+                }
             }
+
         }
     }
 }
