@@ -61,7 +61,7 @@
 	[decoder release];
 }
 
-- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed {
+- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed :(float)onDelay :(float)offDelay {
     Target *t = [targets objectAtIndex:target];
     UITextField *textField = [sortedArray objectAtIndex:0];
     t.rl = [textField.text intValue];
@@ -79,6 +79,8 @@
     t.on = enabled;
     t.light = lightEnabled;
     t.NoNc = NormOpenClosed;
+    t.beforeDelay = onDelay;
+    t.afterDelay = offDelay;
 }
 
 - (void)saveTargets {
@@ -89,49 +91,65 @@
     BOOL on = self.viewController.settingsViewController.target1Switch.on;
     BOOL light = self.viewController.settingsViewController.target1Light.on;
     int NoNc = self.viewController.settingsViewController.target1NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    float onDelay = [self.viewController.settingsViewController.target1OnDelay.text floatValue];
+    float offDelay = [self.viewController.settingsViewController.target1OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target2Switch.on;
     light = self.viewController.settingsViewController.target2Light.on;
     NoNc = self.viewController.settingsViewController.target2NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target2OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target2OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target3Switch.on;
     light = self.viewController.settingsViewController.target3Light.on;
     NoNc = self.viewController.settingsViewController.target3NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target3OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target3OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target4Switch.on;
     light = self.viewController.settingsViewController.target4Light.on;
     NoNc = self.viewController.settingsViewController.target4NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target4OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target4OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target5Switch.on;
     light = self.viewController.settingsViewController.target5Light.on;
     NoNc = self.viewController.settingsViewController.target5NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target5OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target5OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target6Switch.on;
     light = self.viewController.settingsViewController.target6Light.on;
     NoNc = self.viewController.settingsViewController.target6NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target6OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target6OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target7Switch.on;
     light = self.viewController.settingsViewController.target7Light.on;
     NoNc = self.viewController.settingsViewController.target7NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on :light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target7OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target7OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
     sortedArray = [self.viewController.settingsViewController.target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     on = self.viewController.settingsViewController.target8Switch.on;
     light = self.viewController.settingsViewController.target8Light.on;
     NoNc = self.viewController.settingsViewController.target8NONC.selectedSegmentIndex;
-    [self updateTargets:sortedArray :target++ :on: light :NoNc];
+    onDelay = [self.viewController.settingsViewController.target8OnDelay.text floatValue];
+    offDelay = [self.viewController.settingsViewController.target8OffDelay.text floatValue];
+    [self updateTargets:sortedArray :target++ :on :light :NoNc :onDelay :offDelay];
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -254,7 +272,7 @@
 
     targets = [[NSMutableArray alloc] init];
     for (int i = 0; i < 8; ++i) {
-        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO :0];
+        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO :0 :0.0 :0.0];
         [targets addObject:t];
     }
     [self loadSettings];

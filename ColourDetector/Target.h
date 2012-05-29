@@ -13,6 +13,8 @@
     BOOL on;
     BOOL light;
     int NoNc;
+    float beforeDelayCounter, afterDelayCounter, beforeDelay, afterDelay;
+    BOOL previousSample;
 }
 
 - (id)initWithTargetValues:(int)rMin :(int)rMax
@@ -20,7 +22,10 @@
                           :(int)bMin :(int)bMax
                           :(BOOL)enabled
                           :(BOOL)lightEnabled
-                          :(int)NormOpenClosed;
+                          :(int)NormOpenClosed
+                          :(float)beginningDelay
+                          :(float)endingDelay;
+
 - (id)initWithCoder:(NSCoder *)decoder;
 - (void)encodeWithCoder:(NSCoder *)encoder;
 
@@ -33,5 +38,8 @@
 @property (nonatomic, assign) BOOL on;
 @property (nonatomic, assign) BOOL light;
 @property (nonatomic, assign) int NoNc;
+@property (nonatomic, assign) float beforeDelayCounter, afterDelayCounter, beforeDelay, afterDelay;
+@property (nonatomic, assign) BOOL delaySet;
+@property (nonatomic, assign) BOOL previousSample;
 
 @end

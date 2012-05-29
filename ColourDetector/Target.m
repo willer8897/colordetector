@@ -19,13 +19,22 @@
 @synthesize on;
 @synthesize light;
 @synthesize NoNc;
+@synthesize beforeDelayCounter, afterDelayCounter, beforeDelay, afterDelay;
+@synthesize delaySet;
+@synthesize previousSample;
 
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"rl - %i, rh - %i, gl - %i, gh - %i, bl - %i, bh - %i, On - %i, Light - %i, NoNc - %i", rl, rh, gl, gh, bl, bh, on, light, NoNc];
+    return [NSString stringWithFormat:@"rl - %i, rh - %i, gl - %i, gh - %i, bl - %i, bh - %i, On - %i, Light - %i, NoNc - %i, beforeDelay -- %f, afterDelay -- %f", rl, rh, gl, gh, bl, bh, on, light, NoNc, beforeDelay, afterDelay];
 }
 
-- (id)initWithTargetValues:(int)rMin :(int)rMax :(int)gMin :(int)gMax :(int)bMin :(int)bMax :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed {
+- (id)initWithTargetValues:(int)rMin :(int)rMax :(int)gMin :(int)gMax :(int)bMin :(int)bMax
+                          :(BOOL)enabled
+                          :(BOOL)lightEnabled
+                          :(int)NormOpenClosed
+                          :(float)beginningDelay
+                          :(float)endingDelay
+{
     rl = rMin;
     rh = rMax;
     gl = gMin;
@@ -35,6 +44,9 @@
     on = enabled;
     light = lightEnabled;
     NoNc = NormOpenClosed;
+    beforeDelay = beginningDelay;
+    afterDelay = endingDelay;
+
     return self;
 }
 
@@ -48,6 +60,8 @@
     on = [decoder decodeBoolForKey:@"on"];
     light = [decoder decodeBoolForKey:@"light"];
     NoNc = [decoder decodeIntForKey:@"NoNc"];
+    beforeDelay = [decoder decodeFloatForKey:@"beforeDelay"];
+    afterDelay = [decoder decodeFloatForKey:@"afterDelay"];
     return self;
 }
 
@@ -61,6 +75,8 @@
     [encoder encodeBool:on forKey:@"on"];
     [encoder encodeBool:light forKey:@"light"];
     [encoder encodeInt:NoNc forKey:@"NoNc"];
+    [encoder encodeFloat:beforeDelay forKey:@"beforeDelay"];
+    [encoder encodeFloat:afterDelay forKey:@"afterDelay"];
 }
 
 @end

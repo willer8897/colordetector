@@ -53,6 +53,24 @@
 @synthesize target6NONC;
 @synthesize target7NONC;
 @synthesize target8NONC;
+@synthesize target1OnDelay;
+@synthesize target2OnDelay;
+@synthesize target3OnDelay;
+@synthesize target4OnDelay;
+@synthesize target5OnDelay;
+@synthesize target6OnDelay;
+@synthesize target7OnDelay;
+@synthesize target8OnDelay;
+@synthesize target1OffDelay;
+@synthesize target2OffDelay;
+@synthesize target3OffDelay;
+@synthesize target4OffDelay;
+@synthesize target5OffDelay;
+@synthesize target6OffDelay;
+@synthesize target7OffDelay;
+@synthesize target8OffDelay;
+
+#pragma mark - UI update methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [theTextField resignFirstResponder];
@@ -234,6 +252,10 @@
     target1Switch.on = target.on;
     target1Light.on = target.light;
     target1NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target1OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target1OffDelay.text = s;
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortedArray = [target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
@@ -242,6 +264,10 @@
     target2Switch.on = target.on;
     target2Light.on = target.light;
     target2NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target2OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target2OffDelay.text = s;
     sortedArray = [target2TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
@@ -249,6 +275,10 @@
     target3Switch.on = target.on;
     target3Light.on = target.light;
     target3NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target3OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target3OffDelay.text = s;
     sortedArray = [target3TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
@@ -256,6 +286,10 @@
     target4Switch.on = target.on;
     target4Light.on = target.light;
     target4NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target4OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target4OffDelay.text = s;
     sortedArray = [target4TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
@@ -263,6 +297,10 @@
     target5Switch.on = target.on;
     target5Light.on = target.light;
     target5NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target5OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target5OffDelay.text = s;
     sortedArray = [target5TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
@@ -270,6 +308,10 @@
     target6Switch.on = target.on;
     target6Light.on = target.light;
     target6NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target6OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target6OffDelay.text = s;
     sortedArray = [target6TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
@@ -277,6 +319,10 @@
     target7Switch.on = target.on;
     target7Light.on = target.light;
     target7NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target7OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target7OffDelay.text = s;
     sortedArray = [target7TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 
@@ -284,6 +330,10 @@
     target8Switch.on = target.on;
     target8Light.on = target.light;
     target8NONC.selectedSegmentIndex = target.NoNc;
+    s = [NSString stringWithFormat:@"%1.1f", target.beforeDelay];
+    target8OnDelay.text = s;
+    s = [NSString stringWithFormat:@"%1.1f", target.afterDelay];
+    target8OffDelay.text = s;
     sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
 }
@@ -292,7 +342,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    scrollView.contentSize = CGSizeMake(320*9, 480);
+    scrollView.contentSize = CGSizeMake(320*9, 650);
     scrollView.pagingEnabled = YES;
 }
 

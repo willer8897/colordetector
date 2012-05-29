@@ -230,7 +230,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     [self.lockButton setTitle:@"U" forState:UIControlStateNormal];
   [self startCameraCapture];
   // start updating the UI
-  updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
+  updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -466,39 +466,66 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                     once[i] = YES;
                 }
 #endif
-                switch (i+1) {
-                    case 1:
-                        [self.output1 setBackgroundColor:color];
-                        break;
-                    case 2:
-                        [self.output2 setBackgroundColor:color];
-                        break;
-                    case 3:
-                        [self.output3 setBackgroundColor:color];
-                        break;
-                    case 4:
-                        [self.output4 setBackgroundColor:color];
-                        break;
-                    case 5:
-                        [self.output5 setBackgroundColor:color];
-                        break;
-                    case 6:
-                        [self.output6 setBackgroundColor:color];
-                        break;
-                    case 7:
-                        [self.output7 setBackgroundColor:color];
-                        break;
-                    case 8:
-                        [self.output8 setBackgroundColor:color];
-                        break;
 
-                    default:
-                        break;
+                if (t.previousSample) {
+                    t.beforeDelayCounter += .1;
+
+                    if (t.beforeDelayCounter >= t.beforeDelay) {
+#ifdef DEBUG
+                        NSLog(@"beforeDelayCounter %f beforeDelay %f", t.beforeDelayCounter, t.beforeDelay);
+                        NSLog(@"Indicator triggered.");
+#endif
+                        [self updateIndicator:i :color];
+                        t.afterDelayCounter = t.afterDelay;
+                    }
                 }
+                t.previousSample = YES;
+
+            } else {
+                if (t.afterDelayCounter > 0) {
+                    t.afterDelayCounter -= .1;
+                    [self updateIndicator:i :color];
+                }
+                t.previousSample = NO;
+                t.beforeDelayCounter = 0;
             }
 
         }
     }
+}
+
+- (void)updateIndicator:(int)target :(UIColor *) color {
+
+    switch (target+1) {
+        case 1:
+            [self.output1 setBackgroundColor:color];
+            break;
+        case 2:
+            [self.output2 setBackgroundColor:color];
+            break;
+        case 3:
+            [self.output3 setBackgroundColor:color];
+            break;
+        case 4:
+            [self.output4 setBackgroundColor:color];
+            break;
+        case 5:
+            [self.output5 setBackgroundColor:color];
+            break;
+        case 6:
+            [self.output6 setBackgroundColor:color];
+            break;
+        case 7:
+            [self.output7 setBackgroundColor:color];
+            break;
+        case 8:
+            [self.output8 setBackgroundColor:color];
+            break;
+
+        default:
+            break;
+    }
+
 }
 
 // do this on a timer as the captureOutput runs on it's own thread and can't update the UI

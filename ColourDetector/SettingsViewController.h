@@ -68,6 +68,24 @@
 @property (retain, nonatomic) IBOutlet UISegmentedControl *target7NONC;
 @property (retain, nonatomic) IBOutlet UISegmentedControl *target8NONC;
 
+@property (retain, nonatomic) IBOutlet UITextField *target1OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target2OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target3OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target4OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target5OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target6OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target7OnDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target8OnDelay;
+
+@property (retain, nonatomic) IBOutlet UITextField *target1OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target2OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target3OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target4OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target5OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target6OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target7OffDelay;
+@property (retain, nonatomic) IBOutlet UITextField *target8OffDelay;
+
 @property (nonatomic, copy) NSString *selectionWidth;
 @property (nonatomic, copy) NSString *selectionHeight;
 @property (nonatomic, copy) NSString *startingX;
