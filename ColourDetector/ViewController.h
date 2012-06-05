@@ -47,6 +47,8 @@
 - (IBAction)hideUI;
 - (void)drawSelectionRectToSavedImage;
 - (void)updateIndicator:(int)target :(UIColor *)color;
+- (void)reportFocus:(int)focusMode;
+- (void)reportExposure:(int)exposureMode;
 
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
