@@ -233,6 +233,57 @@
     }
 }
 
+#pragma mark - keyboard handling
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    scrollView.scrollEnabled = NO;
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    if (editingTargetTextFields) {
+        [scrollView setContentOffset:originalPoint animated:YES];
+    }
+    editingTargetTextFields = NO;
+    scrollView.pagingEnabled = YES;
+    scrollView.scrollEnabled = YES;
+
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    activeField = textField;
+    if (activeField == self.selectionWidthTextField || activeField == self.selectionHeightTextField ||
+        activeField == self.startingXTextField || activeField == self.startingYTextField)
+    {
+        return;
+    }
+    if (!editingTargetTextFields) {
+        originalPoint = CGPointMake(0.0, scrollView.contentOffset.y);
+        CGPoint scrollPoint = CGPointMake(0.0, scrollView.contentOffset.y + 170.0);
+        [scrollView setContentOffset:scrollPoint animated:YES];
+        editingTargetTextFields = YES;
+        scrollView.pagingEnabled = NO;
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    activeField = nil;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewWillAppear:(BOOL)animated
@@ -342,8 +393,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    scrollView.contentSize = CGSizeMake(320*9, 650);
+    scrollView.contentSize = CGSizeMake(320, 480*9);
     scrollView.pagingEnabled = YES;
+    [self registerForKeyboardNotifications];
 }
 
 - (void)viewDidUnload

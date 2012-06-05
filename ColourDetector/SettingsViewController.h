@@ -19,6 +19,9 @@
 
     AppDelegate *appDelegate;
     IBOutlet UIScrollView *scrollView;
+    UITextField *activeField;
+    CGPoint originalPoint;
+    BOOL editingTargetTextFields;
 
 }
 
