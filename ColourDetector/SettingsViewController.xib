@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
+		<int key="IBDocument.SystemTarget">1296</int>
 		<string key="IBDocument.SystemVersion">11E53</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.47</string>
@@ -37,12 +37,9 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="191373211">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -1130,7 +1127,7 @@
 						<string key="NSFrame">{{24, 2619}, {47, 21}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="863933519"/>
+						<reference key="NSNextKeyView" ref="213123938"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -1172,7 +1169,7 @@
 						<string key="NSFrame">{{149, 2598}, {47, 21}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="167759777"/>
+						<reference key="NSNextKeyView" ref="493538116"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -1193,7 +1190,7 @@
 						<string key="NSFrame">{{222, 2598}, {47, 21}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1038671523"/>
+						<reference key="NSNextKeyView" ref="950109390"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -2287,7 +2284,7 @@
 						<string key="NSFrame">{{98, 2614}, {43, 31}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="786522405"/>
+						<reference key="NSNextKeyView" ref="863933519"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -2316,7 +2313,7 @@
 						<string key="NSFrame">{{98, 2577}, {43, 31}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="493538116"/>
+						<reference key="NSNextKeyView" ref="786522405"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -2346,7 +2343,7 @@
 						<string key="NSFrame">{{170, 2614}, {43, 31}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="784915188"/>
+						<reference key="NSNextKeyView" ref="1038671523"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -2376,7 +2373,7 @@
 						<string key="NSFrame">{{169, 2577}, {43, 31}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="950109390"/>
+						<reference key="NSNextKeyView" ref="784915188"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -2436,7 +2433,7 @@
 						<string key="NSFrame">{{243, 2577}, {43, 31}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="213123938"/>
+						<reference key="NSNextKeyView" ref="167759777"/>
 						<string key="NSReuseIdentifierKey">_NS:304</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -3080,7 +3077,7 @@
 						<string key="NSFrame">{{51, 594}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="604107341"/>
+						<reference key="NSNextKeyView" ref="68011561"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -3121,39 +3118,6 @@
 							<reference ref="4"/>
 						</array>
 					</object>
-					<object class="IBUISegmentedControl" id="604107341">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 586}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="68011561"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
-					</object>
 					<object class="IBUILabel" id="602718120">
 						<reference key="NSNextResponder" ref="152608052"/>
 						<int key="NSvFlags">292</int>
@@ -3181,46 +3145,13 @@
 						<string key="NSFrame">{{51, 1074}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="79418983"/>
+						<reference key="NSNextKeyView" ref="1036562633"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="79418983">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 1066}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1036562633"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="1000377883">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -3249,46 +3180,13 @@
 						<string key="NSFrame">{{51, 1553}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="323064764"/>
+						<reference key="NSNextKeyView" ref="951511742"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="323064764">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 1546}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="951511742"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="1060887189">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -3317,46 +3215,13 @@
 						<string key="NSFrame">{{51, 2033}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="507674688"/>
+						<reference key="NSNextKeyView" ref="243646781"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="507674688">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 2026}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="243646781"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="374104001">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -3385,46 +3250,13 @@
 						<string key="NSFrame">{{51, 2513}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="760674452"/>
+						<reference key="NSNextKeyView" ref="387881058"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="760674452">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 2506}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="387881058"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="86882583">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -3453,46 +3285,13 @@
 						<string key="NSFrame">{{51, 2993}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="801204272"/>
+						<reference key="NSNextKeyView" ref="560563863"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="801204272">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 2986}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="560563863"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="836222798">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -3521,46 +3320,13 @@
 						<string key="NSFrame">{{51, 3473}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="204264763"/>
+						<reference key="NSNextKeyView" ref="741299538"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="204264763">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 3466}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="741299538"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="926754490">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -3589,46 +3355,13 @@
 						<string key="NSFrame">{{51, 3953}, {94, 27}}</string>
 						<reference key="NSSuperview" ref="152608052"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="167886119"/>
+						<reference key="NSNextKeyView" ref="377038564"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<bool key="IBUIOn">YES</bool>
-					</object>
-					<object class="IBUISegmentedControl" id="167886119">
-						<reference key="NSNextResponder" ref="152608052"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{152, 3946}, {148, 44}}</string>
-						<reference key="NSSuperview" ref="152608052"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="377038564"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBNumberOfSegments">2</int>
-						<int key="IBSelectedSegmentIndex">0</int>
-						<array key="IBSegmentTitles">
-							<string>RGB</string>
-							<string>HSV</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentWidths">
-							<real value="0.0"/>
-							<real value="0.0"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentEnabledStates">
-							<boolean value="YES"/>
-							<boolean value="YES"/>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentContentOffsets">
-							<string>{0, 0}</string>
-							<string>{0, 0}</string>
-						</array>
-						<array class="NSMutableArray" key="IBSegmentImages">
-							<reference ref="4"/>
-							<reference ref="4"/>
-						</array>
 					</object>
 					<object class="IBUILabel" id="499531164">
 						<reference key="NSNextResponder" ref="152608052"/>
@@ -4830,7 +4563,7 @@
 						<reference key="IBUIFont" ref="185030724"/>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 480}</string>
+				<string key="NSFrameSize">{320, 4320}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="778166377"/>
@@ -6599,7 +6332,6 @@
 							<reference ref="139029710"/>
 							<reference ref="1058953344"/>
 							<reference ref="27174776"/>
-							<reference ref="604107341"/>
 							<reference ref="747073870"/>
 							<reference ref="410607925"/>
 							<reference ref="747686808"/>
@@ -6609,25 +6341,18 @@
 							<reference ref="326449331"/>
 							<reference ref="602718120"/>
 							<reference ref="858629509"/>
-							<reference ref="79418983"/>
 							<reference ref="1000377883"/>
 							<reference ref="786479725"/>
-							<reference ref="323064764"/>
 							<reference ref="1060887189"/>
 							<reference ref="649253570"/>
-							<reference ref="507674688"/>
 							<reference ref="374104001"/>
 							<reference ref="1037133628"/>
-							<reference ref="760674452"/>
 							<reference ref="86882583"/>
 							<reference ref="748304993"/>
-							<reference ref="801204272"/>
 							<reference ref="836222798"/>
 							<reference ref="337244277"/>
-							<reference ref="204264763"/>
 							<reference ref="926754490"/>
 							<reference ref="625001722"/>
-							<reference ref="167886119"/>
 							<reference ref="1036562633"/>
 							<reference ref="436274494"/>
 							<reference ref="288331620"/>
@@ -7172,11 +6897,6 @@
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">594</int>
-						<reference key="object" ref="604107341"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">595</int>
 						<reference key="object" ref="499531164"/>
 						<reference key="parent" ref="152608052"/>
@@ -7227,11 +6947,6 @@
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">605</int>
-						<reference key="object" ref="79418983"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">606</int>
 						<reference key="object" ref="1000377883"/>
 						<reference key="parent" ref="152608052"/>
@@ -7239,11 +6954,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">607</int>
 						<reference key="object" ref="786479725"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">608</int>
-						<reference key="object" ref="323064764"/>
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -7257,11 +6967,6 @@
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">611</int>
-						<reference key="object" ref="507674688"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">612</int>
 						<reference key="object" ref="374104001"/>
 						<reference key="parent" ref="152608052"/>
@@ -7269,11 +6974,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">613</int>
 						<reference key="object" ref="1037133628"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">614</int>
-						<reference key="object" ref="760674452"/>
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -7287,11 +6987,6 @@
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">617</int>
-						<reference key="object" ref="801204272"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">618</int>
 						<reference key="object" ref="836222798"/>
 						<reference key="parent" ref="152608052"/>
@@ -7302,11 +6997,6 @@
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">620</int>
-						<reference key="object" ref="204264763"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">621</int>
 						<reference key="object" ref="926754490"/>
 						<reference key="parent" ref="152608052"/>
@@ -7314,11 +7004,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">622</int>
 						<reference key="object" ref="625001722"/>
-						<reference key="parent" ref="152608052"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">623</int>
-						<reference key="object" ref="167886119"/>
 						<reference key="parent" ref="152608052"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -7899,7 +7584,6 @@
 				<string key="591.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="592.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="593.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="594.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="595.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="596.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="597.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -7910,25 +7594,18 @@
 				<string key="602.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="603.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="604.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="605.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="606.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="607.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="608.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="609.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="610.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="611.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="612.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="613.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="614.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="615.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="616.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="617.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="618.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="619.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="620.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="621.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="622.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="623.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="624.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="625.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="626.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -8326,6 +8003,10 @@
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
+			<real value="1296" key="NS.object.0"/>
+		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
