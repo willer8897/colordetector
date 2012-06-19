@@ -390,7 +390,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    scrollView.contentSize = CGSizeMake(320, 480*9);
+    scrollView.contentSize = CGSizeMake(appDelegate.SCREEN_WIDTH_IN_POINTS, 
+                                        appDelegate.SCREEN_HEIGHT_IN_POINTS*9);
     scrollView.pagingEnabled = YES;
     [self registerForKeyboardNotifications];
 }

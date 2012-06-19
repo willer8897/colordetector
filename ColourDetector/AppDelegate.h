@@ -43,6 +43,9 @@
 @property (nonatomic, assign) int startingSelectionX;
 @property (nonatomic, assign) int startingSelectionY;
 
+@property (nonatomic, assign) int SCREEN_WIDTH_IN_POINTS;
+@property (nonatomic, assign) int SCREEN_HEIGHT_IN_POINTS;
+
 @property (retain, nonatomic) NSMutableArray *targets;
 
 @end

@@ -183,7 +183,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
             }
             // shift the selection rectangle so it will draw centered on the user's touch
             selectionX = loc.x + (appDelegate.currentBoxWidth/2);
-            selectionXimage = 320-selectionX;
+            // the touch input x coordinate is reversed here since
+            // the two views differ in the direction of their x axes
+            selectionXimage = appDelegate.SCREEN_WIDTH_IN_POINTS - selectionX;
             selectionY = loc.y - (appDelegate.currentBoxHeight/2);
 #ifdef DEBUG
             NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
