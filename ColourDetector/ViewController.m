@@ -24,8 +24,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize previewView;
 @synthesize selectionView;
 @synthesize rgbColourView;
-//@synthesize hueColourView;
-//@synthesize closestColourView;
 @synthesize infoLabel;
 @synthesize pixelBufferWidth;
 @synthesize pixelBufferHeight;
@@ -174,12 +172,16 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 #ifdef DEBUG
             NSLog(@"x -- %f y -- %f", loc.x, loc.y);
 #endif
+            // check to see that the x coordinate is not too far to the left
+            // as this will cause a crash in the pixel averaging code
+            // this should reposition the selection box close to the left edge in most situations
             if (loc.x < appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2) {
                 loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-1;
 #ifdef DEBUG
-                NSLog(@"seg fault averted");
+                NSLog(@"crash averted");
 #endif
             }
+            // shift the selection rectangle so it will draw centered on the user's touch
             selectionX = loc.x + (appDelegate.currentBoxWidth/2);
             selectionXimage = 320-selectionX;
             selectionY = loc.y - (appDelegate.currentBoxHeight/2);
@@ -211,26 +213,22 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [targetColours release]; targetColours=nil;
   [self setPreviewView:nil];
   [self setRgbColourView:nil];
-//  [self setHueColourView:nil];
-//  [self setClosestColourView:nil];
   [self setInfoLabel:nil];
   [settingsViewController release];
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-  [super viewWillAppear:animated];
-  [self.selectionView setNeedsDisplay];
-  // start grabbing frames from the camera
+    [super viewWillAppear:animated];
+    [self.selectionView setNeedsDisplay];
+    // start grabbing frames from the camera
     running = true;
     [self.runButton setTitle:@"On" forState:UIControlStateNormal];
     [self.lockButton setTitle:@"U" forState:UIControlStateNormal];
-  [self startCameraCapture];
-  // start updating the UI
-  updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
+    [self startCameraCapture];
+    // start updating the UI
+    updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateUI) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -240,10 +238,10 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[super viewWillDisappear:animated];
-  [self stopCameraCapture];
+    [super viewWillDisappear:animated];
+    [self stopCameraCapture];
     running = false;
-  [updateTimer invalidate]; updateTimer = nil;
+    [updateTimer invalidate]; updateTimer = nil;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -285,45 +283,6 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	*h *= 60;
 	if( *h < 0 ) 
 		*h += 360;
-}
-
-- (void)reportFocus:(int)focusMode {
-    switch (focusMode) {
-        case 0:
-            NSLog(@"Focus mode is AVCaptureFocusModeLocked");
-            NSLog(@"The focus is locked.");
-            break;
-        case 1:
-            NSLog(@"Focus mode is AVCaptureFocusModeAutoFocus");
-            NSLog(@"The capture device performs an autofocus operation now.");
-            break;
-        case 2:
-            NSLog(@"Focus mode is AVCaptureFocusModeContinuousAutoFocus");
-            NSLog(@"The capture device continuously monitors focus and auto focuses when necessary.");
-            break;
-
-        default:
-            break;
-    }
-}
-- (void)reportExposure:(int)exposureMode {
-    switch (exposureMode) {
-        case 0:
-            NSLog(@"Exposure mode is AVCaptureExposureModeLocked");
-            NSLog(@"The exposure setting is locked.");
-            break;
-        case 1:
-            NSLog(@"Exposure mode is AVCaptureExposureModeAutoExpose");
-            NSLog(@"The device performs an auto-expose operation now.");
-            break;
-        case 2:
-            NSLog(@"Exposure mode is AVCaptureExposureModeContinuousAutoExposure");
-            NSLog(@"The device continuously monitors exposure levels and auto exposes when necessary.");
-            break;
-
-        default:
-            break;
-    }
 }
 
 -(void) startCameraCapture {
@@ -395,8 +354,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	[videoOutput setSampleBufferDelegate:self queue:captureQueue];
   
 	// configure the pixel format
-	videoOutput.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA], (id)kCVPixelBufferPixelFormatTypeKey,
-                               nil];
+	videoOutput.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA], (id)kCVPixelBufferPixelFormatTypeKey,nil];
 	videoOutput.minFrameDuration=CMTimeMake(1, 10);
 	// and the size of the frames we want
 	[session setSessionPreset:AVCaptureSessionPresetMedium]; // don't need high resolution capture
@@ -410,9 +368,6 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-	static int count=0;
-	count++;
-	// only run if we're not already processing an image
 	// this is the image buffer
 	CVImageBufferRef cvimgRef = CMSampleBufferGetImageBuffer(sampleBuffer);
 	// Lock the image buffer
@@ -443,34 +398,34 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
         j = 0;
         i++;
 	}
-  // get the average RGB value in the range 0..1
+    // get the average RGB value in the range 0..1
 	r=cr/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
 	g=cg/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
 	b=cb/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
-  // get the hue saturation and value (brightness)
-  float ch,cs,cv;
-  RGBtoHSV(r, g, b, &ch, &cs, &cv);
-  h=ch; s=cs; v=cv;
-  // don't bother with colours that aren't saturated enough or are too dark
-  if(s>0.1 && v>0.1) {
-    // get the closest match
-    float minDistance = FLT_MAX;
-    for(UIColor *colour in targetColours) {
-      float targetHue, targetSat, targetValue;//, targetAlpha;
-      // only available on iOS5
-      //      [colour getHue:&targetHue saturation:&targetSat brightness:&targetValue alpha:&targetAlpha];
-      const float *colourComponents = CGColorGetComponents(colour.CGColor);
-      RGBtoHSV(colourComponents[0], colourComponents[1], colourComponents[2], &targetHue, &targetSat, &targetValue);
-      // get the hues in radians
-      float currentColourHueInRad = h * M_PI/180.0;
-      float targetColourHueInRad = targetHue * M_PI/180.0;
-      // compute the angular difference
-      float difference = fabs(atan2(sin(currentColourHueInRad-targetColourHueInRad), cos(currentColourHueInRad-targetColourHueInRad))*180.0/M_PI);
-      if(difference<minDistance) {
-        minDistance = difference;
-        closestColour = colour;
+    // get the hue saturation and value (brightness)
+    float ch,cs,cv;
+    RGBtoHSV(r, g, b, &ch, &cs, &cv);
+    h=ch; s=cs; v=cv;
+    // don't bother with colours that aren't saturated enough or are too dark
+    if(s>0.1 && v>0.1) {
+      // get the closest match
+      float minDistance = FLT_MAX;
+      for(UIColor *colour in targetColours) {
+        float targetHue, targetSat, targetValue; //, targetAlpha;
+        // only available on iOS5
+        // [colour getHue:&targetHue saturation:&targetSat brightness:&targetValue alpha:&targetAlpha];
+        const float *colourComponents = CGColorGetComponents(colour.CGColor);
+        RGBtoHSV(colourComponents[0], colourComponents[1], colourComponents[2], &targetHue, &targetSat, &targetValue);
+        // get the hues in radians
+        float currentColourHueInRad = h * M_PI/180.0;
+        float targetColourHueInRad = targetHue * M_PI/180.0;
+        // compute the angular difference
+        float difference = fabs(atan2(sin(currentColourHueInRad-targetColourHueInRad), cos(currentColourHueInRad-targetColourHueInRad))*180.0/M_PI);
+        if(difference<minDistance) {
+          minDistance = difference;
+          closestColour = colour;
+        }
       }
-    }
   } else {
     // can't match the colours when the camera is looking at something very dark or very pale
     closestColour = nil;
@@ -606,17 +561,9 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 
 // do this on a timer as the captureOutput runs on it's own thread and can't update the UI
 -(void) updateUI {
-  // the raw RGB colour
-  rgbColourView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-  // the colour from the hue component ignoring the saturation and brighness components
-//  if(s>0.1 && v>0.1) {
-//    hueColourView.backgroundColor = [UIColor colorWithHue:h/360.0 saturation:1.0 brightness:1.0 alpha:1.0];
-//  } else {
-//    hueColourView.backgroundColor = [UIColor blackColor];
-//  }
-  // set the closest colour
-//  closestColourView.backgroundColor = closestColour!=nil ? closestColour : [UIColor blackColor];
-  infoLabel.text = [NSString stringWithFormat:@"RGB=%.f,%.f,%.f Hue=%.f Sat=%.2f Val=%.2f", r*255, g*255, b*255, h, s, v];
+    // the raw RGB colour
+    rgbColourView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+    infoLabel.text = [NSString stringWithFormat:@"RGB=%.f,%.f,%.f Hue=%.f Sat=%.2f Val=%.2f", r*255, g*255, b*255, h, s, v];
 
     UIColor *color;
     for (int i = 0; i < [appDelegate.targets count]; ++i) {
@@ -674,16 +621,12 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 - (void)dealloc {
   [previewView release];
   [rgbColourView release];
-//  [hueColourView release];
-//  [closestColourView release];
   [infoLabel release];
   [super dealloc];
 }
 
 UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
-#ifdef DEBUG
-  NSLog(@"inside imageFromSampleBuffer");
-#endif
+
   CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
   // Lock the base address of the pixel buffer.
   CVPixelBufferLockBaseAddress(imageBuffer,0);
@@ -726,6 +669,45 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
   CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
 
   return image;
+}
+
+- (void)reportFocus:(int)focusMode {
+    switch (focusMode) {
+        case 0:
+            NSLog(@"Focus mode is AVCaptureFocusModeLocked");
+            NSLog(@"The focus is locked.");
+            break;
+        case 1:
+            NSLog(@"Focus mode is AVCaptureFocusModeAutoFocus");
+            NSLog(@"The capture device performs an autofocus operation now.");
+            break;
+        case 2:
+            NSLog(@"Focus mode is AVCaptureFocusModeContinuousAutoFocus");
+            NSLog(@"The capture device continuously monitors focus and auto focuses when necessary.");
+            break;
+
+        default:
+            break;
+    }
+}
+- (void)reportExposure:(int)exposureMode {
+    switch (exposureMode) {
+        case 0:
+            NSLog(@"Exposure mode is AVCaptureExposureModeLocked");
+            NSLog(@"The exposure setting is locked.");
+            break;
+        case 1:
+            NSLog(@"Exposure mode is AVCaptureExposureModeAutoExpose");
+            NSLog(@"The device performs an auto-expose operation now.");
+            break;
+        case 2:
+            NSLog(@"Exposure mode is AVCaptureExposureModeContinuousAutoExposure");
+            NSLog(@"The device continuously monitors exposure levels and auto exposes when necessary.");
+            break;
+
+        default:
+            break;
+    }
 }
 
 @end

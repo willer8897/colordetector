@@ -36,6 +36,9 @@
 @property (retain, nonatomic) IBOutlet UITextField *startingXTextField;
 @property (retain, nonatomic) IBOutlet UITextField *startingYTextField;
 
+// The text fields which hold the maximum and minimum RGB values (targets) are IBOutletCollections
+// they are tagged with numbers in Interface Builder and then sorted before being used to ensure
+// accessing them in the proper order
 @property (nonatomic, retain) IBOutletCollection(UITextField) NSArray *target1TextFields;
 @property (retain, nonatomic) IBOutlet UISwitch *target1Switch;
 @property (nonatomic, retain) IBOutletCollection(UITextField) NSArray *target2TextFields;

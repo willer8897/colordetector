@@ -199,9 +199,6 @@
     [appDelegate saveSettings];
     [appDelegate saveTargets];
     [self.presentingViewController dismissModalViewControllerAnimated:YES];
-#ifdef DEBUG
-    NSLog(@"object %@", self.presentingViewController);
-#endif
     [appDelegate setStartingCoordinates];
 }
 
@@ -405,8 +402,6 @@
     [self setStartingXTextField:nil];
     [self setStartingYTextField:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

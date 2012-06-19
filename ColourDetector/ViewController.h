@@ -14,29 +14,29 @@
 @class AppDelegate;
 
 @interface ViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
-  AVCaptureSession *session;
-  NSTimer *updateTimer;
-  UIView *previewView;
-  float r,g,b;
-  float h,s,v;
-  
-  NSArray *targetColours;
-  UIColor *closestColour;
+    AVCaptureSession *session;
+    NSTimer *updateTimer;
+    UIView *previewView;
+    float r,g,b;  // red, green, blue
+    float h,s,v;  // hue, saturation, value
 
-  AppDelegate *appDelegate;
-  BOOL captureImage;
-  BOOL running;
-  BOOL locked;
-  BOOL uiHidden;
-  int pixelBufferWidth;
-  int pixelBufferHeight;
-  // the starting points for where the rectangle will be drawn
-  CGFloat selectionX;
-  CGFloat selectionXimage;
-  CGFloat selectionY;
-  int pixelStartX;
-  int pixelStartY;
-  SettingsViewController *settingsViewController;
+    NSArray *targetColours;
+    UIColor *closestColour;
+
+    AppDelegate *appDelegate;
+    BOOL captureImage;
+    BOOL running;
+    BOOL locked;
+    BOOL uiHidden;
+    int pixelBufferWidth;
+    int pixelBufferHeight;
+    // the starting points for where the rectangle will be drawn
+    CGFloat selectionX;
+    CGFloat selectionXimage;
+    CGFloat selectionY;
+    int pixelStartX;
+    int pixelStartY;
+    SettingsViewController *settingsViewController;
 }
 
 - (IBAction)captureImage;
@@ -53,8 +53,6 @@
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
 @property (retain, nonatomic) IBOutlet UIView *rgbColourView;
-//@property (retain, nonatomic) IBOutlet UIView *hueColourView;
-//@property (retain, nonatomic) IBOutlet UIView *closestColourView;
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
 @property (retain, nonatomic) IBOutlet UILabel *currentColor;
 @property (retain, nonatomic) IBOutlet UILabel *topLable;

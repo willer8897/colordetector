@@ -243,8 +243,8 @@
 - (void)dealloc
 {
     [targets release];
-  [_window release];
-  [_viewController release];
+    [_window release];
+    [_viewController release];
     [super dealloc];
 }
 
@@ -252,8 +252,8 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-  self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-  self.window.rootViewController = self.viewController;
+    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
+    self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
 #ifdef DEBUG
@@ -263,8 +263,7 @@
 
     heightScaleFactor = self.viewController.pixelBufferHeight / 480.0;
     widthScaleFactor = self.viewController.pixelBufferWidth / 320.0;
-    //for  iOS5-4GS heightScaleFactor = 1;
-    //widthScaleFactor = 1.125;
+
 #ifdef DEBUG
     NSLog(@"heightScaleFactor - %f", heightScaleFactor);
     NSLog(@"widthScaleFactor - %f", widthScaleFactor);
