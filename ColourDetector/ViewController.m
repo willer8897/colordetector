@@ -202,15 +202,12 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  // crate some target colours to match against
-  targetColours = [[NSArray alloc] initWithObjects:[UIColor redColor], [UIColor blueColor], [UIColor greenColor], [UIColor yellowColor], nil];
   appDelegate = [[UIApplication sharedApplication] delegate];
   settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
 }
 
 - (void)viewDidUnload
 {
-  [targetColours release]; targetColours=nil;
   [self setPreviewView:nil];
   [self setRgbColourView:nil];
   [self setInfoLabel:nil];
@@ -406,45 +403,22 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     float ch,cs,cv;
     RGBtoHSV(r, g, b, &ch, &cs, &cv);
     h=ch; s=cs; v=cv;
-    // don't bother with colours that aren't saturated enough or are too dark
-    if(s>0.1 && v>0.1) {
-      // get the closest match
-      float minDistance = FLT_MAX;
-      for(UIColor *colour in targetColours) {
-        float targetHue, targetSat, targetValue; //, targetAlpha;
-        // only available on iOS5
-        // [colour getHue:&targetHue saturation:&targetSat brightness:&targetValue alpha:&targetAlpha];
-        const float *colourComponents = CGColorGetComponents(colour.CGColor);
-        RGBtoHSV(colourComponents[0], colourComponents[1], colourComponents[2], &targetHue, &targetSat, &targetValue);
-        // get the hues in radians
-        float currentColourHueInRad = h * M_PI/180.0;
-        float targetColourHueInRad = targetHue * M_PI/180.0;
-        // compute the angular difference
-        float difference = fabs(atan2(sin(currentColourHueInRad-targetColourHueInRad), cos(currentColourHueInRad-targetColourHueInRad))*180.0/M_PI);
-        if(difference<minDistance) {
-          minDistance = difference;
-          closestColour = colour;
-        }
-      }
-  } else {
-    // can't match the colours when the camera is looking at something very dark or very pale
-    closestColour = nil;
-  }
-  if (captureImage) {
-    captureImage = false;
-    // combine current image capture with current selection rectangle
-    UIImage *image = imageFromSampleBuffer(sampleBuffer);
-    CGSize image_size = CGSizeMake(pixelBufferWidth, pixelBufferHeight);
-    UIGraphicsBeginImageContextWithOptions(image_size, NO, 1.0);
-    [image drawAtPoint:CGPointMake(0, 0)];
-    [self drawSelectionRectToSavedImage];
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
 
-    // Request to save the image to the camera roll
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-    sleep(1);
-  }
+    if (captureImage) {
+        captureImage = false;
+        // combine current image capture with current selection rectangle
+        UIImage *image = imageFromSampleBuffer(sampleBuffer);
+        CGSize image_size = CGSizeMake(pixelBufferWidth, pixelBufferHeight);
+        UIGraphicsBeginImageContextWithOptions(image_size, NO, 1.0);
+        [image drawAtPoint:CGPointMake(0, 0)];
+        [self drawSelectionRectToSavedImage];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        // Request to save the image to the camera roll
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        sleep(1);
+    }
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {

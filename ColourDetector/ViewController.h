@@ -20,9 +20,6 @@
     float r,g,b;  // red, green, blue
     float h,s,v;  // hue, saturation, value
 
-    NSArray *targetColours;
-    UIColor *closestColour;
-
     AppDelegate *appDelegate;
     BOOL captureImage;
     BOOL running;
