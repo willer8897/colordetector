@@ -38,7 +38,7 @@
     }
     self.viewController.selectionX = startingSelectionX + (currentBoxWidth/2);
     self.viewController.selectionY = startingSelectionY - (currentBoxHeight/2);
-    self.viewController.selectionXimage = self.SCREEN_WIDTH_IN_POINTS - self.viewController.selectionX;
+    self.viewController.selectionXimage = SCREEN_WIDTH_IN_POINTS - self.viewController.selectionX;
 }
 
 #pragma mark - archive/unarchive Targets
@@ -197,8 +197,8 @@
         settings = [[NSMutableDictionary alloc] init];
         [settings setObject:[NSNumber numberWithInt:75] forKey:@"currentBoxWidth"];
         [settings setObject:[NSNumber numberWithInt:75] forKey:@"currentBoxHeight"];
-        [settings setObject:[NSNumber numberWithInt:(self.SCREEN_WIDTH_IN_POINTS / 2)] forKey:@"startingSelectionX"];
-        [settings setObject:[NSNumber numberWithInt:(self.SCREEN_HEIGHT_IN_POINTS / 2)] forKey:@"startingSelectionY"];
+        [settings setObject:[NSNumber numberWithInt:(SCREEN_WIDTH_IN_POINTS / 2)] forKey:@"startingSelectionX"];
+        [settings setObject:[NSNumber numberWithInt:(SCREEN_HEIGHT_IN_POINTS / 2)] forKey:@"startingSelectionY"];
         [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"exposureLock"];
         [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"focusLock"];
     }
@@ -265,16 +265,16 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
-    self.SCREEN_WIDTH_IN_POINTS = 320;
-    self.SCREEN_HEIGHT_IN_POINTS = 480;
+    SCREEN_WIDTH_IN_POINTS = 320.0;
+    SCREEN_HEIGHT_IN_POINTS = 480.0;
 
 #ifdef DEBUG
     NSLog(@"pixelBufferWidth - %d", self.viewController.pixelBufferWidth);
     NSLog(@"pixelBufferHeight - %d", self.viewController.pixelBufferHeight);
 #endif
 
-    heightScaleFactor = self.viewController.pixelBufferHeight / self.SCREEN_HEIGHT_IN_POINTS;
-    widthScaleFactor = self.viewController.pixelBufferWidth / self.SCREEN_WIDTH_IN_POINTS;
+    heightScaleFactor = self.viewController.pixelBufferHeight / SCREEN_HEIGHT_IN_POINTS;
+    widthScaleFactor = self.viewController.pixelBufferWidth / SCREEN_WIDTH_IN_POINTS;
 
 #ifdef DEBUG
     NSLog(@"heightScaleFactor - %f", heightScaleFactor);

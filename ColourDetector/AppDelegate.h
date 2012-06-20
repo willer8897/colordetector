@@ -13,6 +13,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
     CGFloat heightScaleFactor;
     CGFloat widthScaleFactor;
+    CGFloat SCREEN_WIDTH_IN_POINTS;
+    CGFloat SCREEN_HEIGHT_IN_POINTS;
     int currentBoxWidth;
     int currentBoxHeight;
     int startingSelectionX;
@@ -45,8 +47,8 @@
 @property (nonatomic, assign) BOOL exposureLock;
 @property (nonatomic, assign) BOOL focusLock;
 
-@property (nonatomic, assign) int SCREEN_WIDTH_IN_POINTS;
-@property (nonatomic, assign) int SCREEN_HEIGHT_IN_POINTS;
+@property (nonatomic, readonly) CGFloat SCREEN_WIDTH_IN_POINTS;
+@property (nonatomic, readonly) CGFloat SCREEN_HEIGHT_IN_POINTS;
 
 @property (retain, nonatomic) NSMutableArray *targets;
 
