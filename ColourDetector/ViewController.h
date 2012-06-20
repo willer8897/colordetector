@@ -72,5 +72,7 @@
 @property (nonatomic, assign) CGFloat selectionY;
 @property (nonatomic, retain) SettingsViewController *settingsViewController;
 @property (nonatomic, readonly) BOOL locked;
+@property (nonatomic, assign) BOOL isExposureLockSupported;
+@property (nonatomic, assign) BOOL isFocusLockSupported;
 
 @end

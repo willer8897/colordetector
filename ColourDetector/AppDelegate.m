@@ -24,6 +24,8 @@
 @synthesize targets;
 @synthesize SCREEN_WIDTH_IN_POINTS;
 @synthesize SCREEN_HEIGHT_IN_POINTS;
+@synthesize exposureLock;
+@synthesize focusLock;
 
 #pragma mark -
 
@@ -197,6 +199,8 @@
         [settings setObject:[NSNumber numberWithInt:75] forKey:@"currentBoxHeight"];
         [settings setObject:[NSNumber numberWithInt:(self.SCREEN_WIDTH_IN_POINTS / 2)] forKey:@"startingSelectionX"];
         [settings setObject:[NSNumber numberWithInt:(self.SCREEN_HEIGHT_IN_POINTS / 2)] forKey:@"startingSelectionY"];
+        [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"exposureLock"];
+        [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"focusLock"];
     }
 
     // Get the settings from the settings dictionary
@@ -204,6 +208,8 @@
     self.currentBoxHeight = [[settings valueForKey:@"currentBoxHeight"] intValue];
     self.startingSelectionX = [[settings valueForKey:@"startingSelectionX"] intValue];
     self.startingSelectionY = [[settings valueForKey:@"startingSelectionY"] intValue];
+    self.exposureLock = [[settings valueForKey:@"exposureLock"] boolValue];
+    self.focusLock = [[settings valueForKey:@"focusLock"] boolValue];
 
 }
 
@@ -224,6 +230,7 @@
     NSNumber *y = [NSNumber numberWithInt:[self.viewController.settingsViewController.startingYTextField.text intValue]];
     [settings setObject:y forKey:@"startingSelectionY"];
     self.startingSelectionY = [y intValue];
+
 
     [settings writeToFile:settingsFilePath atomically:YES];
 #ifdef DEBUG

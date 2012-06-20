@@ -46,6 +46,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize currentColor;
 @synthesize topLable;
 @synthesize settingsButton;
+@synthesize isExposureLockSupported;
+@synthesize isFocusLockSupported;
 
 - (void)didReceiveMemoryWarning
 {
@@ -298,6 +300,13 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   	
 	// Get the default camera device
 	AVCaptureDevice* camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
+        self.isFocusLockSupported = YES;
+    }
+    if ([camera isExposureModeSupported:AVCaptureExposureModeLocked]) {
+        self.isExposureLockSupported = YES;
+    }
 
 #if DEBUG
     [self reportFocus:camera.focusMode];
@@ -306,35 +315,74 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 
     // attempt to lock the focus and exposure
     NSError *error = nil;
+    if (self.isFocusLockSupported) {
+        if (appDelegate.focusLock) {
 #if DEBUG
-    NSLog(@"Attempting to lock focus.");
+            NSLog(@"Attempting to lock focus.");
 #endif
-    if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
-        if ([camera lockForConfiguration:&error]) {
-            camera.focusMode = AVCaptureFocusModeLocked;
-            [camera unlockForConfiguration];
-        } else {
-            NSLog(@"Error trying to obtain configuration lock to set focus: %@",error);
-        }
-    }
-#if DEBUG
-    [self reportFocus:camera.focusMode];
-#endif
+            if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
+                if ([camera lockForConfiguration:&error]) {
+                    camera.focusMode = AVCaptureFocusModeLocked;
+                    [camera unlockForConfiguration];
+                } else {
+                    NSLog(@"Error trying to obtain configuration lock to set focus: %@",error);
+                }
+            }
 
-#if DEBUG
-    NSLog(@"Attempting to lock exposure.");
-#endif
-    if ([camera isExposureModeSupported:AVCaptureExposureModeLocked]) {
-        if ([camera lockForConfiguration:&error]) {
-            camera.exposureMode = AVCaptureExposureModeLocked;
-            [camera unlockForConfiguration];
         } else {
-            NSLog(@"Error trying to obtain configuration lock to set exposure: %@",error);
-        }
-    }
 #if DEBUG
-    [self reportExposure:camera.exposureMode];
+            NSLog(@"Unlocking focus.");
 #endif
+            if ([camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
+                if ([camera lockForConfiguration:&error]) {
+                    camera.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+                    [camera unlockForConfiguration];
+                } else {
+                    NSLog(@"Error trying to obtain configuration lock to set focus: %@",error);
+                }
+            }
+        }
+#if DEBUG
+        [self reportFocus:camera.focusMode];
+#endif
+    } else {
+        NSLog(@"Focus locking not supported on this device.");
+    }
+
+    if (self.isExposureLockSupported) {
+        if (appDelegate.exposureLock) {
+#if DEBUG
+            NSLog(@"Attempting to lock exposure.");
+#endif
+            if ([camera isExposureModeSupported:AVCaptureExposureModeLocked]) {
+                if ([camera lockForConfiguration:&error]) {
+                    camera.exposureMode = AVCaptureExposureModeLocked;
+                    [camera unlockForConfiguration];
+                } else {
+                    NSLog(@"Error trying to obtain configuration lock to set exposure: %@",error);
+                }
+            }
+
+        } else {
+#if DEBUG
+            NSLog(@"Unlocking exposure.");
+#endif
+            if ([camera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+                if ([camera lockForConfiguration:&error]) {
+                    camera.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+                    [camera unlockForConfiguration];
+                } else {
+                    NSLog(@"Error trying to obtain configuration lock to set exposure: %@",error);
+                }
+            }
+        }
+#if DEBUG
+        [self reportExposure:camera.exposureMode];
+#endif
+    } else {
+        NSLog(@"Exposure locking not supported on this device.");
+    }
+
 
 	// Create a AVCaptureInput with the camera device
 	error=nil;

@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "AppDelegate.h"
 #import "Target.h"
+#import "ViewController.h"
 
 @implementation SettingsViewController
 
@@ -20,6 +21,8 @@
 @synthesize selectionHeight;
 @synthesize startingX;
 @synthesize startingY;
+@synthesize exposureLock;
+@synthesize focusLock;
 @synthesize target1TextFields;
 @synthesize target1Switch;
 @synthesize target2TextFields;
@@ -85,6 +88,14 @@
     NSLog(@"startingY -- %@", self.startingY);
 #endif
     return YES;
+}
+
+- (IBAction)exposureLockChanged:(UISwitch*)sender {
+    appDelegate.exposureLock = sender.on;
+}
+
+- (IBAction)focusLockChanged:(UISwitch*)sender {
+    appDelegate.focusLock = sender.on;
 }
 
 - (IBAction)NONCChanged:(UISegmentedControl*)sender {
@@ -294,6 +305,18 @@
     startingXTextField.text = s;
     s = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionY];
     startingYTextField.text = s;
+    exposureLock.on = appDelegate.exposureLock;
+    focusLock.on = appDelegate.focusLock;
+    if (appDelegate.viewController.isExposureLockSupported) {
+        exposureLock.enabled = YES;
+    } else {
+        exposureLock.enabled = NO;
+    }
+    if (appDelegate.viewController.isFocusLockSupported) {
+        focusLock.enabled = YES;
+    } else {
+        focusLock.enabled = NO;
+    }
 
     int targetIndex = 0;
     Target *target = [appDelegate.targets objectAtIndex:targetIndex];

@@ -42,6 +42,8 @@
 @property (nonatomic, assign) int currentBoxHeight;
 @property (nonatomic, assign) int startingSelectionX;
 @property (nonatomic, assign) int startingSelectionY;
+@property (nonatomic, assign) BOOL exposureLock;
+@property (nonatomic, assign) BOOL focusLock;
 
 @property (nonatomic, assign) int SCREEN_WIDTH_IN_POINTS;
 @property (nonatomic, assign) int SCREEN_HEIGHT_IN_POINTS;

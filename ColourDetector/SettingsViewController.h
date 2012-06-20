@@ -30,11 +30,15 @@
 - (IBAction)lightEnabledChanged:(UISwitch*)sender;
 - (IBAction)NONCChanged:(UISegmentedControl*)sender;
 - (void)updateTargetTextFields:(NSArray *)sortedArray :(int)targetIndex;
+- (IBAction)exposureLockChanged:(UISwitch*)sender;
+- (IBAction)focusLockChanged:(UISwitch*)sender;
 
 @property (retain, nonatomic) IBOutlet UITextField *selectionWidthTextField;
 @property (retain, nonatomic) IBOutlet UITextField *selectionHeightTextField;
 @property (retain, nonatomic) IBOutlet UITextField *startingXTextField;
 @property (retain, nonatomic) IBOutlet UITextField *startingYTextField;
+@property (retain, nonatomic) IBOutlet UISwitch *exposureLock;
+@property (retain, nonatomic) IBOutlet UISwitch *focusLock;
 
 // The text fields which hold the maximum and minimum RGB values (targets) are IBOutletCollections
 // they are tagged with numbers in Interface Builder and then sorted before being used to ensure
