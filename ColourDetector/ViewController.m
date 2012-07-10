@@ -48,6 +48,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize settingsButton;
 @synthesize isExposureLockSupported;
 @synthesize isFocusLockSupported;
+@synthesize rgbLabel;
+@synthesize hueLabel;
 
 - (void)didReceiveMemoryWarning
 {
@@ -97,6 +99,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 - (IBAction)hideUI {
     if (uiHidden) {
         infoLabel.hidden = false;
+        rgbLabel.hidden = false;
+        hueLabel.hidden = false;
         topLable.hidden = false;
         currentColor.hidden = false;
         rgbColourView.hidden = false;
@@ -127,6 +131,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         uiHidden = false;
     } else {
         infoLabel.hidden = true;
+        rgbLabel.hidden = true;
+        hueLabel.hidden = true;
         topLable.hidden = true;
         currentColor.hidden = true;
         rgbColourView.hidden = true;
@@ -587,7 +593,8 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 -(void) updateUI {
     // the raw RGB colour
     rgbColourView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
-    infoLabel.text = [NSString stringWithFormat:@"RGB=%.f,%.f,%.f Hue=%.f Sat=%.2f Val=%.2f", r*255, g*255, b*255, h, s, v];
+    rgbLabel.text = [NSString stringWithFormat:@"RGB = %.f,%.f,%.f", r*255, g*255, b*255];
+    hueLabel.text = [NSString stringWithFormat:@"Hue = %.f Sat = %.2f Val = %.2f", h, s, v];
 
     UIColor *color;
     for (int i = 0; i < [appDelegate.targets count]; ++i) {
