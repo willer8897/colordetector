@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F91A4AB14B26E8D00E37C78 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */; };
-		5F91A4AC14B26E8D00E37C78 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */; };
+		5F098CCE15ACA37500D9E61A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F098CCC15ACA37500D9E61A /* SettingsViewController.m */; };
+		5F098CCF15ACA37500D9E61A /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F098CCD15ACA37500D9E61A /* SettingsViewController.xib */; };
+		5F91A4AB14B26E8D00E37C78 /* OutputsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F91A4A914B26E8D00E37C78 /* OutputsViewController.m */; };
+		5F91A4AC14B26E8D00E37C78 /* OutputsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F91A4AA14B26E8D00E37C78 /* OutputsViewController.xib */; };
 		5F93944C148D73D100707D33 /* selectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F93944B148D73D100707D33 /* selectionView.m */; };
 		5FDEF6F414C0874000FD98F7 /* Target.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDEF6F314C0874000FD98F7 /* Target.m */; };
 		8344F12A143DBC5D00AB1663 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8344F129143DBC5D00AB1663 /* UIKit.framework */; };
@@ -25,9 +27,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5F91A4A814B26E8D00E37C78 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		5F098CCB15ACA37500D9E61A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		5F098CCC15ACA37500D9E61A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		5F098CCD15ACA37500D9E61A /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		5F91A4A814B26E8D00E37C78 /* OutputsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutputsViewController.h; sourceTree = "<group>"; };
+		5F91A4A914B26E8D00E37C78 /* OutputsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutputsViewController.m; sourceTree = "<group>"; };
+		5F91A4AA14B26E8D00E37C78 /* OutputsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutputsViewController.xib; sourceTree = "<group>"; };
 		5F93944A148D73D100707D33 /* selectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = selectionView.h; path = ../selectionView.h; sourceTree = "<group>"; };
 		5F93944B148D73D100707D33 /* selectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = selectionView.m; path = ../selectionView.m; sourceTree = "<group>"; };
 		5FDEF6F214C0874000FD98F7 /* Target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Target.h; sourceTree = "<group>"; };
@@ -109,9 +114,12 @@
 				8344F13E143DBC5D00AB1663 /* ViewController.xib */,
 				5F93944A148D73D100707D33 /* selectionView.h */,
 				5F93944B148D73D100707D33 /* selectionView.m */,
-				5F91A4A814B26E8D00E37C78 /* SettingsViewController.h */,
-				5F91A4A914B26E8D00E37C78 /* SettingsViewController.m */,
-				5F91A4AA14B26E8D00E37C78 /* SettingsViewController.xib */,
+				5F91A4A814B26E8D00E37C78 /* OutputsViewController.h */,
+				5F91A4A914B26E8D00E37C78 /* OutputsViewController.m */,
+				5F91A4AA14B26E8D00E37C78 /* OutputsViewController.xib */,
+				5F098CCB15ACA37500D9E61A /* SettingsViewController.h */,
+				5F098CCC15ACA37500D9E61A /* SettingsViewController.m */,
+				5F098CCD15ACA37500D9E61A /* SettingsViewController.xib */,
 				8344F130143DBC5D00AB1663 /* Supporting Files */,
 			);
 			path = ColourDetector;
@@ -180,7 +188,8 @@
 			files = (
 				8344F134143DBC5D00AB1663 /* InfoPlist.strings in Resources */,
 				8344F140143DBC5D00AB1663 /* ViewController.xib in Resources */,
-				5F91A4AC14B26E8D00E37C78 /* SettingsViewController.xib in Resources */,
+				5F91A4AC14B26E8D00E37C78 /* OutputsViewController.xib in Resources */,
+				5F098CCF15ACA37500D9E61A /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,8 +204,9 @@
 				8344F13A143DBC5D00AB1663 /* AppDelegate.m in Sources */,
 				8344F13D143DBC5D00AB1663 /* ViewController.m in Sources */,
 				5F93944C148D73D100707D33 /* selectionView.m in Sources */,
-				5F91A4AB14B26E8D00E37C78 /* SettingsViewController.m in Sources */,
+				5F91A4AB14B26E8D00E37C78 /* OutputsViewController.m in Sources */,
 				5FDEF6F414C0874000FD98F7 /* Target.m in Sources */,
+				5F098CCE15ACA37500D9E61A /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

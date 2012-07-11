@@ -30,10 +30,12 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize selectionX;
 @synthesize selectionXimage;
 @synthesize selectionY;
+@synthesize outputsViewController;
 @synthesize settingsViewController;
 @synthesize runButton;
 @synthesize lockButton;
 @synthesize photoButton;
+@synthesize outputsButton;
 @synthesize output1;
 @synthesize output2;
 @synthesize output3;
@@ -42,6 +44,14 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize output6;
 @synthesize output7;
 @synthesize output8;
+@synthesize outputButton1;
+@synthesize outputButton2;
+@synthesize outputButton3;
+@synthesize outputButton4;
+@synthesize outputButton5;
+@synthesize outputButton6;
+@synthesize outputButton7;
+@synthesize outputButton8;
 @synthesize locked;
 @synthesize currentColor;
 @synthesize topLable;
@@ -50,6 +60,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize isFocusLockSupported;
 @synthesize rgbLabel;
 @synthesize hueLabel;
+@synthesize outputScreen;
 
 - (void)didReceiveMemoryWarning
 {
@@ -58,6 +69,30 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 }
 
 #pragma mark - Interface buttons
+
+- (IBAction)showOutputButtons {
+    if (!buttonsVisible) {
+        outputButton1.hidden = false;
+        outputButton2.hidden = false;
+        outputButton3.hidden = false;
+        outputButton4.hidden = false;
+        outputButton5.hidden = false;
+        outputButton6.hidden = false;
+        outputButton7.hidden = false;
+        outputButton8.hidden = false;
+        buttonsVisible = true;
+    } else {
+        outputButton1.hidden = true;
+        outputButton2.hidden = true;
+        outputButton3.hidden = true;
+        outputButton4.hidden = true;
+        outputButton5.hidden = true;
+        outputButton6.hidden = true;
+        outputButton7.hidden = true;
+        outputButton8.hidden = true;
+        buttonsVisible = false;
+    }
+}
 
 - (IBAction)captureImage {
 #ifdef DEBUG
@@ -71,6 +106,34 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     NSLog(@"settings button pressed");
 #endif
     [self presentModalViewController:settingsViewController animated:YES];
+}
+
+- (IBAction)showOutputsView:(UIButton*)sender {
+    if ([sender isEqual:outputButton1]) {
+        outputScreen = 1;
+    }
+    if ([sender isEqual:outputButton2]) {
+        outputScreen = 2;
+    }
+    if ([sender isEqual:outputButton3]) {
+        outputScreen = 3;
+    }
+    if ([sender isEqual:outputButton4]) {
+        outputScreen = 4;
+    }
+    if ([sender isEqual:outputButton5]) {
+        outputScreen = 5;
+    }
+    if ([sender isEqual:outputButton6]) {
+        outputScreen = 6;
+    }
+    if ([sender isEqual:outputButton7]) {
+        outputScreen = 7;
+    }
+    if ([sender isEqual:outputButton8]) {
+        outputScreen = 8;
+    }
+    [self presentModalViewController:outputsViewController animated:YES];
 }
 
 - (IBAction)startStop {
@@ -128,6 +191,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         output7.hidden = false;
         [self.output8 setEnabled:true];
         output8.hidden = false;
+        outputsButton.hidden = false;
         uiHidden = false;
     } else {
         infoLabel.hidden = true;
@@ -160,6 +224,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         output7.hidden = true;
         [self.output8 setEnabled:false];
         output8.hidden = true;
+        outputsButton.hidden = true;
         uiHidden = true;
     }
 
@@ -213,6 +278,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 {
   [super viewDidLoad];
   appDelegate = [[UIApplication sharedApplication] delegate];
+  outputsViewController = [[OutputsViewController alloc] initWithNibName:@"OutputsViewController" bundle:[NSBundle mainBundle]];
   settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
 }
 
@@ -221,6 +287,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [self setPreviewView:nil];
   [self setRgbColourView:nil];
   [self setInfoLabel:nil];
+  [outputsViewController release];
   [settingsViewController release];
   [super viewDidUnload];
 }
@@ -228,6 +295,15 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    outputButton1.hidden = true;
+    outputButton2.hidden = true;
+    outputButton3.hidden = true;
+    outputButton4.hidden = true;
+    outputButton5.hidden = true;
+    outputButton6.hidden = true;
+    outputButton7.hidden = true;
+    outputButton8.hidden = true;
+    buttonsVisible = false;
     [self.selectionView setNeedsDisplay];
     // start grabbing frames from the camera
     running = true;
