@@ -44,6 +44,17 @@
                                   appDelegate.currentBoxHeight / appDelegate.heightScaleFactor);
     CGContextAddRect(context, rectangle);
     CGContextStrokePath(context);
+
+    UIColor *outlineColor = [UIColor whiteColor];
+    CGContextSetStrokeColorWithColor(context, outlineColor.CGColor);
+    CGContextSetLineWidth(context, 1.0);
+    CGRect outlineRect = CGRectMake((appDelegate.viewController.selectionX + (2 / appDelegate.widthScaleFactor)),
+                                    (appDelegate.viewController.selectionY - (2 / appDelegate.heightScaleFactor)),
+                                    (-appDelegate.currentBoxWidth - (4 / appDelegate.widthScaleFactor)) / appDelegate.widthScaleFactor,
+                                    (appDelegate.currentBoxHeight + (4 / appDelegate.heightScaleFactor)) / appDelegate.heightScaleFactor);
+
+    CGContextAddRect(context, outlineRect);
+    CGContextStrokePath(context);
 }
 
 @end
