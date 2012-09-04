@@ -58,7 +58,6 @@
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
 @property (retain, nonatomic) IBOutlet UILabel *rgbLabel;
 @property (retain, nonatomic) IBOutlet UILabel *hueLabel;
-@property (retain, nonatomic) IBOutlet UILabel *currentColor;
 @property (retain, nonatomic) IBOutlet UILabel *topLable;
 @property (retain, nonatomic) IBOutlet UIButton *runButton;
 @property (retain, nonatomic) IBOutlet UIButton *lockButton;
