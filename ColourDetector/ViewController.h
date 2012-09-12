@@ -48,7 +48,7 @@
 - (IBAction)hideUI;
 - (IBAction)showOutputButtons;
 - (void)drawSelectionRectToSavedImage;
-- (void)updateIndicator:(int)target :(UIColor *)color;
+- (void)updateIndicator:(int)target :(UIImage *)largeIndictator :(UIImage *)smallIndicator;
 - (void)reportFocus:(int)focusMode;
 - (void)reportExposure:(int)exposureMode;
 
@@ -58,7 +58,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *infoLabel;
 @property (retain, nonatomic) IBOutlet UILabel *rgbLabel;
 @property (retain, nonatomic) IBOutlet UILabel *hueLabel;
-@property (retain, nonatomic) IBOutlet UILabel *topLable;
+@property (retain, nonatomic) IBOutlet UIImageView *bottomGradient;
 @property (retain, nonatomic) IBOutlet UIButton *runButton;
 @property (retain, nonatomic) IBOutlet UIButton *lockButton;
 @property (retain, nonatomic) IBOutlet UIButton *photoButton;
@@ -72,6 +72,14 @@
 @property (retain, nonatomic) IBOutlet UIButton *output6;
 @property (retain, nonatomic) IBOutlet UIButton *output7;
 @property (retain, nonatomic) IBOutlet UIButton *output8;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput1;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput2;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput3;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput4;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput5;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput6;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput7;
+@property (retain, nonatomic) IBOutlet UIButton *smallOutput8;
 @property (retain, nonatomic) IBOutlet UIButton *outputButton1;
 @property (retain, nonatomic) IBOutlet UIButton *outputButton2;
 @property (retain, nonatomic) IBOutlet UIButton *outputButton3;
@@ -80,6 +88,15 @@
 @property (retain, nonatomic) IBOutlet UIButton *outputButton6;
 @property (retain, nonatomic) IBOutlet UIButton *outputButton7;
 @property (retain, nonatomic) IBOutlet UIButton *outputButton8;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus1;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus2;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus3;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus4;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus5;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus6;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus7;
+@property (retain, nonatomic) IBOutlet UILabel *targetStatus8;
+
 @property (nonatomic, readonly) int pixelBufferWidth;
 @property (nonatomic, readonly) int pixelBufferHeight;
 @property (nonatomic, assign) CGFloat selectionX;
