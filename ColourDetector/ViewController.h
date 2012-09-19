@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "OutputsViewController.h"
-#import "SettingsViewController.h"
 
 @class selectionView;
 @class AppDelegate;
 
-@interface ViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate> {
+@interface ViewController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate, UITextFieldDelegate> {
     AVCaptureSession *session;
     NSTimer *updateTimer;
     UIView *previewView;
@@ -27,6 +26,7 @@
     BOOL locked;
     BOOL uiHidden;
     BOOL buttonsVisible;
+    BOOL settingsControlsVisible;
     int pixelBufferWidth;
     int pixelBufferHeight;
     // the starting points for where the rectangle will be drawn
@@ -36,11 +36,15 @@
     int pixelStartX;
     int pixelStartY;
     OutputsViewController *outputsViewController;
-    SettingsViewController *settingsViewController;
+
+    NSString *selectionWidth;
+    NSString *selectionHeight;
+    NSString *startingX;
+    NSString *startingY;
 }
 
 - (IBAction)captureImage;
-- (IBAction)showSettingsView;
+- (IBAction)showSettingsControls;
 - (IBAction)showOutputsView:(UIButton*)sender;
 - (void)checkTargets;
 - (IBAction)startStop;
@@ -51,7 +55,23 @@
 - (void)updateIndicator:(int)target :(UIImage *)largeIndictator :(UIImage *)smallIndicator;
 - (void)reportFocus:(int)focusMode;
 - (void)reportExposure:(int)exposureMode;
+- (IBAction)exposureLockChanged:(UISwitch*)sender;
+- (IBAction)focusLockChanged:(UISwitch*)sender;
+- (IBAction)saveSettings:(UIButton*)sender;
 
+@property (retain, nonatomic) IBOutlet UIButton *saveSettings;
+@property (retain, nonatomic) IBOutlet UITextField *selectionWidthTextField;
+@property (retain, nonatomic) IBOutlet UITextField *selectionHeightTextField;
+@property (retain, nonatomic) IBOutlet UITextField *startingXTextField;
+@property (retain, nonatomic) IBOutlet UITextField *startingYTextField;
+@property (retain, nonatomic) IBOutlet UISwitch *exposureLock;
+@property (retain, nonatomic) IBOutlet UISwitch *focusLock;
+@property (nonatomic, copy) NSString *selectionWidth;
+@property (nonatomic, copy) NSString *selectionHeight;
+@property (nonatomic, copy) NSString *startingX;
+@property (nonatomic, copy) NSString *startingY;
+@property (nonatomic, retain) IBOutletCollection(UIImageView) NSArray *settingControlsBackgrounds;
+@property (nonatomic, retain) IBOutletCollection(UILabel) NSArray *settingControlsLabels;
 @property (nonatomic, retain) IBOutlet UIView *previewView;
 @property (nonatomic, retain) IBOutlet UIView *selectionView;
 @property (retain, nonatomic) IBOutlet UIView *rgbColourView;
@@ -103,7 +123,6 @@
 @property (nonatomic, assign) CGFloat selectionXimage;
 @property (nonatomic, assign) CGFloat selectionY;
 @property (nonatomic, retain) OutputsViewController *outputsViewController;
-@property (nonatomic, retain) SettingsViewController *settingsViewController;
 @property (nonatomic, readonly) BOOL locked;
 @property (nonatomic, assign) BOOL isExposureLockSupported;
 @property (nonatomic, assign) BOOL isFocusLockSupported;

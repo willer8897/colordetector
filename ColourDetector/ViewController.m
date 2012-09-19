@@ -31,7 +31,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize selectionXimage;
 @synthesize selectionY;
 @synthesize outputsViewController;
-@synthesize settingsViewController;
 @synthesize runButton;
 @synthesize lockButton;
 @synthesize photoButton;
@@ -76,6 +75,19 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize rgbLabel;
 @synthesize hueLabel;
 @synthesize outputScreen;
+@synthesize settingControlsBackgrounds;
+@synthesize settingControlsLabels;
+@synthesize selectionWidthTextField;
+@synthesize selectionHeightTextField;
+@synthesize startingXTextField;
+@synthesize startingYTextField;
+@synthesize exposureLock;
+@synthesize focusLock;
+@synthesize saveSettings;
+@synthesize selectionWidth;
+@synthesize selectionHeight;
+@synthesize startingX;
+@synthesize startingY;
 
 - (void)didReceiveMemoryWarning
 {
@@ -86,6 +98,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 #pragma mark - Interface buttons
 
 - (IBAction)showOutputButtons {
+    if (settingsControlsVisible) {
+        return;
+    }
     if (!buttonsVisible) {
         outputButton1.hidden = false;
         outputButton2.hidden = false;
@@ -196,11 +211,65 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   captureImage = TRUE;
 }
 
-- (IBAction)showSettingsView {
+- (IBAction)showSettingsControls {
 #ifdef DEBUG
     NSLog(@"settings button pressed");
 #endif
-    [self presentModalViewController:settingsViewController animated:YES];
+    if (buttonsVisible) {
+        return;
+    }
+    NSString *str = [NSString stringWithFormat:@"%i", appDelegate.currentBoxWidth];
+    selectionWidthTextField.text = str;
+    str = [NSString stringWithFormat:@"%i", appDelegate.currentBoxHeight];
+    selectionHeightTextField.text = str;
+    str = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionX];
+    startingXTextField.text = str;
+    str = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionY];
+    startingYTextField.text = str;
+    exposureLock.on = appDelegate.exposureLock;
+    focusLock.on = appDelegate.focusLock;
+    if (self.isExposureLockSupported) {
+        exposureLock.enabled = YES;
+    } else {
+        exposureLock.enabled = NO;
+    }
+    if (self.isFocusLockSupported) {
+        focusLock.enabled = YES;
+    } else {
+        focusLock.enabled = NO;
+    }
+
+    if (!settingsControlsVisible) {
+        for (UIImageView *imgView in settingControlsBackgrounds) {
+            imgView.hidden = false;
+        }
+        for (UILabel *l in settingControlsLabels) {
+            l.hidden = false;
+        }
+        selectionWidthTextField.hidden = false;
+        selectionHeightTextField.hidden = false;
+        startingXTextField.hidden = false;
+        startingYTextField.hidden = false;
+        exposureLock.hidden = false;
+        focusLock.hidden = false;
+        saveSettings.hidden = false;
+        settingsControlsVisible = true;
+    } else {
+        for (UIImageView *imgView in settingControlsBackgrounds) {
+            imgView.hidden = true;
+        }
+        for (UILabel *l in settingControlsLabels) {
+            l.hidden = true;
+        }
+        selectionWidthTextField.hidden = true;
+        selectionHeightTextField.hidden = true;
+        startingXTextField.hidden = true;
+        startingYTextField.hidden = true;
+        exposureLock.hidden = true;
+        focusLock.hidden = true;
+        saveSettings.hidden = true;
+        settingsControlsVisible = false;
+    }
 }
 
 - (IBAction)showOutputsView:(UIButton*)sender {
@@ -255,6 +324,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 }
 
 - (IBAction)hideUI {
+    if (buttonsVisible || settingsControlsVisible) {
+        return;
+    }
     if (uiHidden) {
         infoLabel.hidden = false;
         rgbLabel.hidden = false;
@@ -271,20 +343,36 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         settingsButton.hidden = false;
         [self.output1 setEnabled:true];
         output1.hidden = false;
+        [self.smallOutput1 setEnabled:true];
+        smallOutput1.hidden = false;
         [self.output2 setEnabled:true];
         output2.hidden = false;
+        [self.smallOutput2 setEnabled:true];
+        smallOutput2.hidden = false;
         [self.output3 setEnabled:true];
         output3.hidden = false;
+        [self.smallOutput3 setEnabled:true];
+        smallOutput3.hidden = false;
         [self.output4 setEnabled:true];
         output4.hidden = false;
+        [self.smallOutput4 setEnabled:true];
+        smallOutput4.hidden = false;
         [self.output5 setEnabled:true];
         output5.hidden = false;
+        [self.smallOutput5 setEnabled:true];
+        smallOutput5.hidden = false;
         [self.output6 setEnabled:true];
         output6.hidden = false;
+        [self.smallOutput6 setEnabled:true];
+        smallOutput6.hidden = false;
         [self.output7 setEnabled:true];
         output7.hidden = false;
+        [self.smallOutput7 setEnabled:true];
+        smallOutput7.hidden = false;
         [self.output8 setEnabled:true];
         output8.hidden = false;
+        [self.smallOutput8 setEnabled:true];
+        smallOutput8.hidden = false;
         outputsButton.hidden = false;
         uiHidden = false;
     } else {
@@ -303,20 +391,36 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         settingsButton.hidden = true;
         [self.output1 setEnabled:false];
         output1.hidden = true;
+        [self.smallOutput1 setEnabled:false];
+        smallOutput1.hidden = true;
         [self.output2 setEnabled:false];
         output2.hidden = true;
+        [self.smallOutput2 setEnabled:false];
+        smallOutput2.hidden = true;
         [self.output3 setEnabled:false];
         output3.hidden = true;
+        [self.smallOutput3 setEnabled:false];
+        smallOutput3.hidden = true;
         [self.output4 setEnabled:false];
         output4.hidden = true;
+        [self.smallOutput4 setEnabled:false];
+        smallOutput4.hidden = true;
         [self.output5 setEnabled:false];
         output5.hidden = true;
+        [self.smallOutput5 setEnabled:false];
+        smallOutput5.hidden = true;
         [self.output6 setEnabled:false];
         output6.hidden = true;
+        [self.smallOutput6 setEnabled:false];
+        smallOutput6.hidden = true;
         [self.output7 setEnabled:false];
         output7.hidden = true;
+        [self.smallOutput7 setEnabled:false];
+        smallOutput7.hidden = true;
         [self.output8 setEnabled:false];
         output8.hidden = true;
+        [self.smallOutput8 setEnabled:false];
+        smallOutput8.hidden = true;
         outputsButton.hidden = true;
         uiHidden = true;
     }
@@ -372,7 +476,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [super viewDidLoad];
   appDelegate = [[UIApplication sharedApplication] delegate];
   outputsViewController = [[OutputsViewController alloc] initWithNibName:@"OutputsViewController" bundle:[NSBundle mainBundle]];
-  settingsViewController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
 }
 
 - (void)viewDidUnload
@@ -381,7 +484,10 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
   [self setRgbColourView:nil];
   [self setInfoLabel:nil];
   [outputsViewController release];
-  [settingsViewController release];
+  [self setSelectionWidthTextField:nil];
+  [self setSelectionHeightTextField:nil];
+  [self setStartingXTextField:nil];
+  [self setStartingYTextField:nil];
   [super viewDidUnload];
 }
 
@@ -405,6 +511,20 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     targetStatus7.hidden = true;
     targetStatus8.hidden = true;
     buttonsVisible = false;
+    for (UIImageView *imgView in settingControlsBackgrounds) {
+        imgView.hidden = true;
+    }
+    for (UILabel *l in settingControlsLabels) {
+        l.hidden = true;
+    }
+    selectionWidthTextField.hidden = true;
+    selectionHeightTextField.hidden = true;
+    startingXTextField.hidden = true;
+    startingYTextField.hidden = true;
+    exposureLock.hidden = true;
+    focusLock.hidden = true;
+    saveSettings.hidden = true;
+    settingsControlsVisible = false;
     [self.selectionView setNeedsDisplay];
     // start grabbing frames from the camera
     running = true;
@@ -935,6 +1055,39 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
         default:
             break;
     }
+}
+
+#pragma mark - Settings
+
+- (IBAction)saveSettings:(UIButton*)sender {
+    [appDelegate saveSettings];
+    [appDelegate setStartingCoordinates];
+    settingsControlsVisible = true;
+    [self showSettingsControls];
+    [self.selectionView setNeedsDisplay];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [theTextField resignFirstResponder];
+    self.selectionWidth = self.selectionWidthTextField.text;
+    self.selectionHeight = self.selectionHeightTextField.text;
+    self.startingX = self.startingXTextField.text;
+    self.startingY = self.startingYTextField.text;
+#ifdef DEBUG
+    NSLog(@"selectionWidth -- %@", self.selectionWidth);
+    NSLog(@"selectionHeight -- %@", self.selectionHeight);
+    NSLog(@"startingX -- %@", self.startingX);
+    NSLog(@"startingY -- %@", self.startingY);
+#endif
+    return YES;
+}
+
+- (IBAction)exposureLockChanged:(UISwitch*)sender {
+    appDelegate.exposureLock = sender.on;
+}
+
+- (IBAction)focusLockChanged:(UISwitch*)sender {
+    appDelegate.focusLock = sender.on;
 }
 
 @end

@@ -215,19 +215,19 @@
 
 - (void)saveSettings {
     // Save the current settings to the file and update this delegate
-    NSNumber *w = [NSNumber numberWithFloat:[self.viewController.settingsViewController.selectionWidthTextField.text intValue]];
+    NSNumber *w = [NSNumber numberWithFloat:[self.viewController.selectionWidthTextField.text intValue]];
     [settings setObject:w forKey:@"currentBoxWidth"];
     self.currentBoxWidth = [w intValue];
 
-    NSNumber *h = [NSNumber numberWithFloat:[self.viewController.settingsViewController.selectionHeightTextField.text intValue]];
+    NSNumber *h = [NSNumber numberWithFloat:[self.viewController.selectionHeightTextField.text intValue]];
     [settings setObject:h forKey:@"currentBoxHeight"];
     self.currentBoxHeight = [h intValue];
 
-    NSNumber *x = [NSNumber numberWithInt:[self.viewController.settingsViewController.startingXTextField.text intValue]];
+    NSNumber *x = [NSNumber numberWithInt:[self.viewController.startingXTextField.text intValue]];
     [settings setObject:x forKey:@"startingSelectionX"];
     self.startingSelectionX = [x intValue];
 
-    NSNumber *y = [NSNumber numberWithInt:[self.viewController.settingsViewController.startingYTextField.text intValue]];
+    NSNumber *y = [NSNumber numberWithInt:[self.viewController.startingYTextField.text intValue]];
     [settings setObject:y forKey:@"startingSelectionY"];
     self.startingSelectionY = [y intValue];
 
