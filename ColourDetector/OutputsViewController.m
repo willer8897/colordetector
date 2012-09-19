@@ -245,7 +245,19 @@
     activeField = textField;
     if (!editingTargetTextFields) {
         originalPoint = CGPointMake(0.0, scrollView.contentOffset.y);
-        CGPoint scrollPoint = CGPointMake(0.0, scrollView.contentOffset.y + 170.0);
+        CGPoint scrollPoint;
+        if (activeField == target1OnDelay || activeField == target1OffDelay ||
+            activeField == target2OnDelay || activeField == target2OffDelay ||
+            activeField == target3OnDelay || activeField == target3OffDelay ||
+            activeField == target4OnDelay || activeField == target4OffDelay ||
+            activeField == target5OnDelay || activeField == target5OffDelay ||
+            activeField == target6OnDelay || activeField == target6OffDelay ||
+            activeField == target7OnDelay || activeField == target7OffDelay ||
+            activeField == target8OnDelay || activeField == target8OffDelay) {
+            scrollPoint = CGPointMake(0.0, scrollView.contentOffset.y + 205.0);
+        } else {
+            scrollPoint = CGPointMake(0.0, scrollView.contentOffset.y + 170.0);
+        }
         [scrollView setContentOffset:scrollPoint animated:YES];
         editingTargetTextFields = YES;
         scrollView.pagingEnabled = NO;
