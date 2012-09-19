@@ -705,12 +705,25 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	videoOutput.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA], (id)kCVPixelBufferPixelFormatTypeKey,nil];
 	videoOutput.minFrameDuration=CMTimeMake(1, 10);
 	// and the size of the frames we want
-	[session setSessionPreset:AVCaptureSessionPresetMedium]; // don't need high resolution capture
+    if ([session canSetSessionPreset:@"AVCaptureSessionPresetMedium"]) {
+        [session setSessionPreset:AVCaptureSessionPresetMedium];
+    } else {
+        NSLog(@"Session preset not supported.");
+    }
 	
 	// Add the input and output
-	[session addInput:cameraInput];
-	[session addOutput:videoOutput];
+    if ([session canAddInput:cameraInput]) {
+        [session addInput:cameraInput];
+    } else {
+        NSLog(@"Error: cannot add camera input.");
+    }
 	
+    if ([session canAddOutput:videoOutput]) {
+        [session addOutput:videoOutput];
+    } else {
+        NSLog(@"Error: cannot add video output.");
+    }
+
 	// Start the session
 	[session startRunning];		
 }
