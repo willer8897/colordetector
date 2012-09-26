@@ -205,16 +205,11 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 }
 
 - (IBAction)captureImage {
-#ifdef DEBUG
-  NSLog(@"Capture button pressed");
-#endif
   captureImage = TRUE;
 }
 
 - (IBAction)showSettingsControls {
-#ifdef DEBUG
-    NSLog(@"settings button pressed");
-#endif
+
     if (buttonsVisible) {
         return;
     }
@@ -609,7 +604,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
         self.isExposureLockSupported = YES;
     }
 
-#if DEBUG
+#if DEBUG_SETTINGS
     [self reportFocus:camera.focusMode];
     [self reportExposure:camera.exposureMode];
 #endif
@@ -618,7 +613,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     NSError *error = nil;
     if (self.isFocusLockSupported) {
         if (appDelegate.focusLock) {
-#if DEBUG
+#if DEBUG_SETTINGS
             NSLog(@"Attempting to lock focus.");
 #endif
             if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
@@ -631,7 +626,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
             }
 
         } else {
-#if DEBUG
+#if DEBUG_SETTINGS
             NSLog(@"Unlocking focus.");
 #endif
             if ([camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
@@ -643,7 +638,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                 }
             }
         }
-#if DEBUG
+#if DEBUG_SETTINGS
         [self reportFocus:camera.focusMode];
 #endif
     } else {
@@ -652,7 +647,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 
     if (self.isExposureLockSupported) {
         if (appDelegate.exposureLock) {
-#if DEBUG
+#if DEBUG_SETTINGS
             NSLog(@"Attempting to lock exposure.");
 #endif
             if ([camera isExposureModeSupported:AVCaptureExposureModeLocked]) {
@@ -665,7 +660,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
             }
 
         } else {
-#if DEBUG
+#if DEBUG_SETTINGS
             NSLog(@"Unlocking exposure.");
 #endif
             if ([camera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
@@ -677,7 +672,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                 }
             }
         }
-#if DEBUG
+#if DEBUG_SETTINGS
         [self reportExposure:camera.exposureMode];
 #endif
     } else {
@@ -842,7 +837,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                     t.beforeDelayCounter += .1;
 
                     if (t.beforeDelayCounter >= t.beforeDelay) {
-#ifdef DEBUG
+#ifdef DEBUG_TIMING
                         NSLog(@"beforeDelayCounter %f beforeDelay %f", t.beforeDelayCounter, t.beforeDelay);
                         NSLog(@"Indicator triggered.");
 #endif

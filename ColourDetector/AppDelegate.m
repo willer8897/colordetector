@@ -169,7 +169,7 @@
 	[encoder finishEncoding];
 	[targetObjects writeToFile:targetObjectsPath atomically:YES];
 	[encoder release];
-#ifdef DEBUG
+#ifdef DEBUG_SETTINGS
     NSLog(@"%@", targets);
 #endif
 }
@@ -177,7 +177,7 @@
 #pragma mark - Settings
 
 - (void)loadSettings {
-#ifdef DEBUG
+#ifdef DEBUG_SETTINGS
     NSLog(@"Loading settings.");
 #endif
     // If the settings file has not been initialized then initialize
@@ -186,12 +186,12 @@
 
     // If the settings file cannot be found then create it with default values
     if([[NSFileManager defaultManager] fileExistsAtPath:settingsFilePath]) {
-#ifdef DEBUG
+#ifdef DEBUG_SETTINGS
         NSLog(@"Found settings file");
 #endif
         settings = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsFilePath];
     } else {
-#ifdef DEBUG
+#ifdef DEBUG_SETTINGS
         NSLog(@"No settings file, creating defaults");
 #endif
         settings = [[NSMutableDictionary alloc] init];
@@ -233,7 +233,7 @@
 
 
     [settings writeToFile:settingsFilePath atomically:YES];
-#ifdef DEBUG
+#ifdef DEBUG_SETTINGS
     NSLog(@"Saving currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i", [w intValue], [h intValue], [x intValue], [y intValue]);
 #endif
 }
