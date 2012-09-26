@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
+		<string key="IBDocument.SystemVersion">11G56</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -342,7 +342,7 @@
 							<object class="IBUIButton" id="907818642">
 								<reference key="NSNextResponder" ref="800683781"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{263, 439}, {37, 37}}</string>
+								<string key="NSFrame">{{261, 442}, {41, 32}}</string>
 								<reference key="NSSuperview" ref="800683781"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -351,7 +351,6 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<reference key="IBUIHighlightedTitleColor" ref="871701032"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -1457,7 +1456,7 @@
 							<object class="IBUIButton" id="717688870">
 								<reference key="NSNextResponder" ref="800683781"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{35, 338}, {65, 32}}</string>
+								<string key="NSFrame">{{35, 341}, {60, 27}}</string>
 								<reference key="NSSuperview" ref="800683781"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="226406912"/>
@@ -1466,14 +1465,16 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
-								<string key="IBUINormalTitle">Save</string>
 								<reference key="IBUIHighlightedTitleColor" ref="871701032"/>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 								</object>
 								<reference key="IBUINormalTitleShadowColor" ref="91515732"/>
+								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">save.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="932535187"/>
 								<reference key="IBUIFont" ref="743307732"/>
 							</object>
@@ -3132,11 +3133,12 @@
 			<string key="camera_down.png">{99, 40}</string>
 			<string key="green_indicator(lrg).png">{17, 17}</string>
 			<string key="green_indicator(small).png">{6, 5}</string>
-			<string key="output_bottom_table_cell(no_top).png">{303, 43}</string>
+			<string key="output_bottom_table_cell(no_top).png">{302, 43}</string>
 			<string key="output_middle_table_cell(all-stroked).png">{303, 46}</string>
 			<string key="output_middle_table_cell(no_bottom).png">{303, 45}</string>
 			<string key="output_top_table_cell(nobottom).png">{303, 54}</string>
-			<string key="play.png">{17, 17}</string>
+			<string key="play.png">{41, 32}</string>
+			<string key="save.png">{60, 27}</string>
 			<string key="settings_bottomcell(no_top).png">{259, 49}</string>
 			<string key="settings_button.png">{70, 36}</string>
 			<string key="settings_midtable(all_sides).png">{259, 46}</string>
