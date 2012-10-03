@@ -15,8 +15,6 @@
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;
-@synthesize heightScaleFactor;
-@synthesize widthScaleFactor;
 @synthesize currentBoxWidth;
 @synthesize currentBoxHeight;
 @synthesize startingSelectionX;
@@ -30,8 +28,8 @@
 #pragma mark -
 
 - (void)setStartingCoordinates {
-    if (startingSelectionX < currentBoxWidth/widthScaleFactor/2) {
-        startingSelectionX = currentBoxWidth/widthScaleFactor/2-1;
+    if (startingSelectionX < currentBoxWidth/self.viewController.widthScaleFactor/2) {
+        startingSelectionX = currentBoxWidth/self.viewController.widthScaleFactor/2-1;
 #ifdef DEBUG
         NSLog(@"initial starting x was out of range");
 #endif
@@ -210,6 +208,9 @@
     self.startingSelectionY = [[settings valueForKey:@"startingSelectionY"] intValue];
     self.exposureLock = [[settings valueForKey:@"exposureLock"] boolValue];
     self.focusLock = [[settings valueForKey:@"focusLock"] boolValue];
+#ifdef DEBUG_SETTINGS
+    NSLog(@"currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i", self.currentBoxWidth, self.currentBoxHeight, self.startingSelectionX , self.startingSelectionY);
+#endif
 
 }
 
@@ -267,19 +268,6 @@
 
     SCREEN_WIDTH_IN_POINTS = 320.0;
     SCREEN_HEIGHT_IN_POINTS = 480.0;
-
-#ifdef DEBUG
-    NSLog(@"pixelBufferWidth - %d", self.viewController.pixelBufferWidth);
-    NSLog(@"pixelBufferHeight - %d", self.viewController.pixelBufferHeight);
-#endif
-
-    heightScaleFactor = self.viewController.pixelBufferHeight / SCREEN_HEIGHT_IN_POINTS;
-    widthScaleFactor = self.viewController.pixelBufferWidth / SCREEN_WIDTH_IN_POINTS;
-
-#ifdef DEBUG
-    NSLog(@"heightScaleFactor - %f", heightScaleFactor);
-    NSLog(@"widthScaleFactor - %f", widthScaleFactor);
-#endif
 
     targets = [[NSMutableArray alloc] init];
     for (int i = 0; i < 8; ++i) {

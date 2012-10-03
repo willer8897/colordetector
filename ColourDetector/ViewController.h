@@ -41,6 +41,9 @@
     NSString *selectionHeight;
     NSString *startingX;
     NSString *startingY;
+
+    CGFloat heightScaleFactor;
+    CGFloat widthScaleFactor;
 }
 
 - (IBAction)captureImage;
@@ -117,6 +120,8 @@
 @property (retain, nonatomic) IBOutlet UILabel *targetStatus7;
 @property (retain, nonatomic) IBOutlet UILabel *targetStatus8;
 
+@property (nonatomic, readonly) CGFloat heightScaleFactor;
+@property (nonatomic, readonly) CGFloat widthScaleFactor;
 @property (nonatomic, readonly) int pixelBufferWidth;
 @property (nonatomic, readonly) int pixelBufferHeight;
 @property (nonatomic, assign) CGFloat selectionX;

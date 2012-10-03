@@ -40,18 +40,18 @@
     CGContextSetStrokeColorWithColor(context, color.CGColor);
     CGRect rectangle = CGRectMake((appDelegate.viewController.selectionX),
                                   (appDelegate.viewController.selectionY),
-                                  -appDelegate.currentBoxWidth / appDelegate.widthScaleFactor,
-                                  appDelegate.currentBoxHeight / appDelegate.heightScaleFactor);
+                                  -appDelegate.currentBoxWidth / appDelegate.viewController.widthScaleFactor,
+                                  appDelegate.currentBoxHeight / appDelegate.viewController.heightScaleFactor);
     CGContextAddRect(context, rectangle);
     CGContextStrokePath(context);
 
     UIColor *outlineColor = [UIColor whiteColor];
     CGContextSetStrokeColorWithColor(context, outlineColor.CGColor);
     CGContextSetLineWidth(context, 1.0);
-    CGRect outlineRect = CGRectMake((appDelegate.viewController.selectionX + (2 / appDelegate.widthScaleFactor)),
-                                    (appDelegate.viewController.selectionY - (2 / appDelegate.heightScaleFactor)),
-                                    (-appDelegate.currentBoxWidth - (4 / appDelegate.widthScaleFactor)) / appDelegate.widthScaleFactor,
-                                    (appDelegate.currentBoxHeight + (4 / appDelegate.heightScaleFactor)) / appDelegate.heightScaleFactor);
+    CGRect outlineRect = CGRectMake((appDelegate.viewController.selectionX + (2 / appDelegate.viewController.widthScaleFactor)),
+                                    (appDelegate.viewController.selectionY - (2 / appDelegate.viewController.heightScaleFactor)),
+                                    (-appDelegate.currentBoxWidth - (4 / appDelegate.viewController.widthScaleFactor)) / appDelegate.viewController.widthScaleFactor,
+                                    (appDelegate.currentBoxHeight + (4 / appDelegate.viewController.heightScaleFactor)) / appDelegate.viewController.heightScaleFactor);
 
     CGContextAddRect(context, outlineRect);
     CGContextStrokePath(context);

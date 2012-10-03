@@ -88,6 +88,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize selectionHeight;
 @synthesize startingX;
 @synthesize startingY;
+@synthesize heightScaleFactor;
+@synthesize widthScaleFactor;
 
 - (void)didReceiveMemoryWarning
 {
@@ -315,7 +317,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         [self.lockButton setBackgroundImage:[UIImage imageNamed:@"0001_lock_btn.png"] forState:UIControlStateNormal];
         locked = true;
     }
-    [self.selectionView setNeedsDisplay];
 }
 
 - (IBAction)hideUI {
@@ -440,8 +441,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
             // check to see that the x coordinate is not too far to the left
             // as this will cause a crash in the pixel averaging code
             // this should reposition the selection box close to the left edge in most situations
-            if (loc.x < appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2) {
-                loc.x = appDelegate.currentBoxWidth/appDelegate.widthScaleFactor/2-1;
+            if (loc.x < appDelegate.currentBoxWidth/widthScaleFactor/2) {
+                loc.x = appDelegate.currentBoxWidth/widthScaleFactor/2-1;
 #ifdef DEBUG
                 NSLog(@"crash averted");
 #endif
@@ -456,7 +457,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
             NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
 #endif
         }
-        [self.selectionView setNeedsDisplay];
     }
 }
 
@@ -520,7 +520,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     focusLock.hidden = true;
     saveSettings.hidden = true;
     settingsControlsVisible = false;
-    [self.selectionView setNeedsDisplay];
     // start grabbing frames from the camera
     running = true;
     [self startCameraCapture];
@@ -735,13 +734,15 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     // it's swapped here since the selectionView's coordinates are in portrait
     pixelBufferHeight = width;
     pixelBufferWidth = height;
+    heightScaleFactor = pixelBufferHeight / appDelegate.SCREEN_HEIGHT_IN_POINTS;
+    widthScaleFactor = pixelBufferWidth / appDelegate.SCREEN_WIDTH_IN_POINTS;
 	// get the raw image bytes
 	uint8_t *buf=(uint8_t *) CVPixelBufferGetBaseAddress(cvimgRef);
 	size_t bprow=CVPixelBufferGetBytesPerRow(cvimgRef);
 	float cr=0,cg=0,cb=0;
     // take a rectangular currentBoxWidth x currentBoxHeight section from the starting top left of the current rectangle
-    pixelStartY = selectionY * appDelegate.heightScaleFactor;
-    pixelStartX = selectionXimage * appDelegate.widthScaleFactor;
+    pixelStartY = selectionY * heightScaleFactor;
+    pixelStartX = selectionXimage * widthScaleFactor;
     int i, j;
     i = j = 0;
 	for(int y=pixelStartX; i < appDelegate.currentBoxWidth; y++) {
@@ -799,7 +800,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
         color = [UIColor greenColor];
     }
     CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGRect rectangle = CGRectMake(selectionX*appDelegate.widthScaleFactor, selectionY*appDelegate.heightScaleFactor,
+    CGRect rectangle = CGRectMake(selectionX*widthScaleFactor, selectionY*heightScaleFactor,
                                   -appDelegate.currentBoxWidth, appDelegate.currentBoxHeight);
     CGContextAddRect(context, rectangle);
     CGContextStrokePath(context);
@@ -965,6 +966,7 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     }
 
   [self checkTargets];
+  [self.selectionView setNeedsDisplay];
 }
 
 -(void) stopCameraCapture {

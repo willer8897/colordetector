@@ -11,8 +11,6 @@
 @class ViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> {
-    CGFloat heightScaleFactor;
-    CGFloat widthScaleFactor;
     CGFloat SCREEN_WIDTH_IN_POINTS;
     CGFloat SCREEN_HEIGHT_IN_POINTS;
     int currentBoxWidth;
@@ -38,8 +36,6 @@
 
 @property (retain, nonatomic) ViewController *viewController;
 
-@property (nonatomic, readonly) CGFloat heightScaleFactor;
-@property (nonatomic, readonly) CGFloat widthScaleFactor;
 @property (nonatomic, assign) int currentBoxWidth;
 @property (nonatomic, assign) int currentBoxHeight;
 @property (nonatomic, assign) int startingSelectionX;
