@@ -275,6 +275,8 @@
 {
     [super viewWillAppear:animated];
 
+    [self.view setBackgroundColor:[UIColor colorWithRed:215.0/255.0 green:217.0/255.0 blue:223.0/255.0 alpha:1.0]];
+
     CGPoint scrollPoint = CGPointMake(0.0, 480.0 * (appDelegate.viewController.outputScreen-1));
     [scrollView setContentOffset:scrollPoint animated:YES];
 
