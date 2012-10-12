@@ -185,6 +185,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         targetStatus7.hidden = false;
         targetStatus8.hidden = false;
         buttonsVisible = true;
+        [self stopCameraCapture];
     } else {
         outputButton1.hidden = true;
         outputButton2.hidden = true;
@@ -203,6 +204,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         targetStatus7.hidden = true;
         targetStatus8.hidden = true;
         buttonsVisible = false;
+        [self startCameraCapture];
     }
 }
 
@@ -251,6 +253,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         focusLock.hidden = false;
         saveSettings.hidden = false;
         settingsControlsVisible = true;
+        [self stopCameraCapture];
     } else {
         for (UIImageView *imgView in settingControlsBackgrounds) {
             imgView.hidden = true;
@@ -266,7 +269,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         focusLock.hidden = true;
         saveSettings.hidden = true;
         settingsControlsVisible = false;
+        [self startCameraCapture];
     }
+    changeExposure = changeFocus = false;
 }
 
 - (IBAction)showOutputsView:(UIButton*)sender {
@@ -432,6 +437,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (buttonsVisible || settingsControlsVisible) {
+        return;
+    }
     if (running && !locked) {
         for (UITouch *touch in touches) {
             CGPoint loc = [touch locationInView:self.view];
@@ -595,7 +603,8 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   	
 	// Get the default camera device
 	AVCaptureDevice* camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
+    // get the current settings
+    [appDelegate loadSettings];
     if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
         self.isFocusLockSupported = YES;
     }
@@ -1070,6 +1079,14 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 #pragma mark - Settings
 
 - (IBAction)saveSettings:(UIButton*)sender {
+    if (changeExposure) {
+        appDelegate.exposureLock = !appDelegate.exposureLock;
+        changeExposure = FALSE;
+    }
+    if (changeFocus) {
+        appDelegate.focusLock = !appDelegate.focusLock;
+        changeFocus = FALSE;
+    }
     [appDelegate saveSettings];
     [appDelegate setStartingCoordinates];
     settingsControlsVisible = true;
@@ -1093,11 +1110,11 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 }
 
 - (IBAction)exposureLockChanged:(UISwitch*)sender {
-    appDelegate.exposureLock = sender.on;
+    changeExposure = TRUE;
 }
 
 - (IBAction)focusLockChanged:(UISwitch*)sender {
-    appDelegate.focusLock = sender.on;
+    changeFocus = TRUE;
 }
 
 @end

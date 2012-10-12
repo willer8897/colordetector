@@ -27,6 +27,8 @@
     BOOL uiHidden;
     BOOL buttonsVisible;
     BOOL settingsControlsVisible;
+    // flags for exposure and focus settings in case the user dismisses the settings screen without saving
+    BOOL changeExposure, changeFocus;
     int pixelBufferWidth;
     int pixelBufferHeight;
     // the starting points for where the rectangle will be drawn

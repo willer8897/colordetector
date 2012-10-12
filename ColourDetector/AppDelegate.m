@@ -209,7 +209,7 @@
     self.exposureLock = [[settings valueForKey:@"exposureLock"] boolValue];
     self.focusLock = [[settings valueForKey:@"focusLock"] boolValue];
 #ifdef DEBUG_SETTINGS
-    NSLog(@"currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i", self.currentBoxWidth, self.currentBoxHeight, self.startingSelectionX , self.startingSelectionY);
+    NSLog(@"currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i, exposureLock=%i, focusLock=%i", self.currentBoxWidth, self.currentBoxHeight, self.startingSelectionX , self.startingSelectionY, self.exposureLock, self.focusLock);
 #endif
 
 }
@@ -232,10 +232,15 @@
     [settings setObject:y forKey:@"startingSelectionY"];
     self.startingSelectionY = [y intValue];
 
+    NSNumber *exposure = [NSNumber numberWithBool:self.exposureLock];
+    [settings setObject:exposure forKey:@"exposureLock"];
+
+    NSNumber *focus = [NSNumber numberWithBool:self.focusLock];
+    [settings setObject:focus forKey:@"focusLock"];
 
     [settings writeToFile:settingsFilePath atomically:YES];
 #ifdef DEBUG_SETTINGS
-    NSLog(@"Saving currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i", [w intValue], [h intValue], [x intValue], [y intValue]);
+    NSLog(@"Saving currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i, exposureLock=%i, focusLock=%i", [w intValue], [h intValue], [x intValue], [y intValue], [exposure boolValue], [focus boolValue]);
 #endif
 }
 
