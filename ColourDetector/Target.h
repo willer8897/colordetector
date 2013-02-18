@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Target : NSObject <NSCoding> {
+@interface Target : NSObject <NSCoding>
+{
     int rl, rh, gl, gh, bl, bh;
     BOOL on;
     BOOL light;

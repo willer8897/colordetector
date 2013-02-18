@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  ColourDetector
+//  ColourDetectorCircleTest
 //
 //  Created by Chris Greening on 06/10/2011.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 #import "Target.h"
+#import "saveFile.h"
 
 @interface ViewController()
 
@@ -83,13 +84,22 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @synthesize startingYTextField;
 @synthesize exposureLock;
 @synthesize focusLock;
-@synthesize saveSettings;
+@synthesize saveAsSettingsButton;
 @synthesize selectionWidth;
 @synthesize selectionHeight;
 @synthesize startingX;
 @synthesize startingY;
 @synthesize heightScaleFactor;
 @synthesize widthScaleFactor;
+@synthesize drawSelector;
+@synthesize horizontalMajorAxis;
+@synthesize saveName;
+@synthesize saveFiles;
+@synthesize loadSettingsButton;
+@synthesize filesTableViewController = _filesTVC;
+@synthesize doneButton;
+@synthesize saveButton;
+@synthesize settingsControlsVisible;
 
 - (void)didReceiveMemoryWarning
 {
@@ -99,11 +109,12 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
 #pragma mark - Interface buttons
 
-- (IBAction)showOutputButtons {
-    if (settingsControlsVisible) {
+- (IBAction)showOutputButtons
+{
+    if (settingsControlsVisible)
         return;
-    }
-    if (!buttonsVisible) {
+    if (!buttonsVisible)
+    {
         outputButton1.hidden = false;
         outputButton2.hidden = false;
         outputButton3.hidden = false;
@@ -112,9 +123,11 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         outputButton6.hidden = false;
         outputButton7.hidden = false;
         outputButton8.hidden = false;
-        for (int i = 0; i < [appDelegate.targets count]; ++i) {
+        for (int i = 0; i < [appDelegate.targets count]; ++i)
+        {
             Target *t = [appDelegate.targets objectAtIndex:i];
-            switch (i+1) {
+            switch (i+1)
+            {
                 case 1:
                     if (t.on) {
                         [targetStatus1 setText:@"On"];
@@ -186,7 +199,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         targetStatus8.hidden = false;
         buttonsVisible = true;
         [self stopCameraCapture];
-    } else {
+    }
+    else
+    {
         outputButton1.hidden = true;
         outputButton2.hidden = true;
         outputButton3.hidden = true;
@@ -208,13 +223,17 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     }
 }
 
-- (IBAction)captureImage {
+- (IBAction)captureImage
+{
   captureImage = TRUE;
 }
 
-- (IBAction)showSettingsControls {
 
-    if (buttonsVisible) {
+- (IBAction)showSettingsControls
+{
+
+    if (buttonsVisible)
+    {
         return;
     }
     NSString *str = [NSString stringWithFormat:@"%i", appDelegate.currentBoxWidth];
@@ -227,22 +246,28 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     startingYTextField.text = str;
     exposureLock.on = appDelegate.exposureLock;
     focusLock.on = appDelegate.focusLock;
-    if (self.isExposureLockSupported) {
+    if(appDelegate.circleDraw)
+        drawSelector.selectedSegmentIndex = 1;
+    else
+        drawSelector.selectedSegmentIndex = 0;
+    if (self.isExposureLockSupported)
         exposureLock.enabled = YES;
-    } else {
+    else
         exposureLock.enabled = NO;
-    }
-    if (self.isFocusLockSupported) {
+    if (self.isFocusLockSupported)
         focusLock.enabled = YES;
-    } else {
+    else
         focusLock.enabled = NO;
-    }
-
-    if (!settingsControlsVisible) {
-        for (UIImageView *imgView in settingControlsBackgrounds) {
+    
+    [appDelegate saveAsSettings:appDelegate.fileName];
+    if (!settingsControlsVisible)
+    {
+        for (UIImageView *imgView in settingControlsBackgrounds)
+        {
             imgView.hidden = false;
         }
-        for (UILabel *l in settingControlsLabels) {
+        for (UILabel *l in settingControlsLabels)
+        {
             l.hidden = false;
         }
         selectionWidthTextField.hidden = false;
@@ -251,14 +276,22 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         startingYTextField.hidden = false;
         exposureLock.hidden = false;
         focusLock.hidden = false;
-        saveSettings.hidden = false;
+        doneButton.hidden = false;
+        saveButton.hidden = false;
+        loadSettingsButton.hidden = false;
+        saveAsSettingsButton.hidden = false;
+        drawSelector.hidden = false;
         settingsControlsVisible = true;
         [self stopCameraCapture];
-    } else {
-        for (UIImageView *imgView in settingControlsBackgrounds) {
+    }
+    else
+    {
+        for (UIImageView *imgView in settingControlsBackgrounds)
+        {
             imgView.hidden = true;
         }
-        for (UILabel *l in settingControlsLabels) {
+        for (UILabel *l in settingControlsLabels)
+        {
             l.hidden = true;
         }
         selectionWidthTextField.hidden = true;
@@ -267,68 +300,78 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         startingYTextField.hidden = true;
         exposureLock.hidden = true;
         focusLock.hidden = true;
-        saveSettings.hidden = true;
+        doneButton.hidden = true;
+        saveButton.hidden = true;
+        loadSettingsButton.hidden = true;
+        saveAsSettingsButton.hidden = true;
+        drawSelector.hidden = true;
         settingsControlsVisible = false;
         [self startCameraCapture];
     }
     changeExposure = changeFocus = false;
 }
 
-- (IBAction)showOutputsView:(UIButton*)sender {
-    if ([sender isEqual:outputButton1]) {
+- (IBAction)showOutputsView:(UIButton*)sender
+{
+    if ([sender isEqual:outputButton1])
         outputScreen = 1;
-    }
-    if ([sender isEqual:outputButton2]) {
+    if ([sender isEqual:outputButton2])
         outputScreen = 2;
-    }
-    if ([sender isEqual:outputButton3]) {
+    if ([sender isEqual:outputButton3])
         outputScreen = 3;
-    }
-    if ([sender isEqual:outputButton4]) {
+    if ([sender isEqual:outputButton4])
         outputScreen = 4;
-    }
-    if ([sender isEqual:outputButton5]) {
+    if ([sender isEqual:outputButton5])
         outputScreen = 5;
-    }
-    if ([sender isEqual:outputButton6]) {
+    if ([sender isEqual:outputButton6])
         outputScreen = 6;
-    }
-    if ([sender isEqual:outputButton7]) {
+    if ([sender isEqual:outputButton7])
         outputScreen = 7;
-    }
-    if ([sender isEqual:outputButton8]) {
+    if ([sender isEqual:outputButton8])
         outputScreen = 8;
-    }
+    [appDelegate saveAsSettings:appDelegate.fileName];
     [self presentModalViewController:outputsViewController animated:YES];
 }
 
-- (IBAction)startStop {
-    if (running) {
+- (IBAction)startStop
+{
+    drawSelector.hidden = true;
+    if (running)
+    {
         [self stopCameraCapture];
         [runButton setImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
         running = false;
-    } else {
+    }
+    else
+    {
         [self startCameraCapture];
         [runButton setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
         running = true;
     }
 }
 
-- (IBAction)lockUnlock {
-    if (locked) {
+- (IBAction)lockUnlock
+{
+    if (locked)
+    {
         [self.lockButton setBackgroundImage:[UIImage imageNamed:@"unlock_btn.png"] forState:UIControlStateNormal];
         locked = false;
-    } else {
+    }
+    else
+    {
         [self.lockButton setBackgroundImage:[UIImage imageNamed:@"0001_lock_btn.png"] forState:UIControlStateNormal];
         locked = true;
     }
 }
 
-- (IBAction)hideUI {
-    if (buttonsVisible || settingsControlsVisible) {
+- (IBAction)hideUI
+{
+    if (buttonsVisible || settingsControlsVisible)
+    {
         return;
     }
-    if (uiHidden) {
+    if (uiHidden)
+    {
         infoLabel.hidden = false;
         rgbLabel.hidden = false;
         hueLabel.hidden = false;
@@ -376,7 +419,9 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         smallOutput8.hidden = false;
         outputsButton.hidden = false;
         uiHidden = false;
-    } else {
+    }
+    else
+    {
         infoLabel.hidden = true;
         rgbLabel.hidden = true;
         hueLabel.hidden = true;
@@ -425,60 +470,209 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
         outputsButton.hidden = true;
         uiHidden = true;
     }
-
 }
+
 
 #pragma mark - handle touch selections
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (buttonsVisible || settingsControlsVisible) {
-        return;
+- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer
+{
+        if (buttonsVisible || settingsControlsVisible)
+            return;
+        if(recognizer.state == UIGestureRecognizerStateChanged && recognizer.state != UIGestureRecognizerStateFailed)
+        {
+            if(recognizer.numberOfTouches == 2 && running && !locked)
+            {
+                CGPoint loc1 = [recognizer locationOfTouch:0 inView:self.view];
+                CGPoint loc2 = [recognizer locationOfTouch:1 inView:self.view];
+                CGPoint loc;
+                loc.x = (loc2.x+loc1.x)/2;
+                loc.y = (loc2.y+loc1.y)/2;
+                if(loc2.y > loc1.y)
+                    appDelegate.currentBoxHeight = loc2.y - loc1.y;
+                else
+                    appDelegate.currentBoxHeight = loc1.y - loc2.y;
+                if(loc2.x > loc1.x)
+                    appDelegate.currentBoxWidth = loc2.x - loc1.x;
+                else
+                    appDelegate.currentBoxWidth = loc1.x - loc2.x;
+                
+                //sets up the major and minor axises for ellipse drawing
+                if(appDelegate.currentBoxHeight > appDelegate.currentBoxWidth)
+                {
+                    horizontalMajorAxis = false;
+                    appDelegate.majorAxis = appDelegate.currentBoxHeight/2;
+                    appDelegate.minorAxis = appDelegate.currentBoxWidth/2;
+                }
+                else if(appDelegate.currentBoxHeight <= appDelegate.currentBoxWidth)
+                {
+                    horizontalMajorAxis = true;
+                    appDelegate.majorAxis = appDelegate.currentBoxWidth/2;
+                    appDelegate.minorAxis = appDelegate.currentBoxHeight/2;
+                }
+                
+                // check to see that the x coordinate is not too far to the left
+                // as this will cause a crash in the pixel averaging code
+                // this should reposition the selection box close to the left edge in most situations
+                if (loc.x <= appDelegate.currentBoxWidth/widthScaleFactor/2)
+                    loc.x = appDelegate.currentBoxWidth/widthScaleFactor/2-1;
+                
+                //check to see that the x coordinate is not too far to the right
+                //this will make the pixel averaging code inaccurate
+                //this should reposition the selection box close to the right edge
+                if(loc.x >= appDelegate.screenRect.size.width - (appDelegate.currentBoxWidth/widthScaleFactor/2)-20)
+                    loc.x = appDelegate.screenRect.size.width - (appDelegate.currentBoxWidth/widthScaleFactor/2)-21;
+                
+                //check to see that the y coordinate is not too far up
+                //this will make the pixel averaging code inaccurate
+                //this should reposition the selection close to the top
+                if(loc.y <= appDelegate.currentBoxHeight/heightScaleFactor/2 + 10)
+                    loc.y = appDelegate.currentBoxHeight/heightScaleFactor/2 + 11;
+                
+                //check to see that the y coordinate is not to far down
+                //this will make the pixel averaging code inaccurate
+                //this should reposition the selection close to the bottom
+                if(loc.y >= appDelegate.screenRect.size.height - (appDelegate.currentBoxHeight/heightScaleFactor/2)-10)
+                    loc.y = appDelegate.screenRect.size.height - (appDelegate.currentBoxHeight/heightScaleFactor/2)-11;
+                
+                // shift the selection rectangle so it will draw centered on the user's touch
+                selectionX = loc.x + (appDelegate.currentBoxWidth/2);
+                // the touch input x coordinate is reversed here since
+                // the two views differ in the direction of their x axes
+                selectionXimage = appDelegate.SCREEN_WIDTH_IN_POINTS - selectionX;
+                selectionY = loc.y - (appDelegate.currentBoxHeight/2);
+                appDelegate.startingSelectionX = selectionX;
+                appDelegate.startingSelectionY = selectionY;
+            }
     }
-    if (running && !locked) {
-        for (UITouch *touch in touches) {
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (buttonsVisible || settingsControlsVisible)
+        return;
+    if (running && !locked)
+    {
+        for (UITouch *touch in touches)
+        {
             CGPoint loc = [touch locationInView:self.view];
-#ifdef DEBUG
-            NSLog(@"x -- %f y -- %f", loc.x, loc.y);
-#endif
+            #ifdef DEBUG
+                //NSLog(@"x -- %f y -- %f", loc.x, loc.y);
+            #endif
             // check to see that the x coordinate is not too far to the left
             // as this will cause a crash in the pixel averaging code
             // this should reposition the selection box close to the left edge in most situations
-            if (loc.x < appDelegate.currentBoxWidth/widthScaleFactor/2) {
+            if (loc.x < appDelegate.currentBoxWidth/widthScaleFactor/2)
+            {
                 loc.x = appDelegate.currentBoxWidth/widthScaleFactor/2-1;
-#ifdef DEBUG
-                NSLog(@"crash averted");
-#endif
+                #ifdef DEBUG
+                    NSLog(@"crash averted");
+                #endif
             }
+            
+            //check to see that the x coordinate is not too far to the right
+            //this will make the pixel averaging code inaccurate
+            //this should reposition the selection box close to the right edge
+            if(loc.x >= appDelegate.screenRect.size.width - (appDelegate.currentBoxWidth/widthScaleFactor/2) -20)
+                loc.x = appDelegate.screenRect.size.width - (appDelegate.currentBoxWidth/widthScaleFactor/2) -21;
+            
+            //check to see that the y coordinate is not too far up
+            //this will make the pixel averaging code inaccurate
+            //this should reposition the selection close to the top
+            if(loc.y <= appDelegate.currentBoxHeight/heightScaleFactor/2 + 10)
+                loc.y = appDelegate.currentBoxHeight/heightScaleFactor/2 + 11;
+            
+            //check to see that the y coordinate is not to far down
+            //this will make the pixel averaging code inaccurate
+            //this should reposition the selection close to the bottom
+            if(loc.y >= appDelegate.screenRect.size.height - (appDelegate.currentBoxHeight/heightScaleFactor/2)-10)
+                loc.y = appDelegate.screenRect.size.height - (appDelegate.currentBoxHeight/heightScaleFactor/2)-11;
+            
             // shift the selection rectangle so it will draw centered on the user's touch
             selectionX = loc.x + (appDelegate.currentBoxWidth/2);
             // the touch input x coordinate is reversed here since
             // the two views differ in the direction of their x axes
             selectionXimage = appDelegate.SCREEN_WIDTH_IN_POINTS - selectionX;
             selectionY = loc.y - (appDelegate.currentBoxHeight/2);
-#ifdef DEBUG
-            NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
-#endif
+            appDelegate.startingSelectionX = selectionX;
+            appDelegate.startingSelectionY = selectionY;
         }
     }
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (buttonsVisible || settingsControlsVisible)
+        return;
+    if (running && !locked)
+    {
+        for (UITouch *touch in touches)
+        {
+            CGPoint loc = [touch locationInView:self.view];
+            #ifdef DEBUG
+                NSLog(@"x -- %f y -- %f", loc.x, loc.y);
+            #endif
+            // check to see that the x coordinate is not too far to the left
+            // as this will cause a crash in the pixel averaging code
+            // this should reposition the selection box close to the left edge in most situations
+            if (loc.x < appDelegate.currentBoxWidth/widthScaleFactor/2)
+            {
+                loc.x = appDelegate.currentBoxWidth/widthScaleFactor/2-1;
+                #ifdef DEBUG
+                NSLog(@"crash averted");
+                #endif
+            }
+            
+            //check to see that the x coordinate is not too far to the right
+            //this will make the pixel averaging code inaccurate
+            //this should reposition the selection box close to the right edge
+            if(loc.x >= appDelegate.screenRect.size.width - (appDelegate.currentBoxWidth/widthScaleFactor/2) -20)
+                loc.x = appDelegate.screenRect.size.width - (appDelegate.currentBoxWidth/widthScaleFactor/2) -21;
+            
+            //check to see that the y coordinate is not too far up
+            //this will make the pixel averaging code inaccurate
+            //this should reposition the selection close to the top
+            if(loc.y <= appDelegate.currentBoxHeight/heightScaleFactor/2 + 10)
+                loc.y = appDelegate.currentBoxHeight/heightScaleFactor/2 + 11;
+            
+            //check to see that the y coordinate is not to far down
+            //this will make the pixel averaging code inaccurate
+            //this should reposition the selection close to the bottom
+            if(loc.y >= appDelegate.screenRect.size.height - (appDelegate.currentBoxHeight/heightScaleFactor/2)-10)
+                loc.y = appDelegate.screenRect.size.height - (appDelegate.currentBoxHeight/heightScaleFactor/2)-11;
+            
+            // shift the selection rectangle so it will draw centered on the user's touch
+            selectionX = loc.x + (appDelegate.currentBoxWidth/2);
+            // the touch input x coordinate is reversed here since
+            // the two views differ in the direction of their x axes
+            selectionXimage = appDelegate.SCREEN_WIDTH_IN_POINTS - selectionX;
+            selectionY = loc.y - (appDelegate.currentBoxHeight/2);
+            appDelegate.startingSelectionX = selectionX;
+            appDelegate.startingSelectionY = selectionY;
+            #ifdef DEBUG
+                NSLog(@"selectionX -- %f selectionY -- %f  selectionXimage -- %f", selectionX, selectionY, selectionXimage);
+            #endif
+        }
+    }
 }
 
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-  [super viewDidLoad];
-  appDelegate = [[UIApplication sharedApplication] delegate];
-  outputsViewController = [[OutputsViewController alloc] initWithNibName:@"OutputsViewController" bundle:[NSBundle mainBundle]];
+    [super viewDidLoad];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    outputsViewController = [[OutputsViewController alloc] initWithNibName:@"OutputsViewController" bundle:[NSBundle mainBundle]];
 }
 
 - (void)viewDidUnload
@@ -514,10 +708,12 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     targetStatus7.hidden = true;
     targetStatus8.hidden = true;
     buttonsVisible = false;
-    for (UIImageView *imgView in settingControlsBackgrounds) {
+    for (UIImageView *imgView in settingControlsBackgrounds)
+    {
         imgView.hidden = true;
     }
-    for (UILabel *l in settingControlsLabels) {
+    for (UILabel *l in settingControlsLabels)
+    {
         l.hidden = true;
     }
     selectionWidthTextField.hidden = true;
@@ -526,7 +722,11 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     startingYTextField.hidden = true;
     exposureLock.hidden = true;
     focusLock.hidden = true;
-    saveSettings.hidden = true;
+    doneButton.hidden = true;
+    saveButton.hidden = true;
+    loadSettingsButton.hidden = true;
+    saveAsSettingsButton.hidden = true;
+    drawSelector.hidden = true;
     settingsControlsVisible = false;
     // start grabbing frames from the camera
     running = true;
@@ -537,7 +737,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
 - (void)viewDidAppear:(BOOL)animated
 {
-  [super viewDidAppear:animated];
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -564,7 +764,8 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
 // r,g,b values are from 0 to 1 // h = [0,360], s = [0,1], v = [0,1] 
 //	if s == 0, then h = -1 (undefined) 
-void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
+void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v )
+{
 	float min, max, delta; 
 	min = MIN( r, MIN(g, b )); 
 	max = MAX( r, MAX(g, b )); 
@@ -572,7 +773,8 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	delta = max - min; 
 	if( max != 0 )
 		*s = delta / max;
-	else {
+	else
+    {
 		// r = g = b = 0 
 		*s = 0; 
 		*h = -1; 
@@ -589,11 +791,11 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 		*h += 360;
 }
 
--(void) startCameraCapture {
+-(void) startCameraCapture
+{
 	// start capturing frames
 	// Create the AVCapture Session
 	session = [[AVCaptureSession alloc] init];
-	
 	// create a preview layer to show the output from the camera
 	AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
 	// Specify that the video should be stretched to fill the layer’s bounds.
@@ -604,11 +806,14 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	// Get the default camera device
 	AVCaptureDevice* camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     // get the current settings
-    [appDelegate loadSettings];
-    if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
+    [appDelegate loadFileSettings:appDelegate.fileName];
+    [appDelegate loadTargets];
+    if ([camera isFocusModeSupported:AVCaptureFocusModeLocked])
+    {
         self.isFocusLockSupported = YES;
     }
-    if ([camera isExposureModeSupported:AVCaptureExposureModeLocked]) {
+    if ([camera isExposureModeSupported:AVCaptureExposureModeLocked])
+    {
         self.isExposureLockSupported = YES;
     }
 
@@ -619,29 +824,41 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 
     // attempt to lock the focus and exposure
     NSError *error = nil;
-    if (self.isFocusLockSupported) {
-        if (appDelegate.focusLock) {
+    if (self.isFocusLockSupported)
+    {
+        if (appDelegate.focusLock)
+        {
 #if DEBUG_SETTINGS
             NSLog(@"Attempting to lock focus.");
 #endif
-            if ([camera isFocusModeSupported:AVCaptureFocusModeLocked]) {
-                if ([camera lockForConfiguration:&error]) {
+            if ([camera isFocusModeSupported:AVCaptureFocusModeLocked])
+            {
+                if ([camera lockForConfiguration:&error])
+                {
                     camera.focusMode = AVCaptureFocusModeLocked;
                     [camera unlockForConfiguration];
-                } else {
+                }
+                else
+                {
                     NSLog(@"Error trying to obtain configuration lock to set focus: %@",error);
                 }
             }
 
-        } else {
+        }
+        else
+        {
 #if DEBUG_SETTINGS
             NSLog(@"Unlocking focus.");
 #endif
-            if ([camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]) {
-                if ([camera lockForConfiguration:&error]) {
+            if ([camera isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
+            {
+                if ([camera lockForConfiguration:&error])
+                {
                     camera.focusMode = AVCaptureFocusModeContinuousAutoFocus;
                     [camera unlockForConfiguration];
-                } else {
+                }
+                else
+                {
                     NSLog(@"Error trying to obtain configuration lock to set focus: %@",error);
                 }
             }
@@ -649,33 +866,47 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 #if DEBUG_SETTINGS
         [self reportFocus:camera.focusMode];
 #endif
-    } else {
+    }
+    else
+    {
         NSLog(@"Focus locking not supported on this device.");
     }
 
-    if (self.isExposureLockSupported) {
-        if (appDelegate.exposureLock) {
+    if (self.isExposureLockSupported)
+    {
+        if (appDelegate.exposureLock)
+        {
 #if DEBUG_SETTINGS
             NSLog(@"Attempting to lock exposure.");
 #endif
-            if ([camera isExposureModeSupported:AVCaptureExposureModeLocked]) {
-                if ([camera lockForConfiguration:&error]) {
+            if ([camera isExposureModeSupported:AVCaptureExposureModeLocked])
+            {
+                if ([camera lockForConfiguration:&error])
+                {
                     camera.exposureMode = AVCaptureExposureModeLocked;
                     [camera unlockForConfiguration];
-                } else {
+                }
+                else
+                {
                     NSLog(@"Error trying to obtain configuration lock to set exposure: %@",error);
                 }
             }
 
-        } else {
+        }
+        else
+        {
 #if DEBUG_SETTINGS
             NSLog(@"Unlocking exposure.");
 #endif
-            if ([camera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
-                if ([camera lockForConfiguration:&error]) {
+            if ([camera isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure])
+            {
+                if ([camera lockForConfiguration:&error])
+                {
                     camera.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
                     [camera unlockForConfiguration];
-                } else {
+                }
+                else
+                {
                     NSLog(@"Error trying to obtain configuration lock to set exposure: %@",error);
                 }
             }
@@ -683,7 +914,9 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 #if DEBUG_SETTINGS
         [self reportExposure:camera.exposureMode];
 #endif
-    } else {
+    }
+    else
+    {
         NSLog(@"Exposure locking not supported on this device.");
     }
 
@@ -708,31 +941,29 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 	videoOutput.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA], (id)kCVPixelBufferPixelFormatTypeKey,nil];
 	videoOutput.minFrameDuration=CMTimeMake(1, 10);
 	// and the size of the frames we want
-    if ([session canSetSessionPreset:@"AVCaptureSessionPresetMedium"]) {
+    if ([session canSetSessionPreset:@"AVCaptureSessionPresetMedium"])
         [session setSessionPreset:AVCaptureSessionPresetMedium];
-    } else {
+    else
         NSLog(@"Session preset not supported.");
-    }
 	
 	// Add the input and output
-    if ([session canAddInput:cameraInput]) {
+    if ([session canAddInput:cameraInput])
         [session addInput:cameraInput];
-    } else {
+    else
         NSLog(@"Error: cannot add camera input.");
-    }
 	
-    if ([session canAddOutput:videoOutput]) {
+    if ([session canAddOutput:videoOutput])
         [session addOutput:videoOutput];
-    } else {
+    else
         NSLog(@"Error: cannot add video output.");
-    }
 
 	// Start the session
-	[session startRunning];		
+	[session startRunning];
 }
 
+
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-	// this is the image buffer
+    // this is the image buffer
 	CVImageBufferRef cvimgRef = CMSampleBufferGetImageBuffer(sampleBuffer);
 	// Lock the image buffer
 	CVPixelBufferLockBaseAddress(cvimgRef,0);
@@ -754,26 +985,95 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
     pixelStartX = selectionXimage * widthScaleFactor;
     int i, j;
     i = j = 0;
-	for(int y=pixelStartX; i < appDelegate.currentBoxWidth; y++) {
-		for(int x=pixelStartY; j < appDelegate.currentBoxHeight; x++) {
-			cb+=buf[y*bprow+x*4];
-			cg+=buf[y*bprow+x*4+1];
-			cr+=buf[y*bprow+x*4+2];
-            j++;
-		}
-        j = 0;
-        i++;
-	}
+    //set the center of the ellipse
+    //scale so it is compatable with the pixel buffer
+    double centerX = (selectionXimage + appDelegate.currentBoxWidth/2.0)*widthScaleFactor;
+    double centerY = (selectionY + appDelegate.currentBoxHeight/2.0)*heightScaleFactor;
+    double aSquared, bSquared;
+    if(horizontalMajorAxis)
+    {
+        aSquared = (appDelegate.currentBoxWidth/2.0)*(appDelegate.currentBoxWidth/2.0);
+        bSquared = (appDelegate.currentBoxHeight/2.0)*(appDelegate.currentBoxHeight/2.0);
+    }
+    if(!horizontalMajorAxis)
+    {
+        bSquared = (appDelegate.currentBoxWidth/2.0)*(appDelegate.currentBoxWidth/2.0);
+        aSquared = (appDelegate.currentBoxHeight/2.0)*(appDelegate.currentBoxHeight/2.0);
+    }
+    int pixelsProcessed = 0;
+    if(!appDelegate.circleDraw)
+    {
+        for(int y=pixelStartX; i < appDelegate.currentBoxWidth; y++)
+        {
+            for(int x=pixelStartY; j < appDelegate.currentBoxHeight; x++)
+            {
+                ///handle random pinch errors
+                if((((y) < pixelBufferWidth) && ((x) < pixelBufferHeight)) && CMSampleBufferIsValid(sampleBuffer))
+                {
+                    cb+=buf[y*bprow+x*4];
+                    cg+=buf[y*bprow+x*4+1];
+                    cr+=buf[y*bprow+x*4+2];
+                    pixelsProcessed++;
+                }
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+    }
+
+    //get the color sums if the selection is an ellipse
+    //checks if the pixels are within the equation of the ellipse
+    //.03 is added onto the ellipse comparison to account for some divided pixels
+    //the number of pixels processed accounts for 98%-99% of the area of the ellipse
+    if(appDelegate.circleDraw)
+    {
+        pixelsProcessed = 0;
+        for(int y=pixelStartX; i < appDelegate.currentBoxWidth; y++)
+        {
+            for(int x=pixelStartY; j < appDelegate.currentBoxHeight; x++)
+            {
+                double xTop = (y-centerX)*(y-centerX);
+                double yTop = (x-centerY)*(x-centerY);
+                double xQuo, yQuo;
+                if(horizontalMajorAxis)
+                    
+                {
+                    xQuo = xTop/aSquared;
+                    yQuo = yTop/bSquared;
+                }
+                else
+                {
+                    xQuo = xTop/bSquared;
+                    yQuo = yTop/aSquared;
+                }
+                ///handle random pinch errors and check ellipse equation
+                if((((y) < pixelBufferWidth) && ((x) < pixelBufferHeight) && ((xQuo+yQuo) <=1.03) && CMSampleBufferIsValid(sampleBuffer)))
+                {
+                    cb+=buf[y*bprow+x*4];
+                    cg+=buf[y*bprow+x*4+1];
+                    cr+=buf[y*bprow+x*4+2];
+                    pixelsProcessed++;
+                }
+                j++;
+            }
+            j = 0;
+            i++;
+        }
+    }
+
+    //replaced 255.0f*currentBoxWidth*currentBoxHeight with below code
+    //this new code accounts for a better average when working with circles and error reduced rectangles
     // get the average RGB value in the range 0..1
-	r=cr/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
-	g=cg/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
-	b=cb/(255.0f*appDelegate.currentBoxHeight*appDelegate.currentBoxWidth);
+    r=cr/(255.0f*pixelsProcessed);
+    g=cg/(255.0f*pixelsProcessed);
+    b=cb/(255.0f*pixelsProcessed);
     // get the hue saturation and value (brightness)
     float ch,cs,cv;
     RGBtoHSV(r, g, b, &ch, &cs, &cv);
     h=ch; s=cs; v=cv;
-
-    if (captureImage) {
+    if (captureImage)
+    {
         captureImage = false;
         // combine current image capture with current selection rectangle
         UIImage *image = imageFromSampleBuffer(sampleBuffer);
@@ -783,70 +1083,98 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
         [self drawSelectionRectToSavedImage];
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-
         // Request to save the image to the camera roll
         UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
         sleep(1);
     }
+    CVPixelBufferUnlockBaseAddress(cvimgRef, 0);
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    if (error != NULL) {
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if (error != NULL)
         NSLog(@"image not captured, error description: %@", [error localizedDescription]);
-    }
-    else {
+    else
         NSLog(@"image captured");
-    }
 }
 
-- (void)drawSelectionRectToSavedImage {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 2.0);
-    UIColor *color;
-    if (appDelegate.viewController.locked) {
-        color = [UIColor redColor];
-    } else {
-        color = [UIColor greenColor];
-    }
-    CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGRect rectangle = CGRectMake(selectionX*widthScaleFactor, selectionY*heightScaleFactor,
+- (void)drawSelectionRectToSavedImage
+{
+    if(!appDelegate.circleDraw)
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetLineWidth(context, 2.0);
+        UIColor *color;
+        if (appDelegate.viewController.locked)
+            color = [UIColor redColor];
+        else
+            color = [UIColor greenColor];
+        CGContextSetStrokeColorWithColor(context, color.CGColor);
+        CGRect rectangle = CGRectMake(selectionX*widthScaleFactor, selectionY*heightScaleFactor,
                                   -appDelegate.currentBoxWidth, appDelegate.currentBoxHeight);
-    CGContextAddRect(context, rectangle);
-    CGContextStrokePath(context);
+        CGContextAddRect(context, rectangle);
+        CGContextStrokePath(context);
+    }
+    if(appDelegate.circleDraw)
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetLineWidth(context, 2.0);
+        UIColor *color;
+        if(appDelegate.viewController.locked)
+            color = [UIColor redColor];
+        else
+            color = [UIColor greenColor];
+        CGContextSetStrokeColorWithColor(context, color.CGColor);
+        CGRect rectangle = CGRectMake(selectionX*widthScaleFactor, selectionY*heightScaleFactor,
+                                      -appDelegate.currentBoxWidth, appDelegate.currentBoxHeight);
+        CGContextAddEllipseInRect(context, rectangle);
+        CGContextStrokePath(context);
+    }
 }
 
-- (void)checkTargets {
+- (void)checkTargets
+{
     int red = r*255;
     int green = g*255;
     int blue = b*255;
     UIImage *largeIndictator, *smallIndicator;
-    for (int i = 0; i < [appDelegate.targets count]; ++i) {
+    for (int i = 0; i < [appDelegate.targets count]; ++i)
+    {
         Target *t = [appDelegate.targets objectAtIndex:i];
-        if (t.on) {
+        if (t.on)
+        {
             // NoNc 1 equals NC
-            if (t.NoNc) {
+            if (t.NoNc)
+            {
                 largeIndictator = [UIImage imageNamed:@"green_indicator(lrg).png"];
                 smallIndicator = [UIImage imageNamed:@"green_indicator(small).png"];
-            } else {
+            }
+            else
+            {
                 largeIndictator = [UIImage imageNamed:@"ylw_indicator(lrg).png"];
                 smallIndicator = [UIImage imageNamed:@"yllw_indicator(small).png"];
             }
             if ((red >= t.rl && red <= t.rh) &&
                 (green >= t.gl && green <= t.gh) &&
-                (blue >= t.bl && blue <= t.bh)) {
+                (blue >= t.bl && blue <= t.bh))
+            {
 #ifdef DEBUG
                 NSLog(@"Target %i hit.", i+1);
                 static BOOL once[] = {NO, NO, NO, NO, NO, NO, NO, NO};
-                if (t.light && !once[i]) {
+                if (t.light && !once[i])
+                {
                     NSLog(@"Output %i light triggered.", i+1);
                     once[i] = YES;
                 }
 #endif
 
-                if (t.previousSample) {
+                if (t.previousSample)
+                {
                     t.beforeDelayCounter += .1;
 
-                    if (t.beforeDelayCounter >= t.beforeDelay) {
+                    if (t.beforeDelayCounter >= t.beforeDelay)
+                    {
 #ifdef DEBUG_TIMING
                         NSLog(@"beforeDelayCounter %f beforeDelay %f", t.beforeDelayCounter, t.beforeDelay);
                         NSLog(@"Indicator triggered.");
@@ -857,22 +1185,26 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
                 }
                 t.previousSample = YES;
 
-            } else {
-                if (t.afterDelayCounter > 0) {
+            }
+            else
+            {
+                if (t.afterDelayCounter > 0)
+                {
                     t.afterDelayCounter -= .1;
                     [self updateIndicator:i :largeIndictator :smallIndicator];
                 }
                 t.previousSample = NO;
                 t.beforeDelayCounter = 0;
             }
-
         }
     }
 }
 
-- (void)updateIndicator:(int)target :(UIImage *) largeIndictator :(UIImage *)smallIndicator {
+- (void)updateIndicator:(int)target :(UIImage *) largeIndictator :(UIImage *)smallIndicator
+{
 
-    switch (target+1) {
+    switch (target+1)
+    {
         case 1:
             [self.output1 setBackgroundImage:largeIndictator forState:UIControlStateNormal];
             [self.smallOutput1 setBackgroundImage:smallIndicator forState:UIControlStateNormal];
@@ -913,29 +1245,37 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
 }
 
 // do this on a timer as the captureOutput runs on it's own thread and can't update the UI
--(void) updateUI {
+-(void) updateUI
+{
     // the raw RGB colour
     rgbColourView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
     rgbLabel.text = [NSString stringWithFormat:@"RGB = %.f,%.f,%.f", r*255, g*255, b*255];
     hueLabel.text = [NSString stringWithFormat:@"Hue = %.f Sat = %.2f Val = %.2f", h, s, v];
 
     UIImage *largeIndictator, *smallIndicator;
-    for (int i = 0; i < [appDelegate.targets count]; ++i) {
+    for (int i = 0; i < [appDelegate.targets count]; ++i)
+    {
         Target *t = [appDelegate.targets objectAtIndex:i];
-        if (t.on) {
+        if (t.on)
+        {
             // NoNc 1 equals NC
-            if (t.NoNc) {
+            if (t.NoNc)
+            {
                 largeIndictator = [UIImage imageNamed:@"ylw_indicator(lrg).png"];
                 smallIndicator = [UIImage imageNamed:@"yllw_indicator(small).png"];
-            } else {
+            } else
+            {
                 largeIndictator = [UIImage imageNamed:@"green_indicator(lrg).png"];
                 smallIndicator = [UIImage imageNamed:@"green_indicator(small).png"];
             }
-        } else {
+        }
+        else
+        {
             largeIndictator = [UIImage imageNamed:@"red_indicator(lrg).png"];
             smallIndicator = [UIImage imageNamed:@"red_indicator(small).png"];
         }
-        switch (i+1) {
+        switch (i+1)
+        {
             case 1:
                 [self.output1 setBackgroundImage:largeIndictator forState:UIControlStateNormal];
                 [self.smallOutput1 setBackgroundImage:smallIndicator forState:UIControlStateNormal];
@@ -978,20 +1318,23 @@ void RGBtoHSV( float r, float g, float b, float *h, float *s, float *v ) {
   [self.selectionView setNeedsDisplay];
 }
 
--(void) stopCameraCapture {
+-(void) stopCameraCapture
+{
 	[session stopRunning];
 	[session release];
 	session=nil;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   [previewView release];
   [rgbColourView release];
   [infoLabel release];
   [super dealloc];
 }
 
-UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
+UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer)
+{
 
   CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
   // Lock the base address of the pixel buffer.
@@ -1005,9 +1348,11 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 
   // Create a device-dependent RGB color space.
   static CGColorSpaceRef colorSpace = NULL;
-  if (colorSpace == NULL) {
+  if (colorSpace == NULL)
+  {
     colorSpace = CGColorSpaceCreateDeviceRGB();
-    if (colorSpace == NULL) {
+    if (colorSpace == NULL)
+    {
       // Handle the error appropriately.
       return nil;
     }
@@ -1037,8 +1382,10 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
   return image;
 }
 
-- (void)reportFocus:(int)focusMode {
-    switch (focusMode) {
+- (void)reportFocus:(int)focusMode
+{
+    switch (focusMode)
+    {
         case 0:
             NSLog(@"Focus mode is AVCaptureFocusModeLocked");
             NSLog(@"The focus is locked.");
@@ -1056,8 +1403,11 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
             break;
     }
 }
-- (void)reportExposure:(int)exposureMode {
-    switch (exposureMode) {
+
+- (void)reportExposure:(int)exposureMode
+{
+    switch (exposureMode)
+    {
         case 0:
             NSLog(@"Exposure mode is AVCaptureExposureModeLocked");
             NSLog(@"The exposure setting is locked.");
@@ -1078,23 +1428,129 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 
 #pragma mark - Settings
 
-- (IBAction)saveSettings:(UIButton*)sender {
-    if (changeExposure) {
-        appDelegate.exposureLock = !appDelegate.exposureLock;
-        changeExposure = FALSE;
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //cancel button is always at index 1
+    if(buttonIndex == 1)
+        return;
+    if(alertView.title == @"No Files Saved")
+        return;
+    //handles save button press
+    if(buttonIndex == 0)
+    {
+        saveName = [[alertView textFieldAtIndex:0] text];
+        appDelegate.fileName = saveName;
+        if (changeExposure)
+        {
+            appDelegate.exposureLock = !appDelegate.exposureLock;
+            changeExposure = FALSE;
+        }
+        if (changeFocus)
+        {
+            appDelegate.focusLock = !appDelegate.focusLock;
+            changeFocus = FALSE;
+        }
+        
+        if(drawSelector.selectedSegmentIndex == 0)
+            appDelegate.circleDraw = FALSE;
+        if(drawSelector.selectedSegmentIndex == 1)
+            appDelegate.circleDraw = TRUE;
+        
+        [appDelegate saveAsSettings:saveName];
+        [appDelegate setStartingCoordinates];
+        [appDelegate saveTargets];
+        settingsControlsVisible = true;
+        [self showSettingsControls];
+        [self.selectionView setNeedsDisplay];
     }
-    if (changeFocus) {
-        appDelegate.focusLock = !appDelegate.focusLock;
-        changeFocus = FALSE;
-    }
-    [appDelegate saveSettings];
-    [appDelegate setStartingCoordinates];
-    settingsControlsVisible = true;
-    [self showSettingsControls];
-    [self.selectionView setNeedsDisplay];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+- (IBAction)savePressed:(id)sender
+{
+     if (changeExposure)
+     {
+     appDelegate.exposureLock = !appDelegate.exposureLock;
+     changeExposure = FALSE;
+     }
+     if (changeFocus)
+     {
+     appDelegate.focusLock = !appDelegate.focusLock;
+     changeFocus = FALSE;
+     }
+     
+     if(drawSelector.selectedSegmentIndex == 0)
+     appDelegate.circleDraw = FALSE;
+     if(drawSelector.selectedSegmentIndex == 1)
+     appDelegate.circleDraw = TRUE;
+     
+
+     appDelegate.currentBoxWidth = [selectionWidthTextField.text intValue];
+     appDelegate.currentBoxHeight = [selectionHeightTextField.text intValue];
+     appDelegate.startingSelectionX = [startingXTextField.text intValue];
+     appDelegate.startingSelectionY = [startingYTextField.text intValue];
+     
+     [appDelegate saveAsSettings:appDelegate.fileName];
+     [appDelegate setStartingCoordinates];
+     settingsControlsVisible = true;
+     [self showSettingsControls];
+     [self.selectionView setNeedsDisplay];
+}
+
+- (IBAction)donePressed:(id)sender
+{
+    //resets all fields to current settings.
+    selectionWidthTextField.text = [NSString stringWithFormat:@"%i",appDelegate.currentBoxWidth];
+    selectionHeightTextField.text = [NSString stringWithFormat:@"%i", appDelegate.currentBoxHeight];
+    startingXTextField.text = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionX];
+    startingYTextField.text = [NSString stringWithFormat:@"%i", appDelegate.startingSelectionY];
+    //reset exposure and focus lock also
+    if(appDelegate.circleDraw == FALSE)
+        [drawSelector setSelectedSegmentIndex:0];
+    if(appDelegate.circleDraw)
+        [drawSelector setSelectedSegmentIndex:1];
+    if(appDelegate.focusLock)
+        [focusLock setOn:YES animated:TRUE];
+    else
+        [focusLock setOn:NO animated:TRUE];
+    if(appDelegate.exposureLock)
+        [exposureLock setOn:YES animated:TRUE];
+    else
+        [exposureLock setOn:NO animated:TRUE];
+    
+    settingsControlsVisible = true;
+    [self showSettingsControls];
+}
+
+
+- (IBAction)saveAsSettings:(UIButton *)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save As" message:@"Enter the name for the save file. This will save selection and target settings" delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Cancel", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (IBAction)loadSettings:(UIButton *)sender
+{
+    NSArray *fileNames = [appDelegate getFileNames];
+    if([fileNames count] > 0)
+    {
+        _filesTVC = [[FilesTableViewController alloc] init];
+        [appDelegate.window addSubview:_filesTVC.view];
+        _filesTVC.view.hidden = false;
+        settingsControlsVisible = true;
+        [self showSettingsControls];
+    }
+    else
+    {
+        UIAlertView *noSavesAlert = [[UIAlertView alloc] initWithTitle:@"No Files Saved" message:@"You have no saved files!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        noSavesAlert.AlertViewStyle = UIAlertViewStyleDefault;
+        [noSavesAlert show];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
     [theTextField resignFirstResponder];
     self.selectionWidth = self.selectionWidthTextField.text;
     self.selectionHeight = self.selectionHeightTextField.text;
@@ -1109,11 +1565,13 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     return YES;
 }
 
-- (IBAction)exposureLockChanged:(UISwitch*)sender {
+- (IBAction)exposureLockChanged:(UISwitch*)sender
+{
     changeExposure = TRUE;
 }
 
-- (IBAction)focusLockChanged:(UISwitch*)sender {
+- (IBAction)focusLockChanged:(UISwitch*)sender
+{
     changeFocus = TRUE;
 }
 

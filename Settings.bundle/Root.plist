@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Selection Width:</string>
+			<key>Key</key>
+			<string>selectionWidth</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Selection Height:</string>
+			<key>Key</key>
+			<string>selectionHeigh</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Starting X:</string>
+			<key>Key</key>
+			<string>startingX</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Starting Y:</string>
+			<key>Key</key>
+			<string>startingY</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Exposure Lock</string>
+			<key>Key</key>
+			<string>exposureLock</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Focus Lock</string>
+			<key>Key</key>
+			<string>focusLock</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+	</array>
+	<key>Title</key>
+	<string></string>
+	<key>StringsTable</key>
+	<string>Root</string>
+</dict>
+</plist>

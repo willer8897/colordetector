@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "FilesTableViewController.h"
 #import "ViewController.h"
 #import "Target.h"
 
@@ -24,46 +24,71 @@
 @synthesize SCREEN_HEIGHT_IN_POINTS;
 @synthesize exposureLock;
 @synthesize focusLock;
+@synthesize circleDraw;
+@synthesize minorAxis;
+@synthesize majorAxis;
+@synthesize screenRect;
+@synthesize fileName;
+
+
 
 #pragma mark -
 
-- (void)setStartingCoordinates {
-    if (startingSelectionX < currentBoxWidth/self.viewController.widthScaleFactor/2) {
+- (void)setStartingCoordinates
+{
+    if (startingSelectionX < currentBoxWidth/self.viewController.widthScaleFactor/2)
+    {
         startingSelectionX = currentBoxWidth/self.viewController.widthScaleFactor/2-1;
 #ifdef DEBUG
         NSLog(@"initial starting x was out of range");
 #endif
     }
-    self.viewController.selectionX = startingSelectionX + (currentBoxWidth/2);
-    self.viewController.selectionY = startingSelectionY - (currentBoxHeight/2);
+    self.viewController.selectionX = startingSelectionX;
+    self.viewController.selectionY = startingSelectionY;
     self.viewController.selectionXimage = SCREEN_WIDTH_IN_POINTS - self.viewController.selectionX;
+    
 }
 
 #pragma mark - archive/unarchive Targets
 
-- (void)loadTargets {
+- (void)loadTargets
+{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
 
     NSMutableData *targetObjects;
     NSKeyedUnarchiver *decoder;
-
-    NSString *documentPath = [documentsDirectory stringByAppendingPathComponent:@"targetObjects.dat"];
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:documentPath]) {
-        NSLog(@"Targets archive file doesn't exist.");
-        return;
+    NSString *documentPath;
+    
+    if(fileName != nil && ![fileName isEqualToString:@""])
+    {
+        documentPath = [documentsDirectory stringByAppendingPathComponent:fileName];
+        documentPath = [documentPath stringByAppendingString:@".dat"];
     }
+    else
+        documentPath = [documentsDirectory stringByAppendingPathComponent:@"targetObjects.dat"];
+    
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:documentPath])
+    {
+        NSLog(@"No target file found. Loading Default.");
+        
+    }
+    NSLog(@"Loading from file: %@", documentPath);
+    
     targetObjects = [NSData dataWithContentsOfFile:documentPath];
 
     decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:targetObjects];
 
     targets = [[decoder decodeObjectForKey:@"targets"] retain];
+    
+    NSLog(@"%@", targets);
 
 	[decoder release];
 }
 
-- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed :(float)onDelay :(float)offDelay {
+- (void)updateTargets:(NSArray *)sortedArray :(int)target :(BOOL)enabled :(BOOL)lightEnabled :(int)NormOpenClosed :(float)onDelay :(float)offDelay
+{
     Target *t = [targets objectAtIndex:target];
     UITextField *textField = [sortedArray objectAtIndex:0];
     t.rl = [textField.text intValue];
@@ -85,7 +110,10 @@
     t.afterDelay = offDelay;
 }
 
-- (void)saveTargets {
+//consider adding a method here to update the targets without saving
+
+- (void)saveTargets
+{
     // update targets array
     NSSortDescriptor *ascendingSort = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortedArray = [self.viewController.outputsViewController.target1TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
@@ -155,8 +183,16 @@
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *targetObjectsPath = [documentsDirectory stringByAppendingPathComponent:@"targetObjects.dat"];
-
+    NSString *targetObjectsPath;
+    if(fileName != nil && ![fileName isEqualToString:@""])
+    {
+        targetObjectsPath = [documentsDirectory stringByAppendingPathComponent:fileName];
+        targetObjectsPath = [targetObjectsPath stringByAppendingString:@".dat"];
+    }
+    else
+    {
+        targetObjectsPath = [documentsDirectory stringByAppendingPathComponent:@"targetObjects.dat"];
+    }
 	NSMutableData *targetObjects;
 	NSKeyedArchiver *encoder;
 	targetObjects = [NSMutableData data];
@@ -165,6 +201,7 @@
     [encoder encodeObject:targets forKey:@"targets"];
 
 	[encoder finishEncoding];
+    NSLog(@"Writing to file: %@",targetObjectsPath);
 	[targetObjects writeToFile:targetObjectsPath atomically:YES];
 	[encoder release];
 #ifdef DEBUG_SETTINGS
@@ -174,21 +211,35 @@
 
 #pragma mark - Settings
 
-- (void)loadSettings {
+- (void)loadFileSettings:(NSString *)fn
+{
 #ifdef DEBUG_SETTINGS
-    NSLog(@"Loading settings.");
+    NSLog(@"Loading settings from file: %@", fn);
 #endif
-    // If the settings file has not been initialized then initialize
-    if(settingsFilePath == nil)
-        [self initSettingsFilePath];
-
-    // If the settings file cannot be found then create it with default values
-    if([[NSFileManager defaultManager] fileExistsAtPath:settingsFilePath]) {
+    // initialize settings path every time
+    [self initSettingsFilePath];
+    fileName = fn;
+    NSString *newSettingsFilePath;
+    NSLog(@"Inside load. File name is %@", fileName);
+    if(fn != nil && [fn length] > 0)
+    {
+        newSettingsFilePath = [settingsFilePath stringByAppendingString:fn];
+        newSettingsFilePath = [newSettingsFilePath stringByAppendingString:@".plist"];
+    }
+    else
+    {
+        newSettingsFilePath = [settingsFilePath stringByAppendingString:@".plist"];
+    }
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:newSettingsFilePath])
+    {
 #ifdef DEBUG_SETTINGS
         NSLog(@"Found settings file");
 #endif
-        settings = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsFilePath];
-    } else {
+        settings = [[NSMutableDictionary alloc] initWithContentsOfFile:newSettingsFilePath];
+    }
+    else
+    {
 #ifdef DEBUG_SETTINGS
         NSLog(@"No settings file, creating defaults");
 #endif
@@ -199,8 +250,11 @@
         [settings setObject:[NSNumber numberWithInt:(SCREEN_HEIGHT_IN_POINTS / 2)] forKey:@"startingSelectionY"];
         [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"exposureLock"];
         [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"focusLock"];
+        [settings setObject:[NSNumber numberWithBool:FALSE] forKey:@"circleDraw"];
+        
     }
-
+    
+    
     // Get the settings from the settings dictionary
     self.currentBoxWidth = [[settings valueForKey:@"currentBoxWidth"] intValue];
     self.currentBoxHeight = [[settings valueForKey:@"currentBoxHeight"] intValue];
@@ -208,14 +262,33 @@
     self.startingSelectionY = [[settings valueForKey:@"startingSelectionY"] intValue];
     self.exposureLock = [[settings valueForKey:@"exposureLock"] boolValue];
     self.focusLock = [[settings valueForKey:@"focusLock"] boolValue];
+    self.circleDraw = [[settings valueForKey:@"circleDraw"] boolValue];
+    
+    //Update the controls to show the new settings
+    self.viewController.selectionWidthTextField.text = [NSString stringWithFormat:@"%d", self.currentBoxWidth];
+    self.viewController.selectionHeightTextField.text = [NSString stringWithFormat:@"%d", self.currentBoxHeight];
+    self.viewController.startingXTextField.text = [NSString stringWithFormat:@"%d", self.startingSelectionX];
+    self.viewController.startingYTextField.text = [NSString stringWithFormat:@"%d", self.startingSelectionY];
+    self.viewController.exposureLock.enabled = self.exposureLock;
+    self.viewController.focusLock.enabled = self.focusLock;
+    if(circleDraw)
+        self.viewController.drawSelector.selectedSegmentIndex = 1;
+    if(!circleDraw)
+        self.viewController.drawSelector.selectedSegmentIndex = 0;
+    
+    
+    
 #ifdef DEBUG_SETTINGS
     NSLog(@"currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i, exposureLock=%i, focusLock=%i", self.currentBoxWidth, self.currentBoxHeight, self.startingSelectionX , self.startingSelectionY, self.exposureLock, self.focusLock);
 #endif
-
+    
 }
 
-- (void)saveSettings {
-    // Save the current settings to the file and update this delegate
+- (void)saveSettings
+{
+    // Save the current settings to the current file and update this delegate
+    NSLog(@"Inside saveSettings. File Name is %@", fileName);
+    
     NSNumber *w = [NSNumber numberWithFloat:[self.viewController.selectionWidthTextField.text intValue]];
     [settings setObject:w forKey:@"currentBoxWidth"];
     self.currentBoxWidth = [w intValue];
@@ -237,21 +310,85 @@
 
     NSNumber *focus = [NSNumber numberWithBool:self.focusLock];
     [settings setObject:focus forKey:@"focusLock"];
-
+    
+    NSNumber *drawSelection = [NSNumber numberWithBool:self.circleDraw];
+    [settings setObject:drawSelection forKey:@"circleDraw"];
+    
+    settingsFilePath = [settingsFilePath stringByAppendingString:fileName];
+    settingsFilePath = [settingsFilePath stringByAppendingString:@".plist"];
     [settings writeToFile:settingsFilePath atomically:YES];
 #ifdef DEBUG_SETTINGS
     NSLog(@"Saving currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i, exposureLock=%i, focusLock=%i", [w intValue], [h intValue], [x intValue], [y intValue], [exposure boolValue], [focus boolValue]);
 #endif
+    
+
+     
 }
 
-- (void)initSettingsFilePath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                         NSUserDomainMask,
-                                                         YES);
+- (void)saveAsSettings:(NSString *)saveName
+{
+    // Save the current settings to the file and update this delegate
+    fileName = saveName;
+    NSLog(@"Inside saveAs. File Name is %@", fileName);
+    
+    NSNumber *w = [NSNumber numberWithFloat:[self.viewController.selectionWidthTextField.text intValue]];
+    [settings setObject:w forKey:@"currentBoxWidth"];
+    self.currentBoxWidth = [w intValue];
+    
+    NSNumber *h = [NSNumber numberWithFloat:[self.viewController.selectionHeightTextField.text intValue]];
+    [settings setObject:h forKey:@"currentBoxHeight"];
+    self.currentBoxHeight = [h intValue];
+    
+    NSNumber *x = [NSNumber numberWithInt:[self.viewController.startingXTextField.text intValue]];
+    [settings setObject:x forKey:@"startingSelectionX"];
+    self.startingSelectionX = [x intValue];
+    
+    NSNumber *y = [NSNumber numberWithInt:[self.viewController.startingYTextField.text intValue]];
+    [settings setObject:y forKey:@"startingSelectionY"];
+    self.startingSelectionY = [y intValue];
+    
+    NSNumber *exposure = [NSNumber numberWithBool:self.exposureLock];
+    [settings setObject:exposure forKey:@"exposureLock"];
+    
+    NSNumber *focus = [NSNumber numberWithBool:self.focusLock];
+    [settings setObject:focus forKey:@"focusLock"];
+    
+    NSNumber *drawSelection = [NSNumber numberWithBool:self.circleDraw];
+    [settings setObject:drawSelection forKey:@"circleDraw"];
+    
+    
+    NSString *newSettingsFilePath;
+    newSettingsFilePath = [settingsFilePath stringByAppendingString:fileName];
+    newSettingsFilePath = [newSettingsFilePath stringByAppendingString:@".plist"];
+    //NSLog(@"File Name is: %@", newSettingsFilePath);
+    [settings writeToFile:newSettingsFilePath atomically:YES];
+    
+
+#ifdef DEBUG_SETTINGS
+    NSLog(@"Saving currentBoxWidth=%i, currentBoxHeight=%i, startingSelectionX=%i, startingSelectionY=%i, exposureLock=%i, focusLock=%i", [w intValue], [h intValue], [x intValue], [y intValue], [exposure boolValue], [focus boolValue]);
+#endif
+    
+}
+
+
+//gets all the saved files in the directory
+- (NSArray *)getFileNames
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [paths objectAtIndex:0];
+    NSArray *names = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:filePath error:NULL];
+    return names;
+}
+
+
+- (void)initSettingsFilePath
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"colordetector.plist"];
+    settingsFilePath = [documentsDirectory stringByAppendingPathComponent:@"colordetector"];
     [settingsFilePath retain];
 }
+
 
 #pragma mark - App lifecycle
 
@@ -265,6 +402,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    fileName = @"targetObjects";
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
@@ -273,14 +411,21 @@
 
     SCREEN_WIDTH_IN_POINTS = 320.0;
     SCREEN_HEIGHT_IN_POINTS = 480.0;
+    screenRect = [[UIScreen mainScreen] bounds];
 
-    targets = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 8; ++i) {
-        Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO :0 :0.0 :0.0];
-        [targets addObject:t];
-    }
-    [self loadSettings];
     [self loadTargets];
+    if(targets == NULL || targets == nil)
+    {
+        targets = [[NSMutableArray alloc] init];
+        for (int i = 0; i < 8; ++i)
+        {
+            Target *t = [[Target alloc] initWithTargetValues:0 :0 :0 :0 :0 :0 :YES :NO :0 :0.0 :0.0];
+            [targets addObject:t];
+        }
+        [self saveTargets];
+    }
+    [self loadFileSettings:fileName];
+    //fileName = @"";
 #ifdef DEBUG
     NSLog(@"%@", targets);
 #endif
@@ -289,43 +434,9 @@
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-  /*
-   Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-   Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-   */
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-  /*
-   Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-   If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-   */
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-  /*
-   Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-   */
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-  /*
-   Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-   */
-}
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-  /*
-   Called when the application is about to terminate.
-   Save data if appropriate.
-   See also applicationDidEnterBackground:.
-   */
     [self saveTargets];
 }
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "OutputsViewController.h"
+#import "FilesTableViewController.h"
 
 @class selectionView;
 @class AppDelegate;
@@ -26,7 +27,6 @@
     BOOL locked;
     BOOL uiHidden;
     BOOL buttonsVisible;
-    BOOL settingsControlsVisible;
     // flags for exposure and focus settings in case the user dismisses the settings screen without saving
     BOOL changeExposure, changeFocus;
     int pixelBufferWidth;
@@ -55,6 +55,7 @@
 - (IBAction)startStop;
 - (IBAction)lockUnlock;
 - (IBAction)hideUI;
+- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (IBAction)showOutputButtons;
 - (void)drawSelectionRectToSavedImage;
 - (void)updateIndicator:(int)target :(UIImage *)largeIndictator :(UIImage *)smallIndicator;
@@ -62,15 +63,16 @@
 - (void)reportExposure:(int)exposureMode;
 - (IBAction)exposureLockChanged:(UISwitch*)sender;
 - (IBAction)focusLockChanged:(UISwitch*)sender;
-- (IBAction)saveSettings:(UIButton*)sender;
+- (IBAction)loadSettings:(UIButton *)sender;
+- (void)startCameraCapture;
 
-@property (retain, nonatomic) IBOutlet UIButton *saveSettings;
 @property (retain, nonatomic) IBOutlet UITextField *selectionWidthTextField;
 @property (retain, nonatomic) IBOutlet UITextField *selectionHeightTextField;
 @property (retain, nonatomic) IBOutlet UITextField *startingXTextField;
 @property (retain, nonatomic) IBOutlet UITextField *startingYTextField;
 @property (retain, nonatomic) IBOutlet UISwitch *exposureLock;
 @property (retain, nonatomic) IBOutlet UISwitch *focusLock;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *drawSelector;
 @property (nonatomic, copy) NSString *selectionWidth;
 @property (nonatomic, copy) NSString *selectionHeight;
 @property (nonatomic, copy) NSString *startingX;
@@ -121,7 +123,11 @@
 @property (retain, nonatomic) IBOutlet UILabel *targetStatus6;
 @property (retain, nonatomic) IBOutlet UILabel *targetStatus7;
 @property (retain, nonatomic) IBOutlet UILabel *targetStatus8;
-
+@property (retain, nonatomic) IBOutlet UIButton *saveAsSettingsButton;
+@property (retain, nonatomic) IBOutlet UIButton *loadSettingsButton;
+@property (retain, nonatomic) IBOutlet UIButton *doneButton;
+@property (retain, nonatomic) IBOutlet UIButton *saveButton;
+ 
 @property (nonatomic, readonly) CGFloat heightScaleFactor;
 @property (nonatomic, readonly) CGFloat widthScaleFactor;
 @property (nonatomic, readonly) int pixelBufferWidth;
@@ -134,5 +140,14 @@
 @property (nonatomic, assign) BOOL isExposureLockSupported;
 @property (nonatomic, assign) BOOL isFocusLockSupported;
 @property (nonatomic, assign) int outputScreen;
+@property (nonatomic, assign) BOOL horizontalMajorAxis;
+@property (nonatomic, assign) NSTimeInterval previousTimeStamp;
+@property (nonatomic, assign) CGPoint firstTouch;
+@property (nonatomic, assign) NSString *saveName;
+@property (nonatomic, assign) NSMutableArray *saveFiles;
+@property (nonatomic, assign) FilesTableViewController *filesTableViewController;
+@property (nonatomic, assign) UINavigationBar *nav;
+@property (nonatomic, assign) BOOL settingsControlsVisible;
+
 
 @end

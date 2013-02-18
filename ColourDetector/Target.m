@@ -24,7 +24,8 @@
 @synthesize previousSample;
 
 
-- (NSString *) description {
+- (NSString *) description
+{
     return [NSString stringWithFormat:@"rl - %i, rh - %i, gl - %i, gh - %i, bl - %i, bh - %i, On - %i, Light - %i, NoNc - %i, beforeDelay -- %f, afterDelay -- %f", rl, rh, gl, gh, bl, bh, on, light, NoNc, beforeDelay, afterDelay];
 }
 
@@ -50,7 +51,8 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (id)initWithCoder:(NSCoder *)decoder
+{
     rl = [decoder decodeIntForKey:@"rl"];
     rh = [decoder decodeIntForKey:@"rh"];
     gl = [decoder decodeIntForKey:@"gl"];
@@ -65,7 +67,8 @@
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
+- (void)encodeWithCoder:(NSCoder *)encoder
+{
     [encoder encodeInt:rl forKey:@"rl"];
     [encoder encodeInt:rh forKey:@"rh"];
     [encoder encodeInt:gl forKey:@"gl"];

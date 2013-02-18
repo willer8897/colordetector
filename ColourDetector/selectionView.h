@@ -10,7 +10,8 @@
 
 @class AppDelegate;
 
-@interface selectionView : UIView {
+@interface selectionView : UIView
+{
     AppDelegate *appDelegate;
 }
 

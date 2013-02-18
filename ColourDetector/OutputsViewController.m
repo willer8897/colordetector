@@ -178,9 +178,41 @@
     }
 }
 
-- (IBAction)dismiss {
-    [appDelegate saveTargets];
-    [self.presentingViewController dismissModalViewControllerAnimated:YES];
+- (IBAction)dismiss
+{
+    NSString *text = @"Save targets to: ";
+    text = [text stringByAppendingString:appDelegate.fileName];
+    text = [text stringByAppendingString:@" ?"];
+    UIAlertView *saveAlert = [[UIAlertView alloc] initWithTitle:@"Save Targets" message:text delegate:self cancelButtonTitle:@"Save" otherButtonTitles:@"Don't Save" , nil];
+    saveAlert.alertViewStyle = UIAlertViewStyleDefault;
+    [saveAlert show];
+    //dismiss the vc inside alert view handling
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"Inside Alert View. File Name is %@", appDelegate.fileName);
+    if(buttonIndex == 0)
+    {
+        [appDelegate saveTargets];
+        [appDelegate saveAsSettings:appDelegate.fileName];
+        [self.presentingViewController dismissModalViewControllerAnimated:YES];
+        return;
+    }
+    /*
+    if(buttonIndex == 1)
+    {
+        NSString *saveName = [[alertView textFieldAtIndex:0] text];
+        appDelegate.fileName = saveName;
+        
+    }
+     */
+    if(buttonIndex == 1)
+    {
+        [appDelegate loadTargets];
+        [self.presentingViewController dismissModalViewControllerAnimated:YES];
+        return;
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -369,6 +401,7 @@
     target8OffDelay.text = s;
     sortedArray = [target8TextFields sortedArrayUsingDescriptors:[NSArray arrayWithObject:ascendingSort]];
     [self updateTargetTextFields:sortedArray :targetIndex++];
+    
 }
 
 - (void)viewDidLoad
@@ -379,6 +412,10 @@
                                         appDelegate.SCREEN_HEIGHT_IN_POINTS*8);
     scrollView.pagingEnabled = YES;
     [self registerForKeyboardNotifications];
+    //change back to load?
+    //[appDelegate loadTargets];
+    //[appDelegate saveTargets];
+    NSLog(@"File name is ---> %@", appDelegate.fileName);
 }
 
 - (void)viewDidUnload

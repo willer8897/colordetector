@@ -76,6 +76,7 @@
 		83C034AB143DC0D6008EE9C1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C034AA143DC0D6008EE9C1 /* AVFoundation.framework */; };
 		83C034AE143DC0DE008EE9C1 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C034AD143DC0DE008EE9C1 /* CoreVideo.framework */; };
 		83C034B0143DC108008EE9C1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C034AF143DC108008EE9C1 /* CoreMedia.framework */; };
+		9D7E156516A6FD530002AC6D /* FilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E156416A6FD530002AC6D /* FilesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +157,8 @@
 		83C034AA143DC0D6008EE9C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		83C034AD143DC0DE008EE9C1 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		83C034AF143DC108008EE9C1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		9D7E156316A6FD530002AC6D /* FilesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesTableViewController.h; sourceTree = "<group>"; };
+		9D7E156416A6FD530002AC6D /* FilesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +279,8 @@
 				5FDEF6F314C0874000FD98F7 /* Target.m */,
 				8344F138143DBC5D00AB1663 /* AppDelegate.h */,
 				8344F139143DBC5D00AB1663 /* AppDelegate.m */,
+				9D7E156316A6FD530002AC6D /* FilesTableViewController.h */,
+				9D7E156416A6FD530002AC6D /* FilesTableViewController.m */,
 				8344F13B143DBC5D00AB1663 /* ViewController.h */,
 				8344F13C143DBC5D00AB1663 /* ViewController.m */,
 				8344F13E143DBC5D00AB1663 /* ViewController.xib */,
@@ -421,6 +426,7 @@
 				5F91A4AB14B26E8D00E37C78 /* OutputsViewController.m in Sources */,
 				5FDEF6F414C0874000FD98F7 /* Target.m in Sources */,
 				5F056577161CB7E20020D051 /* selectionView.m in Sources */,
+				9D7E156516A6FD530002AC6D /* FilesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +476,7 @@
 				PROVISIONING_PROFILE = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
 				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -499,7 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: cyrus ingraham (LMRPSL3MYV)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ColourDetector/ColourDetector-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -510,7 +517,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DFC53B7-BCBB-419F-B231-A8835CA14F3D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -519,14 +526,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: TODD STEINACKLE (ML3Q9G2FP8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: cyrus ingraham (LMRPSL3MYV)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ColourDetector/ColourDetector-Prefix.pch";
 				INFOPLIST_FILE = "ColourDetector/ColourDetector-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "110A7B5C-1D70-41F8-BDDE-80419693B8CF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DFC53B7-BCBB-419F-B231-A8835CA14F3D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
